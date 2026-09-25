@@ -5,8 +5,16 @@ export interface UserProfile {
   role: string;
   roleType: UserRole;
   nip: string;
-  avatarUrl: string;
+  avatarUrl?: string;
+  initials: string;
 }
+
+export type MetricBadgeVariant =
+  | "success"
+  | "neutral"
+  | "info"
+  | "warning"
+  | "danger";
 
 export interface MetricItem {
   id: string;
@@ -14,7 +22,7 @@ export interface MetricItem {
   value: string;
   unit: string;
   badgeText: string;
-  badgeVariant: "success" | "neutral" | "info" | "warning" | "danger";
+  badgeVariant: MetricBadgeVariant;
   description: string;
   iconName:
     | "book-open"

@@ -3,14 +3,14 @@ import {
   NavSection,
   TransactionRecord,
   UserProfile,
-} from "@/types/dashboard";
+} from "../types/dashboard.types";
 
 export const currentUser: UserProfile = {
   name: "Ustadzah Siti Rahmawati",
   role: "Admin & Petugas Utama",
   roleType: "ADMIN",
   nip: "198804152014",
-  avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&auto=format&fit=crop&q=80",
+  initials: "SR",
 };
 
 export const dashboardNavSections: NavSection[] = [
@@ -232,7 +232,7 @@ export const recentTransactions: TransactionRecord[] = [
     dueStatus: {
       label: "Sisa 7 Hari",
       isOverdue: false,
-      colorClass: "text-emerald-600",
+      colorClass: "text-emerald-700",
     },
     status: "BORROWED",
     statusLabel: "Dipinjam",
@@ -254,7 +254,7 @@ export const recentTransactions: TransactionRecord[] = [
     dueStatus: {
       label: "Sisa 7 Hari",
       isOverdue: false,
-      colorClass: "text-emerald-600",
+      colorClass: "text-emerald-700",
     },
     status: "BORROWED",
     statusLabel: "Dipinjam",

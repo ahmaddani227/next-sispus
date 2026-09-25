@@ -246,7 +246,6 @@
   }
   body {
     @apply bg-background text-foreground antialiased selection:bg-accent selection:text-accent-foreground;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
   html {
     @apply font-sans scroll-smooth;
@@ -428,5 +427,25 @@
 
   .badge-neutral .badge-status-dot {
     background-color: var(--status-neutral);
+  }
+}
+
+/* Elegant custom scrollbar utility */
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
   }
 }

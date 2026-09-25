@@ -16,7 +16,9 @@ import {
   X,
   Library,
 } from "lucide-react";
-import { dashboardNavSections, currentUser } from "@/lib/dashboard-data";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { dashboardNavSections, currentUser } from "../constants/dashboard-data";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -52,12 +54,12 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar Aside Element */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-[16.5rem] flex-col border-r border-slate-200 bg-white transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 select-none",
+          "fixed inset-y-0 left-0 z-50 flex h-full w-[16.5rem] shrink-0 min-h-0 flex-col border-r border-slate-200 bg-white transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 select-none",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Brand Header */}
-        <div className="flex items-center justify-between border-b border-slate-100 p-5">
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-100 p-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-emerald-100 bg-emerald-50 text-emerald-800 shadow-xs">
               <Library className="h-6 w-6 text-emerald-700" />
@@ -66,28 +68,26 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               <h1 className="font-headline-sm text-sm font-bold tracking-tight text-slate-900">
                 SIPUS Ar-Rasyid
               </h1>
-              <p className="font-body-sm text-[11px] font-medium text-slate-500">
-                Perpustakaan MI &amp; MTs
-              </p>
             </div>
           </div>
 
           {/* Mobile close button */}
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="icon-sm"
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-slate-700 lg:hidden"
+            className="text-slate-400 hover:bg-slate-100 hover:text-slate-700 lg:hidden"
             aria-label="Tutup menu navigasi"
           >
             <X className="h-5 w-5" />
-          </button>
+          </Button>
         </div>
 
         {/* Navigation Sections */}
-        <nav className="flex-1 space-y-6 overflow-y-auto p-4 scrollbar-thin">
+        <nav className="flex-1 min-h-0 space-y-6 overflow-y-auto p-4 scrollbar-thin">
           {dashboardNavSections.map((section) => (
             <div key={section.title}>
-              <div className="font-label-sm mb-2 px-3 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
+              <div className="font-label-sm mb-2 px-3 text-[11px] font-bold tracking-wider text-slate-800 uppercase">
                 {section.title}
               </div>
               <ul className="space-y-1">
@@ -128,33 +128,31 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* Profile Card & Logout */}
-        <div className="border-t border-slate-100 bg-slate-50/70 p-4">
+        <div className="shrink-0 border-t border-slate-100 bg-slate-50/70 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-800 text-xs font-bold text-white ring-2 ring-emerald-500/20">
-                SR
-              </div>
+              <Avatar className="h-9 w-9 ring-2 ring-emerald-500/20">
+                <AvatarFallback>{currentUser.initials}</AvatarFallback>
+              </Avatar>
               <div className="overflow-hidden">
-                <p className="truncate text-xs font-bold text-slate-900">
+                <p className="truncate text-[12px] font-bold text-slate-900">
                   {currentUser.name}
                 </p>
-                <p className="truncate text-[10px] font-semibold text-emerald-700">
-                  {currentUser.role}
-                </p>
-                <p className="font-data-mono truncate text-[10px] text-slate-500">
+                <p className="font-data-mono truncate text-[11px] text-slate-500">
                   NIP. {currentUser.nip}
                 </p>
               </div>
             </div>
 
-            <button
-              type="button"
-              className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600"
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              className="text-slate-400 hover:bg-rose-50 hover:text-rose-600"
               title="Keluar dari Sistem"
               aria-label="Logout"
             >
               <LogOut className="h-5 w-5" />
-            </button>
+            </Button>
           </div>
         </div>
       </aside>
