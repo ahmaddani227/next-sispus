@@ -1,4 +1,4 @@
-import { DashboardShell } from "@/features/dashboard/components/dashboard-shell";
+import { Dashboard } from "@/features/dashboard/components/Dashboard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
-  return <DashboardShell />;
+  return <Dashboard />;
 }

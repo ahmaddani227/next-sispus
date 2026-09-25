@@ -8,7 +8,7 @@ import { MetricCards } from "./metric-cards";
 import { RecentTransactions } from "./recent-transactions";
 import { DashboardFooter } from "./footer";
 
-export function DashboardShell() {
+export function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (

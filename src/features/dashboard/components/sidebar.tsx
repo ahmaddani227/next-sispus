@@ -144,15 +144,14 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               </div>
             </div>
 
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              className="text-slate-400 hover:bg-rose-50 hover:text-rose-600"
+            <Link
+              href="/login"
+              className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600"
               title="Keluar dari Sistem"
               aria-label="Logout"
             >
               <LogOut className="h-5 w-5" />
-            </Button>
+            </Link>
           </div>
         </div>
       </aside>
