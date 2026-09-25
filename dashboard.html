@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="id" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dashboard Admin - SIPUS Ar-Rasyid</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex antialiased">
+<!-- SIDEBAR NAVIGATION -->
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col flex-shrink-0 z-20 min-h-screen select-none">
+<!-- Brand Header -->
+<div class="p-5 border-b border-slate-100 flex items-center gap-3"><div class="w-10 h-10 rounded-lg border border-emerald-100 bg-emerald-50/50 p-1 flex items-center justify-center flex-shrink-0"><img alt="SIPUS Logo" class="w-10 h-10 object-contain rounded-lg" src="https://lh3.googleusercontent.com/aida/AEtjO1W29bfang-ybRrhsjzeZhk41LBxGgJFAJLsEEWHwGM3RT-vNrPGfncdCnz_pfzWD0TnAJzH8N1CXodvmdgN3-KOrMGdSxhmhEMqf8VX5FMPwTi05gMF8V0OlzCbCRrvLhr4VXYuNtE_yFn8QM6SI2YQi1Cx3n_j2jdgXkHxBGqK0DxzRiSXfW6fJDKn0IESEVe3jEBBvfrcoefXF0Ifnm1w-hok6hvl4yNrWP5dZochve34CJwxuoZGKNU"></div><div><h1 class="font-bold text-slate-900 text-sm tracking-tight">SIPUS Ar-Rasyid</h1><p class="text-xs text-slate-500 font-medium">Perpustakaan MI &amp; MTs</p></div></div>
+<!-- Navigation Menu Items -->
+<nav class="flex-1 p-4 space-y-6 overflow-y-auto"><div><div class="px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Utama</div><ul class="space-y-1"><li class=""><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-emerald-50 text-emerald-800 font-semibold text-sm transition-colors" href="{{DATA:SCREEN:SCREEN_18}}"><svg class="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Dashboard</span></a></li></ul></div><div><div class="px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Data Master</div><ul class="space-y-1"><li class=""><li class=""><a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg><span class="">Data Master</span></a></li><li class=""></li><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors" href="{{DATA:SCREEN:SCREEN_17}}"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Data Buku</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors" href="{{DATA:SCREEN:SCREEN_3}}"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Data Anggota</span></a></li></ul></div><div><div class="px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Transaksi</div><ul class="space-y-1"><li class=""><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors" href="{{DATA:SCREEN:SCREEN_14}}"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Peminjaman</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors" href="{{DATA:SCREEN:SCREEN_12}}"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1-4l3-3m0 0l3 3m-3-3v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Pengembalian</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors" href="#"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Perpanjangan</span></a></li><li class=""><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors" href="{{DATA:SCREEN:SCREEN_8}}"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Riwayat Transaksi</span></a></li></ul></div><div><div class="px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Kasus &amp; Sanksi</div><ul class="space-y-1"><li class=""><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors" href="#"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Manajemen Kasus</span></a></li></ul></div><div><div class="px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Laporan</div><ul class="space-y-1"><li class=""><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium text-sm transition-colors" href="#"><svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Laporan Sirkulasi</span></a></li></ul></div></nav>
+<!-- Admin Account Profile & Logout -->
+<div class="p-4 border-t border-slate-100 bg-slate-50/70"><div class="flex items-center justify-between"><div class="flex items-center gap-2.5"><img alt="Foto Petugas" class="w-9 h-9 rounded-full object-cover ring-2 ring-emerald-500/20" src="https://lh3.googleusercontent.com/aida/AEtjO1W8RCcXOfmsfpb3EhuB0lqGVcYtfIE1m7b0L-q8EvFEAt_oJ4CmeLlgKYdskO2N5N4BHE-XnKhRn9Mlwe5clC5H8X8blUh8jv7PZzwYIa5EyhUeED7w0empLfHHdgQ8ZNkg-zwyg_j4G4CQc5NiEsmnHsebZ1APUjclRZL-NhpEGQ3fCeA5nHQpMzVtw3nkoEDCwzRwDO1XQfVXEl0k31X2T6kadxdt6XLxL9MUYvzZLBY5kh0lYtkCwCo"><div class="overflow-hidden"><p class="text-xs font-bold text-slate-800 truncate">Ustadzah Siti R.</p><p class="text-[10px] text-emerald-700 font-semibold truncate">Admin &amp; Petugas Utama</p><p class="text-[10px] text-slate-500 truncate">NIP. 198804152014</p></div></div><a class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors" href="{{DATA:SCREEN:SCREEN_19}}" title="Logout"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></a></div></div>
+</aside>
+<!-- MAIN CONTENT WRAPPER -->
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- Topbar Header -->
+<header class="h-16 bg-white border-b border-slate-200 px-8 flex items-center justify-between flex-shrink-0"><div class="flex items-center gap-3"><h2 class="text-base font-bold text-slate-800">Dashboard Utama</h2><span class="text-slate-300">|</span><span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold">Beranda</span><div class="hidden md:flex items-center gap-1.5 ml-2 pl-3 border-l border-slate-200"><span class="text-xs text-slate-500 font-medium">Hak Akses:</span><div class="inline-flex p-0.5 bg-slate-100 rounded-lg border border-slate-200 text-xs font-medium"><button class="px-2.5 py-1 rounded-md bg-white text-emerald-800 font-bold shadow-sm" type="button">Admin</button><button class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900 font-medium transition-colors" type="button">Petugas</button><button class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900 font-medium transition-colors" type="button">Kepala Perpus</button></div></div></div><div class="flex items-center gap-3"><div class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200">T.A 2024/2025 Semester Ganjil</div><div class="hidden sm:flex items-center gap-2 text-xs font-semibold text-slate-600 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200"><svg class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">Kamis, 24 Oktober 2024</span></div><div class="flex items-center gap-2"><a class="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-lg text-xs font-semibold shadow-sm transition-colors" href="{{DATA:SCREEN:SCREEN_14}}"></a></div></div></header>
+<!-- Main Workspace Content -->
+<main class="flex-1 overflow-y-auto p-8 space-y-6">
+<!-- Welcome Banner -->
+<div class="bg-gradient-to-r from-emerald-800 to-emerald-900 rounded-xl p-6 text-white flex items-center justify-between shadow-sm"><div class="space-y-2"><div><div class="flex flex-wrap items-center gap-2 mb-2"><span class="inline-block px-2.5 py-0.5 bg-emerald-700/80 rounded text-[11px] font-semibold text-emerald-100 tracking-wide uppercase">Operasional Hari Ini</span><span class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-500/20 text-emerald-100 border border-emerald-500/30 rounded-full text-[11px] font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Peran Aktif: Admin Perpustakaan (Full Access)</span></div><h3 class="text-xl font-bold tracking-tight">Selamat Bertugas, Ustadzah Siti Rahmawati</h3><p class="text-emerald-100 text-xs mt-1 max-w-xl leading-relaxed">Sistem terhubung dengan hak akses Admin, Petugas Sirkulasi, dan Kepala Perpustakaan. Pantau sirkulasi harian, status eksemplar di rak, serta penanganan kasus sanksi siswa secara terpadu.</p></div><div class="flex items-center gap-2 pt-1 text-[11px] text-emerald-200"><span class="font-semibold text-white">Mode Akses Tersedia:</span><span class="px-2 py-0.5 rounded bg-emerald-900/60 border border-emerald-700/50">Admin Sistem</span><span class="px-2 py-0.5 rounded bg-emerald-900/60 border border-emerald-700/50">Petugas Sirkulasi</span><span class="px-2 py-0.5 rounded bg-emerald-900/60 border border-emerald-700/50">Kepala Perpustakaan</span></div></div><div class="hidden md:flex items-center gap-4 bg-emerald-900/40 p-3 rounded-xl border border-emerald-700/40"><div class="text-right"><p class="text-[11px] text-emerald-200">Buku Belum Kembali</p><p class="text-2xl font-black text-white">235 <span class="text-xs font-normal text-emerald-200">eks</span></p></div><div class="h-10 w-px bg-emerald-700/60"></div><div class="text-right"><p class="text-[11px] text-emerald-200">Perlu Tindak Lanjut</p><p class="text-2xl font-black text-amber-300">4 <span class="text-xs font-normal text-emerald-200">terlambat</span></p></div></div></div>
+<!-- 6 METRIC CARDS (Strict Scope: Total Buku, Tersedia, Dipinjam, Total Anggota, Peminjaman Aktif, Pengembalian Terbaru) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Total Judul Buku</span><span class="p-1.5 rounded-lg bg-emerald-50 text-emerald-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-slate-900">1.420 <span class="text-xs font-semibold text-slate-500">Judul</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700">Katalog Aktif</span></div><p class="text-[11px] text-slate-500 mt-1.5">MI: 840 judul • MTs: 580 judul</p></div><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Total Eksemplar Fisik</span><span class="p-1.5 rounded-lg bg-slate-100 text-slate-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-slate-900">2.845 <span class="text-xs font-semibold text-slate-500">Eks</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700">Inventaris Total</span></div><p class="text-[11px] text-slate-500 mt-1.5">Tercatat barcode dan RFID aktif</p></div><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Buku Tersedia di Rak</span><span class="p-1.5 rounded-lg bg-emerald-50 text-emerald-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-emerald-700">2.583 <span class="text-xs font-semibold text-emerald-600">Eks</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700">90.8% Siap Pinjam</span></div><p class="text-[11px] text-slate-500 mt-1.5">Tersedia di Rak A1-D2 &amp; Ruang Baca</p></div><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Buku Dipinjam</span><span class="p-1.5 rounded-lg bg-blue-50 text-blue-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-blue-700">235 <span class="text-xs font-semibold text-blue-600">Eks</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700">8.2% Beredar</span></div><p class="text-[11px] text-slate-500 mt-1.5">Siswa MI, Siswa MTs &amp; Dewan Guru</p></div><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Buku Rusak</span><span class="p-1.5 rounded-lg bg-amber-50 text-amber-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-amber-700">18 <span class="text-xs font-semibold text-amber-600">Eks</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800">Perlu Repair</span></div><p class="text-[11px] text-slate-500 mt-1.5">11 perbaikan ringan • 7 jilid ulang</p></div><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Buku Hilang</span><span class="p-1.5 rounded-lg bg-rose-50 text-rose-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-rose-600">9 <span class="text-xs font-semibold text-rose-500">Eks</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-50 text-rose-700">Kasus Terdata</span></div><p class="text-[11px] text-slate-500 mt-1.5">Proses verifikasi &amp; konfirmasi siswa</p></div><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Peminjaman Aktif</span><span class="p-1.5 rounded-lg bg-emerald-50 text-emerald-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-emerald-700">142 <span class="text-xs font-semibold text-slate-500">Transaksi</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700">Sirkulasi Berjalan</span></div><p class="text-[11px] text-slate-500 mt-1.5">138 tepat waktu • 4 terlambat</p></div><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Siswa Ter-skorsing</span><span class="p-1.5 rounded-lg bg-rose-50 text-rose-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-rose-600">4 <span class="text-xs font-semibold text-rose-500">Siswa</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-50 text-rose-700">Akses Ditangguhkan</span></div><p class="text-[11px] text-slate-500 mt-1.5">Keterlambatan berturut-turut &gt; 3 hari</p></div><div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 transition-colors"><div class="flex items-center justify-between text-slate-500 mb-2"><span class="text-xs font-medium">Kewajiban Penggantian Aktif</span><span class="p-1.5 rounded-lg bg-amber-50 text-amber-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></span></div><div class="flex items-baseline justify-between"><div class="text-2xl font-black text-amber-700">7 <span class="text-xs font-semibold text-amber-600">Kasus</span></div><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800">Replacement Active</span></div><p class="text-[11px] text-slate-500 mt-1.5">5 buku identik • 2 kompensasi madrasah</p></div></div>
+<!-- MAIN CONTENT 2-COLUMN GRID -->
+<div class="w-full">
+<!-- Left: Recent Activities & Transactions Table (2 Cols) -->
+<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col w-full">
+<div class="p-5 border-b border-slate-100 flex items-center justify-between">
+<div>
+<h4 class="font-bold text-slate-800 text-sm">Transaksi &amp; Sirkulasi Terbaru</h4>
+<p class="text-xs text-slate-500">Pencatatan real-time peminjaman dan pengembalian siswa</p>
+</div>
+<a class="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline" href="#">Lihat Semua Riwayat →</a>
+</div>
+<!-- Clean Table -->
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-50 text-slate-600 font-semibold border-b border-slate-100">
+<tr>
+<th class="py-3 px-4">Peminjam</th>
+<th class="py-3 px-4">Buku &amp; Kode</th>
+<th class="py-3 px-4">Tgl Pinjam</th>
+<th class="py-3 px-4">Jatuh Tempo</th>
+<th class="py-3 px-4 text-center">Status</th>
+<th class="py-3 px-4 text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 text-slate-700 font-medium">
+<!-- Row 1: Terlambat -->
+<tr class="hover:bg-slate-50/70 transition-colors">
+<td class="py-3 px-4">
+<p class="font-bold text-slate-900">Muhammad Faiz Zaki</p>
+<p class="text-[11px] text-slate-500">NIS: 232407012 • Kelas VII-A MTs</p>
+</td>
+<td class="py-3 px-4">
+<p class="font-semibold text-slate-800">Fiqih Ibadah Praktis MTs</p>
+<p class="text-[11px] text-slate-500 font-mono">BK-AGM-0182 (Rak A1)</p>
+</td>
+<td class="py-3 px-4 text-slate-600">14 Okt 2024</td>
+<td class="py-3 px-4">
+<span class="text-rose-600 font-bold">21 Okt 2024</span>
+<p class="text-[10px] text-rose-500 font-semibold">+3 Hari Lewat</p>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                      Terlambat
+                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<a class="inline-block px-2.5 py-1 text-xs font-semibold bg-white border border-slate-200 hover:border-emerald-600 hover:text-emerald-700 text-slate-700 rounded shadow-sm transition-colors" href="{{DATA:SCREEN:SCREEN_12}}">Proses Kembali</a>
+</td>
+</tr>
+<!-- Row 2: Dipinjam Aktif -->
+<tr class="hover:bg-slate-50/70 transition-colors">
+<td class="py-3 px-4">
+<p class="font-bold text-slate-900">Aisyah Nur Ramadhani</p>
+<p class="text-[11px] text-slate-500">NIS: 212205044 • Kelas V-B MI</p>
+</td>
+<td class="py-3 px-4">
+<p class="font-semibold text-slate-800">Tematik Terpadu 5B: Udara Bersih</p>
+<p class="text-[11px] text-slate-500 font-mono">BK-TMT-0419 (Rak B1)</p>
+</td>
+<td class="py-3 px-4 text-slate-600">24 Okt 2024</td>
+<td class="py-3 px-4">
+<span class="text-slate-800 font-semibold">31 Okt 2024</span>
+<p class="text-[10px] text-emerald-600">Sisa 7 Hari</p>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                      Dipinjam
+                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="px-2.5 py-1 text-xs font-semibold bg-white border border-slate-200 hover:border-emerald-600 hover:text-emerald-700 text-slate-700 rounded shadow-sm transition-colors">
+                      Detail
+                    </button>
+</td>
+</tr>
+<!-- Row 3: Dipinjam Aktif -->
+<tr class="hover:bg-slate-50/70 transition-colors">
+<td class="py-3 px-4">
+<p class="font-bold text-slate-900">Fattah Al-Ghifari</p>
+<p class="text-[11px] text-slate-500">NIS: 222308019 • Kelas VIII-B MTs</p>
+</td>
+<td class="py-3 px-4">
+<p class="font-semibold text-slate-800">IPA Terpadu MTs Kelas VIII</p>
+<p class="text-[11px] text-slate-500 font-mono">BK-IPA-0098 (Rak C1)</p>
+</td>
+<td class="py-3 px-4 text-slate-600">24 Okt 2024</td>
+<td class="py-3 px-4">
+<span class="text-slate-800 font-semibold">31 Okt 2024</span>
+<p class="text-[10px] text-emerald-600">Sisa 7 Hari</p>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                      Dipinjam
+                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="px-2.5 py-1 text-xs font-semibold bg-white border border-slate-200 hover:border-emerald-600 hover:text-emerald-700 text-slate-700 rounded shadow-sm transition-colors">
+                      Detail
+                    </button>
+</td>
+</tr>
+<!-- Row 4: Dikembalikan -->
+<tr class="hover:bg-slate-50/70 transition-colors bg-slate-50/30">
+<td class="py-3 px-4">
+<p class="font-bold text-slate-900">Khadijah Zahra Azzahra</p>
+<p class="text-[11px] text-slate-500">NIS: 222304031 • Kelas IV-A MI</p>
+</td>
+<td class="py-3 px-4">
+<p class="font-semibold text-slate-800">Kisah 25 Nabi &amp; Rasul Bergambar</p>
+<p class="text-[11px] text-slate-500 font-mono">BK-CRT-0211 (Rak D1)</p>
+</td>
+<td class="py-3 px-4 text-slate-600">17 Okt 2024</td>
+<td class="py-3 px-4 text-slate-500">
+<span class="">24 Okt 2024</span>
+<p class="text-[10px] text-slate-400">Kembali Hari Ini</p>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      Dikembalikan
+                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<span class="text-[11px] text-slate-400 italic">Selesai</span>
+</td>
+</tr>
+<!-- Row 5: Dikembalikan -->
+<tr class="hover:bg-slate-50/70 transition-colors bg-slate-50/30">
+<td class="py-3 px-4">
+<p class="font-bold text-slate-900">Ahmad Bilal Ramadhan</p>
+<p class="text-[11px] text-slate-500">NIS: 212209004 • Kelas IX-A MTs</p>
+</td>
+<td class="py-3 px-4">
+<p class="font-semibold text-slate-800">Kamus Al-Munawwir Arab-Indo</p>
+<p class="text-[11px] text-slate-500 font-mono">BK-BHS-0012 (Rak C2)</p>
+</td>
+<td class="py-3 px-4 text-slate-600">18 Okt 2024</td>
+<td class="py-3 px-4 text-slate-500">
+<span class="">25 Okt 2024</span>
+<p class="text-[10px] text-slate-400">Kembali 23 Okt</p>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      Dikembalikan
+                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<span class="text-[11px] text-slate-400 italic">Selesai</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+<span class="">Menampilkan 5 aktivitas sirkulasi terkini</span>
+<div class="flex items-center gap-2">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="">Sinkronisasi database aktif</span>
+</div>
+</div>
+</div>
+<!-- Right: Practical Operational Helpers (1 Col) -->
+
+</div>
+</main>
+<!-- Operational Footer Note -->
+<footer class="h-10 bg-white border-t border-slate-200 px-8 flex items-center justify-between text-[11px] text-slate-500 flex-shrink-0"><div class="">SIPUS Ar-Rasyid v2.4 • Sistem Manajemen Perpustakaan MI &amp; MTs</div><div class="flex items-center gap-4"><span class="text-emerald-600 font-medium">● Server Terhubung</span><span class="text-slate-500">⟳ Sinkronisasi Otomatis: Aktif</span></div></footer>
+</div>
+
+
+
+
+</body></html>
