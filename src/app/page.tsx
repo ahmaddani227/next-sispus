@@ -1,7 +1,5 @@
-import { DashboardShell } from "@/features/dashboard/components/Dashboard";
+import { Home } from "@/features/home";
 
 export default function HomePage() {
-  return <DashboardShell />;
+  return <Home />;
 }
-
-

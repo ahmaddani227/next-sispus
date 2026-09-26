@@ -5,6 +5,6 @@ export const AUTH_CONFIG = {
   securityNote:
     "Akses terbatas hanya untuk staf perpustakaan Ar-Rasyid yang berwenang.",
   footerText: "© 2026 SIPUS Ar-Rasyid",
-  opacUrl: "#katalog-opac",
+  opacUrl: "/",
   dashboardUrl: "/dashboard",
 };
