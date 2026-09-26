@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Database,
@@ -18,7 +19,7 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { dashboardNavSections, currentUser } from "../constants/dashboard-data";
+import { adminNavSections, currentUser } from "@/constants/navigation";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -40,6 +41,8 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const pathname = usePathname();
+
   return (
     <>
       {/* Mobile Backdrop */}
@@ -68,6 +71,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               <h1 className="font-headline-sm text-sm font-bold tracking-tight text-slate-900">
                 SIPUS Ar-Rasyid
               </h1>
+              <p className="text-[11px] text-slate-500 font-medium">
+                Perpustakaan MI &amp; MTs
+              </p>
             </div>
           </div>
 
@@ -85,7 +91,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         {/* Navigation Sections */}
         <nav className="flex-1 min-h-0 space-y-6 overflow-y-auto p-4 scrollbar-thin">
-          {dashboardNavSections.map((section) => (
+          {adminNavSections.map((section) => (
             <div key={section.title}>
               <div className="font-label-sm mb-2 px-3 text-[11px] font-bold tracking-wider text-slate-800 uppercase">
                 {section.title}
@@ -93,7 +99,12 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               <ul className="space-y-1">
                 {section.items.map((item) => {
                   const Icon = iconMap[item.icon] || BookOpen;
-                  const isActive = item.isActive;
+                  const isActive =
+                    item.href === pathname ||
+                    (item.href !== "/dashboard" &&
+                      item.href !== "/" &&
+                      !item.href.startsWith("#") &&
+                      pathname.startsWith(item.href));
 
                   return (
                     <li key={item.label}>
@@ -148,9 +159,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               href="/login"
               className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600"
               title="Keluar dari Sistem"
-              aria-label="Logout"
             >
               <LogOut className="h-5 w-5" />
+              <span className="sr-only">Keluar</span>
             </Link>
           </div>
         </div>

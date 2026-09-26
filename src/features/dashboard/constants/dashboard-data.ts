@@ -19,9 +19,8 @@ export const dashboardNavSections: NavSection[] = [
     items: [
       {
         label: "Dashboard",
-        href: "/",
+        href: "/dashboard",
         icon: "layout-dashboard",
-        isActive: true,
       },
     ],
   },
@@ -30,7 +29,7 @@ export const dashboardNavSections: NavSection[] = [
     items: [
       {
         label: "Data Master",
-        href: "#data-master",
+        href: "/dashboard/master-data",
         icon: "database",
       },
       {

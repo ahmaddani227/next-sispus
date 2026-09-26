@@ -5,10 +5,16 @@ import { Button } from "@/components/ui/button";
 
 interface TopbarProps {
   onToggleSidebar: () => void;
+  title?: string;
+  dateString?: string;
+  actions?: React.ReactNode;
 }
 
 export function Topbar({
   onToggleSidebar,
+  title = "Dashboard",
+  dateString = "Kamis, 24 Oktober 2024",
+  actions,
 }: TopbarProps) {
   return (
     <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white/95 px-4 sm:px-8 backdrop-blur-xs">
@@ -25,27 +31,30 @@ export function Topbar({
 
         <div className="flex items-center gap-2.5">
           <h2 className="font-headline-sm text-sm sm:text-base font-bold text-slate-900">
-            Dashboard
+            {title}
           </h2>
         </div>
-
       </div>
 
       <div className="flex items-center gap-2.5 sm:gap-3">
         <div className="hidden sm:flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700">
           <Calendar className="h-4 w-4 text-emerald-700" />
-          <span>Kamis, 24 Oktober 2024</span>
+          <span>{dateString}</span>
         </div>
 
-        <Button
-          variant="default"
-          size="sm"
-          className="gap-1.5"
-          title="Buka Quick Scanner Sirkulasi"
-        >
-          <QrCode className="h-4 w-4" />
-          <span className="hidden sm:inline">Scan Sirkulasi</span>
-        </Button>
+        {actions ? (
+          actions
+        ) : (
+          <Button
+            variant="default"
+            size="sm"
+            className="gap-1.5"
+            title="Buka Quick Scanner Sirkulasi"
+          >
+            <QrCode className="h-4 w-4" />
+            <span className="hidden sm:inline">Scan Sirkulasi</span>
+          </Button>
+        )}
       </div>
     </header>
   );
