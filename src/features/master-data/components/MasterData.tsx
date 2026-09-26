@@ -14,9 +14,10 @@ import {
 import {
   INITIAL_MASTER_ITEMS,
   MASTER_TAB_CONFIGS,
+  MASTER_METRICS_DATA,
 } from "../constants/master-data";
+import { MetricCards } from "@/components/MetricCards";
 import { MasterHeaderBanner } from "./MasterHeaderBanner";
-import { MasterMetrics } from "./MasterMetrics";
 import { MasterTabsFilter } from "./MasterTabsFilter";
 import { MasterTable } from "./MasterTable";
 import { MasterFormDialog } from "./MasterFormDialog";
@@ -83,6 +84,35 @@ export function MasterData() {
     const conf = MASTER_TAB_CONFIGS[newTab];
     toast.info(`Beralih ke tab: ${conf.label}`);
   }, []);
+
+  // Metrik Cards Data
+  const masterMetricItems = useMemo(() => {
+    const tabKeys: MasterTabType[] = ["kategori", "rak", "penerbit", "kelas"];
+    return MASTER_METRICS_DATA.map((metric, index) => {
+      const targetTab = tabKeys[index];
+      const isLayers = metric.icon === "layers";
+      const isBuilding = metric.icon === "building";
+
+      return {
+        id: metric.id,
+        title: metric.title,
+        value: metric.value,
+        unit: metric.unit,
+        badgeText: metric.badgeText,
+        badgeVariant: metric.badgeVariant,
+        description: metric.description,
+        iconName: metric.icon,
+        highlightColor: isLayers
+          ? "text-blue-700"
+          : isBuilding
+          ? "text-amber-700"
+          : "text-slate-900",
+        unitColor: isLayers ? "text-blue-600" : "text-slate-500",
+        onClick: () => handleTabChange(targetTab),
+        clickable: true,
+      };
+    });
+  }, [handleTabChange]);
 
   // Filter update handler
   const handleFilterChange = useCallback(
@@ -174,7 +204,6 @@ export function MasterData() {
   return (
     <AdminLayout
       title="Master Data Sistem"
-      dateString="Kamis, 24 Oktober 2024"
       actions={
         <Button
           type="button"
@@ -195,7 +224,7 @@ export function MasterData() {
       />
 
       {/* Card Ringkasan Metrik Master Data */}
-      <MasterMetrics onSelectTab={handleTabChange} />
+      <MetricCards items={masterMetricItems} columns={4} />
 
       {/* TAB SWITCHER & FILTER/SEARCH CONTROLS */}
       <MasterTabsFilter

@@ -1,9 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { Sidebar } from "./Sidebar";
-import { Topbar } from "./Topbar";
-import { AdminFooter } from "./Footer";
+import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
+import AdminFooter from "./Footer";
+
+
+import { useCurrentDate } from "@/hooks/useCurrentDate";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -19,6 +22,7 @@ export function AdminLayout({
   actions,
 }: AdminLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const formattedDate = useCurrentDate(dateString);
 
   return (
     <div className="flex h-screen h-dvh w-full overflow-hidden bg-[#f8fafc] text-slate-900 antialiased font-sans">
@@ -31,7 +35,7 @@ export function AdminLayout({
         <Topbar
           onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
           title={title}
-          dateString={dateString}
+          dateString={formattedDate}
           actions={actions}
         />
 

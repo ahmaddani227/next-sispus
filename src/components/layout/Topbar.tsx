@@ -2,6 +2,7 @@
 
 import { Calendar, Menu, QrCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCurrentDate } from "@/hooks/useCurrentDate";
 
 interface TopbarProps {
   onToggleSidebar: () => void;
@@ -10,12 +11,14 @@ interface TopbarProps {
   actions?: React.ReactNode;
 }
 
-export function Topbar({
+const Topbar = ({
   onToggleSidebar,
   title = "Dashboard",
-  dateString = "Kamis, 24 Oktober 2024",
+  dateString,
   actions,
-}: TopbarProps) {
+}: TopbarProps) => {
+  const currentDate = useCurrentDate(dateString);
+
   return (
     <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white/95 px-4 sm:px-8 backdrop-blur-xs">
       <div className="flex items-center gap-3">
@@ -39,7 +42,7 @@ export function Topbar({
       <div className="flex items-center gap-2.5 sm:gap-3">
         <div className="hidden sm:flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700">
           <Calendar className="h-4 w-4 text-emerald-700" />
-          <span>{dateString}</span>
+          <span suppressHydrationWarning>{currentDate}</span>
         </div>
 
         {actions ? (
@@ -59,3 +62,5 @@ export function Topbar({
     </header>
   );
 }
+
+export default Topbar

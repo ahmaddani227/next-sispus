@@ -1,4 +1,4 @@
-export function AdminFooter() {
+const AdminFooter = () => {
   return (
     <footer className="flex h-11 shrink-0 flex-col sm:flex-row items-center justify-between border-t border-slate-200 bg-white px-4 sm:px-8 py-2 text-[11px] text-slate-500 gap-1">
       <div>SIPUS Ar-Rasyid v1.0 &bull; Sistem Manajemen Perpustakaan</div>
@@ -18,3 +18,5 @@ export function AdminFooter() {
     </footer>
   );
 }
+
+export default AdminFooter

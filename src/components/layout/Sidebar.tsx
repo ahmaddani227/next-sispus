@@ -40,7 +40,7 @@ const iconMap: Record<string, React.ElementType> = {
   "file-text": FileText,
 };
 
-export function Sidebar({ isOpen, onClose }: SidebarProps) {
+const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const pathname = usePathname();
 
   return (
@@ -169,3 +169,5 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     </>
   );
 }
+
+export default Sidebar

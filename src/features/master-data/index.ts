@@ -2,7 +2,6 @@ export * from "./types/master-data.types";
 export * from "./constants/master-data";
 export * from "./components/MasterData";
 export * from "./components/MasterHeaderBanner";
-export * from "./components/MasterMetrics";
 export * from "./components/MasterTabsFilter";
 export * from "./components/MasterTable";
 export * from "./components/MasterFormDialog";

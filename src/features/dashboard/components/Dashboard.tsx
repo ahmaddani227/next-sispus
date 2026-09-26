@@ -1,8 +1,9 @@
 "use client";
 
 import { AdminLayout } from "@/components/layout/AdminLayout";
+import { MetricCards } from "@/components/MetricCards";
+import { operationalMetrics } from "../constants/dashboard-data";
 import { WelcomeBanner } from "./WelcomeBanner";
-import { MetricCards } from "./MetricCards";
 import { RecentTransactions } from "./RecentTransactions";
 
 export function Dashboard() {
@@ -14,7 +15,7 @@ export function Dashboard() {
         <h2 id="metric-heading" className="sr-only">
           Ringkasan Operasional Perpustakaan
         </h2>
-        <MetricCards />
+        <MetricCards items={operationalMetrics} columns={3} />
       </section>
 
       {/* Main Content: Recent Transactions Table */}

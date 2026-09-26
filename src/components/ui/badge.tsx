@@ -25,6 +25,8 @@ const badgeVariants = cva(
           "border-blue-200/60 bg-blue-50 text-blue-800 hover:bg-blue-100/70",
         neutral:
           "border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200/70",
+        purple:
+          "border-purple-200/60 bg-purple-50 text-purple-800 hover:bg-purple-100/70",
       },
       size: {
         default: "text-[12px] px-2.5 py-0.5",
