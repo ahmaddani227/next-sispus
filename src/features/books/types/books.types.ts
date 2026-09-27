@@ -21,11 +21,12 @@ export interface BookCopyItem {
 export interface BookItem {
   id: string;
   code: string;
-  isbn: string;
+  isbn?: string;
   title: string;
   author: string;
   publisher: string;
-  publicationYear: number;
+  edition?: string;
+  publicationYear: number | null;
   categories: string[];
   level: "MI" | "MTs" | "Umum";
   shelfId: string;
@@ -50,17 +51,13 @@ export interface BookFilterState {
 
 export interface BookFormData {
   id?: string;
-  code: string;
-  isbn: string;
   title: string;
-  author: string;
-  publisher: string;
-  publicationYear: number;
-  categories: string[];
+  author?: string;
+  publisher?: string;
+  edition?: string;
+  publicationYear?: number | null;
   shelfId: string;
-  pages?: string;
-  language?: "Indonesia" | "Arab" | "Inggris";
-  synopsis?: string;
+  categories: string[];
 }
 
 export interface SpreadsheetPreviewItem {

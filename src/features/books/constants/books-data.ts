@@ -171,13 +171,29 @@ export const INITIAL_BOOKS: BookItem[] = [
   },
 ];
 
-export const SHELF_OPTIONS = [
-  { id: "Rak A1", name: "Rak A1 - Koleksi Agama & Fiqih", label: "Rak A1 (Agama)" },
-  { id: "Rak B1", name: "Rak B1 - Tematik Madrasah Ibtidaiyah", label: "Rak B1 (Tematik)" },
-  { id: "Rak C1", name: "Rak C1 - Sains & Eksakta MTs", label: "Rak C1 (Sains)" },
-  { id: "Rak C2", name: "Rak C2 - Bahasa & Kamus Rujukan", label: "Rak C2 (Bahasa)" },
-  { id: "Rak D1", name: "Rak D1 - Sastra & Cerita Islami", label: "Rak D1 (Cerita)" },
+export const PUBLISHER_OPTIONS = [
+  { value: "Balai Pustaka", label: "Balai Pustaka Indonesia", sublabel: "Sastra nusantara & fabel anak" },
+  { value: "Kemenag RI", label: "Kementerian Agama RI (Kemenag)", sublabel: "Buku ajar kurikulum madrasah MI & MTs" },
+  { value: "Kemendikbud", label: "Kemendikbudristek RI", sublabel: "Buku kurikulum merdeka nasional" },
+  { value: "Penerbit Erlangga", label: "Penerbit Erlangga", sublabel: "Sains, olimpiade & matematika" },
+  { value: "Toha Putra", label: "Toha Putra Semarang", sublabel: "Kitab gundul turats & matan fiqih" },
+  { value: "Mizan Publika", label: "Mizan Publika / DAR! Mizan", sublabel: "Serial islami, komik adab & novel santri" },
+  { value: "Lentera Hati", label: "Lentera Hati (Quraish Shihab)", sublabel: "Tafsir Al-Mishbah & wawasan Al-Qur'an" },
+  { value: "Gema Insani", label: "Gema Insani Press", sublabel: "Buku keluarga sakinah & sejarah Islam" },
 ];
+
+export const SHELF_OPTIONS = [
+  { value: "Rak A1", label: "Rak A1 - Koleksi Agama & Fiqih", sublabel: "Lorong Barat Lt. 2 (Fiqih & Ibadah)" },
+  { value: "Rak B1", label: "Rak B1 - Tematik Madrasah Ibtidaiyah", sublabel: "Lorong Tengah Utara Lt. 2 (Tematik MI)" },
+  { value: "Rak C1", label: "Rak C1 - Sains & Eksakta MTs", sublabel: "Lorong Tengah Selatan Lt. 2 (IPA & Matematika)" },
+  { value: "Rak C2", label: "Rak C2 - Bahasa & Kamus Rujukan", sublabel: "Lorong Utara Lt. 2 (Kamus Arab/Inggris/Indo)" },
+  { value: "Rak D1", label: "Rak D1 - Sastra & Cerita Islami", sublabel: "Lorong Timur Lt. 2 (Kisah Nabi & Karakter)" },
+];
+
+export const YEAR_OPTIONS = Array.from(
+  { length: new Date().getFullYear() + 2 - 1950 },
+  (_, i) => new Date().getFullYear() + 1 - i
+);
 
 export const CATEGORY_TAG_OPTIONS = [
   "Fiqih",

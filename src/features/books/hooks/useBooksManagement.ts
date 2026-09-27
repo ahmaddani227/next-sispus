@@ -63,7 +63,7 @@ export function useBooksManagement() {
         !q ||
         book.title.toLowerCase().includes(q) ||
         book.code.toLowerCase().includes(q) ||
-        book.isbn.toLowerCase().includes(q) ||
+        (book.isbn ? book.isbn.toLowerCase().includes(q) : false) ||
         book.author.toLowerCase().includes(q) ||
         book.publisher.toLowerCase().includes(q) ||
         book.categories.some((cat) => cat.toLowerCase().includes(q));
@@ -197,7 +197,16 @@ export function useBooksManagement() {
           b.id === formData.id
             ? {
                 ...b,
-                ...formData,
+                title: formData.title.trim(),
+                author: formData.author?.trim() || b.author,
+                publisher: formData.publisher?.trim() || b.publisher,
+                edition: formData.edition?.trim() || undefined,
+                publicationYear:
+                  formData.publicationYear !== undefined
+                    ? formData.publicationYear
+                    : b.publicationYear,
+                categories: formData.categories,
+                shelfId: formData.shelfId,
                 shelfName: `${formData.shelfId} (${formData.categories[0] || "Umum"})`,
               }
             : b
@@ -205,22 +214,21 @@ export function useBooksManagement() {
       );
       toast.success(`Data bibliografi buku "${formData.title}" berhasil diperbarui.`);
     } else {
-      // Create
+      // Create: generate internal ID dan code untuk tampilan katalog
+      const generatedCode = `BK-${formData.categories[0]?.substring(0, 3).toUpperCase() || "GEN"}-${Math.floor(1000 + Math.random() * 9000)}`;
+
       const newBook: BookItem = {
         id: `book-${Date.now()}`,
-        code: formData.code,
-        isbn: formData.isbn,
-        title: formData.title,
-        author: formData.author,
-        publisher: formData.publisher,
-        publicationYear: formData.publicationYear,
+        code: generatedCode,
+        title: formData.title.trim(),
+        author: formData.author?.trim() || "Anonim",
+        publisher: formData.publisher?.trim() || "-",
+        edition: formData.edition?.trim() || undefined,
+        publicationYear: formData.publicationYear ?? new Date().getFullYear(),
         categories: formData.categories,
         level: "MTs",
         shelfId: formData.shelfId,
         shelfName: `${formData.shelfId} (${formData.categories[0] || "Umum"})`,
-        pages: formData.pages,
-        language: formData.language,
-        synopsis: formData.synopsis,
         status: "active",
         totalCopies: 1,
         availableCopies: 1,
@@ -228,7 +236,7 @@ export function useBooksManagement() {
         copies: [
           {
             id: `cp-${Date.now()}`,
-            barcode: `BC-${formData.code.replace("BK-", "")}-01`,
+            barcode: `BC-${generatedCode.replace("BK-", "")}-01`,
             shelfRow: `${formData.shelfId} - Baris 1`,
             status: "AVAILABLE",
             condition: "Sangat Baik",

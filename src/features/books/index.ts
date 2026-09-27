@@ -8,3 +8,5 @@ export * from "./components/BookCopiesDialog";
 export * from "./components/BookImportDialog";
 export * from "./components/BookStatusDialog";
 export * from "./hooks/useBooksManagement";
+export * from "./hooks/useBookForm";
+export * from "./schemas/books.schema";

@@ -118,16 +118,29 @@ export function BooksTable({
                         >
                           {book.code}
                         </span>
-                        <span className="text-[11px] text-slate-400 font-mono">
-                          ISBN {book.isbn}
-                        </span>
+                        {book.isbn ? (
+                          <span className="text-[11px] text-slate-400 font-mono">
+                            ISBN {book.isbn}
+                          </span>
+                        ) : (
+                          <span className="text-[11px] text-slate-300 font-mono italic">
+                            Tanpa ISBN
+                          </span>
+                        )}
                       </div>
                     </TableCell>
 
                     {/* Judul Buku & Kategori */}
                     <TableCell>
-                      <div className="font-semibold text-slate-900 text-sm">
-                        {book.title}
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-semibold text-slate-900 text-sm">
+                          {book.title}
+                        </span>
+                        {book.edition && (
+                          <span className="text-[11px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">
+                            {book.edition}
+                          </span>
+                        )}
                       </div>
                       <div className="flex flex-wrap items-center gap-1.5 mt-1">
                         {book.categories.map((cat) => (
