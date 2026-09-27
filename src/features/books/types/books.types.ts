@@ -1,21 +1,19 @@
 export type BookStatus = "active" | "inactive";
 
+/** Nilai enum book_copy_status di database */
 export type BookCopyStatus = "AVAILABLE" | "BORROWED" | "DAMAGED" | "LOST";
 
-export type BookCopyCondition =
-  | "Sangat Baik"
-  | "Baik"
-  | "Rusak Ringan"
-  | "Rusak Berat";
-
+/**
+ * Merepresentasikan satu baris pada tabel book_copies.
+ * Kolom: id, book_id, copy_code, status, created_at, updated_at
+ */
 export interface BookCopyItem {
   id: string;
-  barcode: string;
-  rfidTag?: string;
-  shelfRow: string;
+  bookId?: string;
+  copyCode: string;      // VARCHAR(100) UNIQUE — kode eksemplar fisik
   status: BookCopyStatus;
-  borrowerName?: string;
-  condition: BookCopyCondition;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface BookItem {

@@ -57,21 +57,21 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       {/* Sidebar Aside Element */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex h-full w-[16.5rem] shrink-0 min-h-0 flex-col border-r border-slate-200 bg-white transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 select-none",
+          "fixed inset-y-0 left-0 z-50 flex h-full w-[16.5rem] shrink-0 min-h-0 flex-col border-r border-sidebar-border bg-sidebar transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 select-none",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Brand Header */}
-        <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-100 p-5">
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-sidebar-border/60 p-5">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-emerald-100 bg-emerald-50 text-emerald-800 shadow-xs">
-              <Library className="h-6 w-6 text-emerald-700" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-emerald-100 dark:border-emerald-800/80 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 shadow-xs">
+              <Library className="h-6 w-6 text-emerald-700 dark:text-emerald-400" />
             </div>
             <div>
-              <h1 className="font-headline-sm text-sm font-bold tracking-tight text-slate-900">
+              <h1 className="font-headline-sm text-sm font-bold tracking-tight text-sidebar-foreground">
                 SIPUS Ar-Rasyid
               </h1>
-              <p className="text-[11px] text-slate-500 font-medium">
+              <p className="text-[11px] text-muted-foreground font-medium">
                 Perpustakaan MI &amp; MTs
               </p>
             </div>
@@ -82,7 +82,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             variant="ghost"
             size="icon-sm"
             onClick={onClose}
-            className="text-slate-400 hover:bg-slate-100 hover:text-slate-700 lg:hidden"
+            className="text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200 lg:hidden"
             aria-label="Tutup menu navigasi"
           >
             <X className="h-5 w-5" />
@@ -93,7 +93,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <nav className="flex-1 min-h-0 space-y-6 overflow-y-auto p-4 scrollbar-thin">
           {adminNavSections.map((section) => (
             <div key={section.title}>
-              <div className="font-label-sm mb-2 px-3 text-[11px] font-bold tracking-wider text-slate-800 uppercase">
+              <div className="font-label-sm mb-2 px-3 text-[11px] font-bold tracking-wider text-slate-800 dark:text-slate-400 uppercase">
                 {section.title}
               </div>
               <ul className="space-y-1">
@@ -116,16 +116,16 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                         className={cn(
                           "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                           isActive
-                            ? "bg-emerald-50 text-emerald-900 font-semibold border-l-[3px] border-emerald-800"
-                            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                            ? "bg-emerald-50 text-emerald-900 font-semibold border-l-[3px] border-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-500"
+                            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-slate-100"
                         )}
                       >
                         <Icon
                           className={cn(
                             "h-5 w-5 shrink-0 transition-colors",
                             isActive
-                              ? "text-emerald-800"
-                              : "text-slate-400 group-hover:text-slate-600"
+                              ? "text-emerald-800 dark:text-emerald-400"
+                              : "text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300"
                           )}
                         />
                         <span className="truncate">{item.label}</span>
@@ -139,17 +139,17 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         </nav>
 
         {/* Profile Card & Logout */}
-        <div className="shrink-0 border-t border-slate-100 bg-slate-50/70 p-4">
+        <div className="shrink-0 border-t border-sidebar-border/60 bg-slate-50/70 dark:bg-slate-900/50 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5 overflow-hidden">
               <Avatar className="h-9 w-9 ring-2 ring-emerald-500/20">
                 <AvatarFallback>{currentUser.initials}</AvatarFallback>
               </Avatar>
               <div className="overflow-hidden">
-                <p className="truncate text-[12px] font-bold text-slate-900">
+                <p className="truncate text-[12px] font-bold text-slate-900 dark:text-slate-100">
                   {currentUser.name}
                 </p>
-                <p className="font-data-mono truncate text-[11px] text-slate-500">
+                <p className="font-data-mono truncate text-[11px] text-slate-500 dark:text-slate-400">
                   NIP. {currentUser.nip}
                 </p>
               </div>
@@ -157,7 +157,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
             <Link
               href="/login"
-              className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600"
+              className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/50 dark:hover:text-rose-400"
               title="Keluar dari Sistem"
             >
               <LogOut className="h-5 w-5" />

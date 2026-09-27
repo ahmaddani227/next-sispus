@@ -1,13 +1,42 @@
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
-import { Printer, Trash2, Plus, Layers } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Printer, Trash2, Plus, Layers, AlertCircle, Clock, Hash } from "lucide-react";
 import { toast } from "sonner";
 import { ModalDialog } from "@/components/ModalDialog";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { BookItem, BookCopyItem } from "../types/books.types";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { BookItem, BookCopyItem, BookCopyStatus } from "../types/books.types";
+
+const COPY_STATUS_OPTIONS: {
+  value: BookCopyStatus;
+  label: string;
+  color: string;
+  dot: string;
+}[] = [
+  { value: "AVAILABLE", label: "Tersedia di Rak",    color: "text-emerald-700", dot: "bg-emerald-500" },
+  { value: "BORROWED",  label: "Sedang Dipinjam",    color: "text-blue-700",    dot: "bg-blue-500"    },
+  { value: "DAMAGED",   label: "Rusak / Perbaikan",  color: "text-amber-700",   dot: "bg-amber-500"   },
+  { value: "LOST",      label: "Hilang",             color: "text-rose-700",    dot: "bg-rose-500"    },
+];
+
+function getStatusMeta(status: BookCopyStatus) {
+  return COPY_STATUS_OPTIONS.find((s) => s.value === status) ?? COPY_STATUS_OPTIONS[0];
+}
+
+function generateCopyCode(bookCode: string, index: number): string {
+  const suffix = String(index).padStart(3, "0");
+  return `EKS-${bookCode.replace("BK-", "")}-${suffix}`;
+}
 
 interface BookCopiesDialogProps {
   open: boolean;
@@ -23,82 +52,119 @@ export function BookCopiesDialog({
   onUpdateCopies,
 }: BookCopiesDialogProps) {
   const [copies, setCopies] = useState<BookCopyItem[]>([]);
-  const [isAddingNew, setIsAddingNew] = useState(false);
-  const [newBarcode, setNewBarcode] = useState("");
-  const [newRfid, setNewRfid] = useState("");
-  const [newRow, setNewRow] = useState("Baris 1");
 
+  // Form state tambah eksemplar
+  const [isAddingNew, setIsAddingNew] = useState(false);
+  const [formCopyCode, setFormCopyCode] = useState("");
+  const [formStatus, setFormStatus] = useState<BookCopyStatus>("AVAILABLE");
+  const [formError, setFormError] = useState("");
+
+  // Sinkronisasi data saat modal dibuka
   useEffect(() => {
-    if (book) {
+    if (open && book) {
       if (book.copies && book.copies.length > 0) {
         setCopies(book.copies);
       } else {
-        const generated: BookCopyItem[] = [
+        // Satu eksemplar default saat belum ada data
+        setCopies([
           {
             id: `cp-${book.id}-1`,
-            barcode: `BC-${book.code.replace("BK-", "")}-01`,
-            rfidTag: "RFID-01",
-            shelfRow: `${book.shelfId} - Baris 1`,
+            bookId: book.id,
+            copyCode: generateCopyCode(book.code, 1),
             status: "AVAILABLE",
-            condition: "Sangat Baik",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
           },
-        ];
-        setCopies(generated);
+        ]);
       }
+      // Reset form tambah
+      setIsAddingNew(false);
+      setFormCopyCode("");
+      setFormStatus("AVAILABLE");
+      setFormError("");
     }
   }, [book, open]);
 
-  const handleAddCopy = (e: FormEvent) => {
-    e.preventDefault();
+  const handleAddCopy = () => {
     if (!book) return;
 
-    const copyNum = copies.length + 1;
-    const barcodeCode =
-      newBarcode.trim() ||
-      `BC-${book.code.replace("BK-", "")}-${copyNum < 10 ? `0${copyNum}` : copyNum}`;
+    const code = formCopyCode.trim();
 
+    // Validasi: copy_code wajib diisi
+    if (!code) {
+      setFormError("Kode eksemplar (copy_code) wajib diisi.");
+      return;
+    }
+
+    if (code.length > 100) {
+      setFormError("Kode eksemplar maksimal 100 karakter.");
+      return;
+    }
+
+    if (copies.some((c) => c.copyCode.toLowerCase() === code.toLowerCase())) {
+      setFormError(`Kode eksemplar "${code}" sudah terdaftar. Gunakan kode unik lain.`);
+      return;
+    }
+
+    const now = new Date().toISOString();
     const newCopy: BookCopyItem = {
       id: `cp-${Date.now()}`,
-      barcode: barcodeCode,
-      rfidTag: newRfid.trim() || `RFID-0${copyNum}`,
-      shelfRow: `${book.shelfId} - ${newRow}`,
-      status: "AVAILABLE",
-      condition: "Sangat Baik",
+      bookId: book.id,
+      copyCode: code,
+      status: formStatus,
+      createdAt: now,
+      updatedAt: now,
     };
 
     setCopies((prev) => [...prev, newCopy]);
     setIsAddingNew(false);
-    setNewBarcode("");
-    setNewRfid("");
-    toast.success(`Eksemplar baru "${barcodeCode}" berhasil ditambahkan.`);
+    setFormCopyCode("");
+    setFormStatus("AVAILABLE");
+    setFormError("");
+    toast.success(`Eksemplar "${code}" berhasil ditambahkan ke daftar.`);
   };
 
-  const handleDeleteCopy = (id: string, barcode: string) => {
-    setCopies((prev) => prev.filter((cp) => cp.id !== id));
-    toast.info(`Eksemplar "${barcode}" dihapus dari daftar.`);
+ const handleChangeStatus = (id: string, newStatus: BookCopyStatus) => {
+    setCopies((prev) =>
+      prev.map((c) =>
+        c.id === id
+          ? { ...c, status: newStatus, updatedAt: new Date().toISOString() }
+          : c
+      )
+    );
   };
 
-  const handlePrintBarcode = (barcode: string) => {
-    toast.success(`Memproses pencetakan stiker label & barcode: ${barcode}`);
+  const handleDeleteCopy = (id: string, copyCode: string) => {
+    setCopies((prev) => prev.filter((c) => c.id !== id));
+    toast.info(`Eksemplar "${copyCode}" dihapus dari daftar.`);
   };
 
-  const handleSave = () => {
+  const handlePrintLabel = (copyCode: string) => {
+    toast.success(`Memproses pencetakan label kode eksemplar: ${copyCode}`);
+  };
+
+ const handleSave = () => {
     if (book && onUpdateCopies) {
       onUpdateCopies(book.id, copies);
     }
-    toast.success("Perubahan data eksemplar fisik berhasil disimpan.");
+    toast.success("Data eksemplar fisik berhasil disimpan.");
     onOpenChange(false);
   };
 
   if (!book) return null;
+
+  // Ringkasan status
+  const countByStatus = (status: BookCopyStatus) =>
+    copies.filter((c) => c.status === status).length;
 
   return (
     <ModalDialog
       open={open}
       onOpenChange={onOpenChange}
       size="lg"
+      icon={<Layers className="w-4 h-4" />}
       headerBadge={
-        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800">
+        <span className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300">
           {book.code}
         </span>
       }
@@ -111,7 +177,7 @@ export function BookCopiesDialog({
             variant="outline"
             size="sm"
             onClick={() => onOpenChange(false)}
-            className="text-xs font-semibold text-slate-600 hover:bg-slate-200/60"
+            className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             Tutup
           </Button>
@@ -121,157 +187,229 @@ export function BookCopiesDialog({
             onClick={handleSave}
             className="text-xs font-bold text-white bg-emerald-800 hover:bg-emerald-900 shadow-xs cursor-pointer"
           >
-            Simpan Perubahan Eksemplar
+            Simpan Perubahan
           </Button>
         </>
       }
     >
       <div className="p-5 space-y-4 text-xs">
-        {/* Sub-header & Action button */}
+
+       <div className="grid grid-cols-4 gap-2">
+          {COPY_STATUS_OPTIONS.map((s) => (
+            <div
+              key={s.value}
+              className="flex flex-col items-center justify-center p-2 rounded-lg border border-slate-200 dark:border-border bg-slate-50 dark:bg-slate-900/60 gap-0.5"
+            >
+              <span className={cn("text-lg font-bold", s.color)}>
+                {countByStatus(s.value)}
+              </span>
+              <span className="text-xs text-slate-500 dark:text-muted-foreground text-center leading-tight">{s.label}</span>
+            </div>
+          ))}
+        </div>
+
         <div className="flex items-center justify-between">
-          <span className="text-xs text-slate-500 font-medium">
-            Daftar Barcode & Kondisi Eksemplar ({copies.length} Total)
+          <span className="text-xs text-slate-500 dark:text-muted-foreground font-medium">
+            Daftar Eksemplar Fisik ({copies.length} total)
           </span>
           <Button
             type="button"
             variant="outline"
             size="sm"
-            onClick={() => setIsAddingNew((prev) => !prev)}
-            className="gap-1.5 text-xs font-semibold bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border-emerald-200 cursor-pointer h-7"
+            onClick={() => {
+              setIsAddingNew((prev) => !prev);
+              setFormError("");
+              setFormCopyCode("");
+              setFormStatus("AVAILABLE");
+            }}
+            className="gap-1.5 text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border-emerald-200 dark:border-emerald-800 cursor-pointer h-7"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>{isAddingNew ? "Batal Tambah" : "+ Tambah Eksemplar Baru"}</span>
+            <span>{isAddingNew ? "Batal Tambah" : "Tambah Eksemplar"}</span>
           </Button>
         </div>
 
-        {/* Form Tambah Eksemplar Inline */}
         {isAddingNew && (
-          <form
-            onSubmit={handleAddCopy}
-            className="p-3 bg-emerald-50/50 rounded-lg border border-emerald-200/80 space-y-3"
-          >
-            <div className="font-semibold text-emerald-900 text-xs flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-emerald-700" />
-              <span>Form Eksemplar Baru</span>
+          <div className="p-3.5 bg-emerald-50/60 dark:bg-emerald-950/40 rounded-lg border border-emerald-200/80 dark:border-emerald-800/80 space-y-3">
+            <div className="font-semibold text-emerald-900 dark:text-emerald-300 text-xs flex items-center gap-1.5">
+              <Hash className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
+              <span>Tambah Eksemplar Baru</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <Input
-                placeholder="Barcode (opsional)"
-                value={newBarcode}
-                onChange={(e) => setNewBarcode(e.target.value)}
-                className="h-8 text-xs bg-white font-mono"
-              />
-              <Input
-                placeholder="Tag RFID (opsional)"
-                value={newRfid}
-                onChange={(e) => setNewRfid(e.target.value)}
-                className="h-8 text-xs bg-white font-mono"
-              />
-              <select
-                value={newRow}
-                onChange={(e) => setNewRow(e.target.value)}
-                className="h-8 text-xs px-2 rounded-lg border border-slate-200 bg-white"
-              >
-                <option value="Baris 1">Baris 1</option>
-                <option value="Baris 2">Baris 2</option>
-                <option value="Baris 3">Baris 3</option>
-                <option value="Baris 4">Baris 4</option>
-              </select>
+
+            {/* copy_code & status — sesuai kolom DB */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {/* copy_code — VARCHAR(100) NOT NULL UNIQUE */}
+              <div className="space-y-1">
+                <Label className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+                  Kode Eksemplar <span className="text-rose-500">*</span>
+                </Label>
+                <Input
+                  placeholder={`Contoh: ${generateCopyCode(book.code, copies.length + 1)}`}
+                  value={formCopyCode}
+                  onChange={(e) => {
+                    setFormCopyCode(e.target.value);
+                    if (formError) setFormError("");
+                  }}
+                  className={cn(
+                    "h-8 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-border dark:text-slate-100 font-mono",
+                    formError && "border-rose-400 focus-visible:ring-rose-400/20"
+                  )}
+                  maxLength={100}
+                />
+                {formError && (
+                  <p className="flex items-center gap-1 text-[11px] font-medium text-rose-600">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    {formError}
+                  </p>
+                )}
+              </div>
+
+              {/* status — book_copy_status ENUM */}
+              <div className="space-y-1">
+                <Label className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+                  Status Eksemplar <span className="text-rose-500">*</span>
+                  <span className="ml-1 text-slate-400 dark:text-slate-500 font-normal">(status)</span>
+                </Label>
+                <Select
+                  value={formStatus}
+                  onValueChange={(val) => setFormStatus(val as BookCopyStatus)}
+                >
+                  <SelectTrigger className="h-8 text-xs bg-white dark:bg-slate-900 border-slate-200 dark:border-border dark:text-slate-100">
+                    <SelectValue placeholder="Pilih status..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COPY_STATUS_OPTIONS.map((s) => (
+                      <SelectItem key={s.value} value={s.value} className="text-xs">
+                        <span className="flex items-center gap-2">
+                          <span className={cn("w-2 h-2 rounded-full inline-block shrink-0", s.dot)} />
+                          {s.label}
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <div className="flex justify-end gap-2">
+
+            <div className="flex justify-end">
               <Button
-                type="submit"
+                type="button"
                 size="sm"
+                onClick={handleAddCopy}
                 className="h-7 text-xs bg-emerald-700 hover:bg-emerald-800 text-white font-bold"
               >
                 Tambahkan ke Daftar
               </Button>
             </div>
-          </form>
+          </div>
         )}
 
-        {/* Table Eksemplar */}
-        <div className="border border-slate-200 rounded-lg overflow-hidden flex flex-col">
+        <div className="border border-slate-200 dark:border-border rounded-lg overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs min-w-[550px]">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+            <table className="w-full text-left text-xs min-w-[520px]">
+              <thead className="bg-slate-50 dark:bg-slate-900/60 text-slate-600 dark:text-muted-foreground font-semibold border-b border-slate-200 dark:border-border">
                 <tr>
-                  <th className="py-2.5 px-3">Nomor Barcode Fisik</th>
-                  <th className="py-2.5 px-3">Lokasi Baris Rak</th>
-                  <th className="py-2.5 px-3">Status Eksemplar</th>
-                  <th className="py-2.5 px-3">Kondisi Buku</th>
+                  <th className="py-2.5 px-3 text-slate-500 dark:text-muted-foreground font-medium">#</th>
+                  {/* copy_code — kolom utama DB */}
+                  <th className="py-2.5 px-3">
+                    <span className="flex items-center gap-1">
+                      <Hash className="w-3 h-3" />
+                      Kode Eksemplar
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal ml-0.5">(copy_code)</span>
+                    </span>
+                  </th>
+                  {/* status — enum DB */}
+                  <th className="py-2.5 px-3">Status</th>
+                  {/* created_at */}
+                  <th className="py-2.5 px-3">
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      Ditambahkan
+                    </span>
+                  </th>
                   <th className="py-2.5 px-3 text-right">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-medium">
-                {copies.map((copy) => {
-                  const isAvailable = copy.status === "AVAILABLE";
-                  const isBorrowed = copy.status === "BORROWED";
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 font-medium">
+                {copies.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="py-8 text-center text-slate-400 dark:text-slate-500">
+                      Belum ada eksemplar terdaftar.
+                    </td>
+                  </tr>
+                )}
+                {copies.map((copy, idx) => {
+                  const meta = getStatusMeta(copy.status);
+                  const createdLabel = copy.createdAt
+                    ? new Date(copy.createdAt).toLocaleDateString("id-ID", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
+                    : "—";
 
                   return (
                     <tr
                       key={copy.id}
-                      className="hover:bg-slate-50/80 transition-colors"
+                      className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors"
                     >
-                      <td className="py-2.5 px-3">
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-mono font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
-                            {copy.barcode}
-                          </span>
-                          {copy.rfidTag && (
-                            <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-semibold border border-emerald-100">
-                              {copy.rfidTag}
-                            </span>
-                          )}
-                        </div>
+                      {/* Nomor urut */}
+                      <td className="py-2.5 px-3 text-slate-400 dark:text-slate-500 tabular-nums">
+                        {idx + 1}
                       </td>
-                      <td className="py-2.5 px-3 text-slate-700">
-                        {copy.shelfRow}
-                      </td>
+
+                      {/* copy_code */}
                       <td className="py-2.5 px-3">
-                        {isAvailable && (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                            Tersedia di Rak
-                          </span>
-                        )}
-                        {isBorrowed && (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700">
-                            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                            Dipinjam {copy.borrowerName ? `(${copy.borrowerName})` : ""}
-                          </span>
-                        )}
-                        {!isAvailable && !isBorrowed && (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-700">
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
-                            {copy.status}
-                          </span>
-                        )}
+                        <span className="font-mono font-bold text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-[11px]">
+                          {copy.copyCode}
+                        </span>
                       </td>
+
+                      {/* status — dengan inline-select untuk ubah langsung */}
                       <td className="py-2.5 px-3">
-                        <Badge
-                          variant={
-                            copy.condition === "Sangat Baik"
-                              ? "success"
-                              : copy.condition === "Baik"
-                              ? "info"
-                              : "warning"
+                        <Select
+                          value={copy.status}
+                          onValueChange={(val) =>
+                            handleChangeStatus(copy.id, val as BookCopyStatus)
                           }
-                          size="sm"
-                          className="text-[10px] font-semibold"
                         >
-                          {copy.condition}
-                        </Badge>
+                          <SelectTrigger
+                            className={cn(
+                              "h-6 text-[11px] font-semibold border-none shadow-none bg-transparent px-0 gap-1 w-auto focus:ring-0",
+                              meta.color
+                            )}
+                          >
+                            <span className={cn("w-1.5 h-1.5 rounded-full inline-block shrink-0", meta.dot)} />
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {COPY_STATUS_OPTIONS.map((s) => (
+                              <SelectItem key={s.value} value={s.value} className="text-xs">
+                                <span className="flex items-center gap-2">
+                                  <span className={cn("w-2 h-2 rounded-full inline-block shrink-0", s.dot)} />
+                                  {s.label}
+                                </span>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </td>
+
+                      {/* created_at */}
+                      <td className="py-2.5 px-3 text-slate-500 dark:text-muted-foreground tabular-nums">
+                        {createdLabel}
+                      </td>
+
+                      {/* Aksi */}
                       <td className="py-2.5 px-3 text-right">
                         <div className="inline-flex items-center gap-1">
                           <Button
                             type="button"
                             variant="ghost"
                             size="icon-xs"
-                            onClick={() => handlePrintBarcode(copy.barcode)}
-                            title="Cetak Barcode"
-                            className="text-slate-600 hover:text-emerald-700"
+                            onClick={() => handlePrintLabel(copy.copyCode)}
+                            title="Cetak Label Kode Eksemplar"
+                            className="text-slate-500 hover:text-emerald-700 dark:text-slate-400 dark:hover:text-emerald-400"
                           >
                             <Printer className="w-4 h-4" />
                           </Button>
@@ -279,11 +417,9 @@ export function BookCopiesDialog({
                             type="button"
                             variant="ghost"
                             size="icon-xs"
-                            onClick={() =>
-                              handleDeleteCopy(copy.id, copy.barcode)
-                            }
+                            onClick={() => handleDeleteCopy(copy.id, copy.copyCode)}
                             title="Hapus Eksemplar"
-                            className="text-slate-400 hover:text-rose-600"
+                            className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>

@@ -60,7 +60,7 @@ export function BookImportDialog({
             variant="outline"
             size="sm"
             onClick={() => onOpenChange(false)}
-            className="text-xs font-semibold text-slate-600 hover:bg-slate-200/60"
+            className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800"
           >
             Batal
           </Button>
@@ -81,21 +81,21 @@ export function BookImportDialog({
         <div
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleFileDrop}
-          className="border-2 border-dashed border-emerald-300/80 bg-emerald-50/30 hover:bg-emerald-50/60 transition-colors rounded-xl p-6 text-center cursor-pointer select-none"
+          className="border-2 border-dashed border-emerald-300/80 dark:border-emerald-700/80 bg-emerald-50/30 dark:bg-emerald-950/20 hover:bg-emerald-50/60 dark:hover:bg-emerald-950/40 transition-colors rounded-xl p-6 text-center cursor-pointer select-none"
         >
-          <div className="mx-auto w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mb-2">
+          <div className="mx-auto w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 flex items-center justify-center mb-2">
             <FileSpreadsheet className="w-5 h-5" />
           </div>
-          <p className="text-xs font-bold text-slate-800">
+          <p className="text-xs font-bold text-slate-800 dark:text-foreground">
             Tarik & letakkan file .xlsx / .csv di sini
           </p>
-          <p className="text-[11px] text-slate-500 mt-0.5">
+          <p className="text-[11px] text-slate-500 dark:text-muted-foreground mt-0.5">
             atau klik untuk memilih file dari komputer (Maks 10MB)
           </p>
           <button
             type="button"
             onClick={handleDownloadTemplate}
-            className="inline-block mt-3 text-[11px] font-semibold text-emerald-800 underline hover:text-emerald-900 cursor-pointer"
+            className="inline-block mt-3 text-[11px] font-semibold text-emerald-800 dark:text-emerald-400 underline hover:text-emerald-900 dark:hover:text-emerald-300 cursor-pointer"
           >
             Unduh Template Standar SIPUS (.xlsx)
           </button>
@@ -104,17 +104,17 @@ export function BookImportDialog({
         {/* Preview Data Spreadsheet */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-800">
+            <span className="text-xs font-bold text-slate-800 dark:text-foreground">
               Preview Data Spreadsheet (3 Sampel Terdeteksi)
             </span>
-            <span className="text-[11px] text-slate-500">
-              File: <strong className="text-slate-700">{selectedFile}</strong>
+            <span className="text-[11px] text-slate-500 dark:text-muted-foreground">
+              File: <strong className="text-slate-700 dark:text-slate-200">{selectedFile}</strong>
             </span>
           </div>
 
-          <div className="border border-slate-200 rounded-lg overflow-x-auto text-[11px]">
+          <div className="border border-slate-200 dark:border-border rounded-lg overflow-x-auto text-[11px]">
             <table className="w-full text-left">
-              <thead className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+              <thead className="bg-slate-100 dark:bg-slate-900/60 text-slate-700 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-border">
                 <tr>
                   <th className="py-2 px-3">Kode Buku</th>
                   <th className="py-2 px-3">Judul Buku</th>
@@ -123,14 +123,14 @@ export function BookImportDialog({
                   <th className="py-2 px-3">Lokasi Rak</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-medium text-slate-600">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 font-medium text-slate-600 dark:text-slate-300">
                 {SAMPLE_SPREADSHEET_PREVIEW.map((item, idx) => (
                   <tr
                     key={idx}
-                    className={item.isValid ? "" : "bg-amber-50/50"}
+                    className={item.isValid ? "" : "bg-amber-50/50 dark:bg-amber-950/30"}
                   >
                     <td className="py-2 px-3 font-mono">{item.code}</td>
-                    <td className="py-2 px-3 font-semibold text-slate-800">
+                    <td className="py-2 px-3 font-semibold text-slate-800 dark:text-slate-200">
                       {item.title}
                     </td>
                     <td className="py-2 px-3 font-mono">{item.isbn}</td>
@@ -138,8 +138,8 @@ export function BookImportDialog({
                     <td
                       className={`py-2 px-3 ${
                         item.isValid
-                          ? "text-slate-700"
-                          : "text-amber-700 font-bold"
+                          ? "text-slate-700 dark:text-slate-300"
+                          : "text-amber-700 dark:text-amber-400 font-bold"
                       }`}
                     >
                       {item.shelf}
@@ -153,12 +153,12 @@ export function BookImportDialog({
 
         {/* Kotak Validasi & Warning */}
         <div className="space-y-2">
-          <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs font-semibold text-emerald-800">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-center gap-2 text-xs font-semibold text-emerald-800 dark:text-emerald-300">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>✓ 4 Data Valid Siap Impor ke database perpustakaan.</span>
           </div>
-          <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-200 flex items-center gap-2 text-xs font-medium text-amber-800">
-            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+          <div className="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 flex items-center gap-2 text-xs font-medium text-amber-800 dark:text-amber-300">
+            <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
             <span>
               ⚠️ 1 Data: Penomoran rak belum terdaftar, otomatis dialokasikan ke Rak Sementara.
             </span>

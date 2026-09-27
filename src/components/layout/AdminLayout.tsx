@@ -25,7 +25,7 @@ export function AdminLayout({
   const formattedDate = useCurrentDate(dateString);
 
   return (
-    <div className="flex h-screen h-dvh w-full overflow-hidden bg-[#f8fafc] text-slate-900 antialiased font-sans">
+    <div className="flex h-screen h-dvh w-full overflow-hidden bg-background text-foreground antialiased font-sans">
       <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}

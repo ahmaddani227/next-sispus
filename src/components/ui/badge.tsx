@@ -16,17 +16,17 @@ const badgeVariants = cva(
         outline: "text-foreground border-border",
         // Semantic status variants per DESIGN.md
         success:
-          "border-emerald-200/60 bg-emerald-50 text-emerald-800 hover:bg-emerald-100/70",
+          "border-emerald-200/60 bg-emerald-50 text-emerald-800 hover:bg-emerald-100/70 dark:border-emerald-800/80 dark:bg-emerald-950/60 dark:text-emerald-300 dark:hover:bg-emerald-900/60",
         warning:
-          "border-amber-200/60 bg-amber-50 text-amber-800 hover:bg-amber-100/70",
+          "border-amber-200/60 bg-amber-50 text-amber-800 hover:bg-amber-100/70 dark:border-amber-800/80 dark:bg-amber-950/60 dark:text-amber-300 dark:hover:bg-amber-900/60",
         danger:
-          "border-rose-200/60 bg-rose-50 text-rose-800 hover:bg-rose-100/70",
+          "border-rose-200/60 bg-rose-50 text-rose-800 hover:bg-rose-100/70 dark:border-rose-800/80 dark:bg-rose-950/60 dark:text-rose-300 dark:hover:bg-rose-900/60",
         info:
-          "border-blue-200/60 bg-blue-50 text-blue-800 hover:bg-blue-100/70",
+          "border-blue-200/60 bg-blue-50 text-blue-800 hover:bg-blue-100/70 dark:border-blue-800/80 dark:bg-blue-950/60 dark:text-blue-300 dark:hover:bg-blue-900/60",
         neutral:
-          "border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200/70",
+          "border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200/70 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700",
         purple:
-          "border-purple-200/60 bg-purple-50 text-purple-800 hover:bg-purple-100/70",
+          "border-purple-200/60 bg-purple-50 text-purple-800 hover:bg-purple-100/70 dark:border-purple-800/80 dark:bg-purple-950/60 dark:text-purple-300 dark:hover:bg-purple-900/60",
       },
       size: {
         default: "text-[12px] px-2.5 py-0.5",

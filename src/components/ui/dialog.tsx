@@ -129,7 +129,7 @@ function DialogContent({
         role="dialog"
         aria-modal="true"
         className={cn(
-          "relative z-50 w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200 max-h-[90vh] flex flex-col",
+          "relative z-50 w-full max-w-lg rounded-2xl bg-white dark:bg-card shadow-2xl border border-slate-200 dark:border-border overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200 max-h-[90vh] flex flex-col",
           className
         )}
         onClick={(e) => e.stopPropagation()}
@@ -140,7 +140,7 @@ function DialogContent({
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="absolute right-4 top-4 rounded-md p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors focus:outline-none"
+            className="absolute right-4 top-4 rounded-md p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none"
           >
             <X className="h-5 w-5" />
             <span className="sr-only">Tutup</span>
@@ -170,7 +170,7 @@ function DialogFooter({
   return (
     <div
       className={cn(
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 p-4 bg-slate-50 border-t border-slate-100",
+        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 p-4 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-border",
         className
       )}
       {...props}
@@ -184,7 +184,7 @@ function DialogTitle({
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn("text-lg font-semibold leading-none tracking-tight text-slate-900", className)}
+      className={cn("text-lg font-semibold leading-none tracking-tight text-slate-900 dark:text-foreground", className)}
       {...props}
     />
   )
@@ -196,7 +196,7 @@ function DialogDescription({
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
-      className={cn("text-sm text-slate-500", className)}
+      className={cn("text-sm text-slate-500 dark:text-muted-foreground", className)}
       {...props}
     />
   )

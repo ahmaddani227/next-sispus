@@ -19,11 +19,11 @@ export function BookFilterBar({
   onOpenImportModal,
 }: BookFilterBarProps) {
   return (
-    <Card className="p-4 space-y-3 bg-white border-slate-200 shadow-xs">
+    <Card className="p-4 space-y-3 bg-white dark:bg-card border-slate-200 dark:border-border shadow-xs">
       {/* Row 1: Search Bar & Import Action */}
       <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <div className="relative flex-1">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
             <Search className="w-4 h-4" />
           </div>
           <input
@@ -31,7 +31,7 @@ export function BookFilterBar({
             value={filters.search}
             onChange={(e) => onFilterChange({ search: e.target.value })}
             placeholder="Cari judul, ISBN, pengarang, penerbit, atau kategori..."
-            className="w-full pl-10 pr-4 py-2 text-xs text-slate-800 bg-slate-50/70 rounded-lg border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 placeholder-slate-400 transition-colors"
+            className="w-full pl-10 pr-4 py-2 text-xs text-slate-800 dark:text-foreground bg-slate-50/70 dark:bg-slate-900/60 rounded-lg border border-slate-200 dark:border-border focus:bg-white dark:focus:bg-card focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700 placeholder-slate-400 dark:placeholder-slate-500 transition-colors"
           />
         </div>
 
@@ -40,9 +40,9 @@ export function BookFilterBar({
           variant="outline"
           size="sm"
           onClick={onOpenImportModal}
-          className="gap-2 border-emerald-700/60 text-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 font-bold shrink-0 cursor-pointer"
+          className="gap-2 border-emerald-700/60 dark:border-emerald-600 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 hover:text-emerald-900 dark:hover:text-emerald-300 font-bold shrink-0 cursor-pointer"
         >
-          <UploadCloud className="w-4 h-4 text-emerald-700" />
+          <UploadCloud className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
           <span>Impor Excel/CSV</span>
         </Button>
       </div>
@@ -57,7 +57,7 @@ export function BookFilterBar({
                 status: e.target.value as BookFilterState["status"],
               })
             }
-            className="w-full py-1.5 px-3 text-xs bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 cursor-pointer"
+            className="w-full py-1.5 px-3 text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-border rounded-lg text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 cursor-pointer"
           >
             <option value="all">Semua Status</option>
             <option value="active">Aktif</option>
@@ -69,7 +69,7 @@ export function BookFilterBar({
           <select
             value={filters.shelf}
             onChange={(e) => onFilterChange({ shelf: e.target.value })}
-            className="w-full py-1.5 px-3 text-xs bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 cursor-pointer"
+            className="w-full py-1.5 px-3 text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-border rounded-lg text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 cursor-pointer"
           >
             <option value="all">Semua Lokasi Rak</option>
             <option value="Rak A1">Rak A1 - Agama</option>
@@ -84,7 +84,7 @@ export function BookFilterBar({
           <select
             value={filters.level}
             onChange={(e) => onFilterChange({ level: e.target.value })}
-            className="w-full py-1.5 px-3 text-xs bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 cursor-pointer"
+            className="w-full py-1.5 px-3 text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-border rounded-lg text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 cursor-pointer"
           >
             <option value="all">Semua Jenjang</option>
             <option value="MI">MI Ar-Rasyid</option>
@@ -97,7 +97,7 @@ export function BookFilterBar({
           <select
             value={filters.category}
             onChange={(e) => onFilterChange({ category: e.target.value })}
-            className="w-full py-1.5 px-3 text-xs bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 cursor-pointer"
+            className="w-full py-1.5 px-3 text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-border rounded-lg text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:border-emerald-700 cursor-pointer"
           >
             <option value="all">Semua Kategori</option>
             <option value="Fiqih">Fiqih</option>
@@ -114,9 +114,9 @@ export function BookFilterBar({
             variant="secondary"
             size="sm"
             onClick={onResetFilter}
-            className="w-full py-1.5 px-3 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 rounded-lg border border-slate-200 gap-1.5 cursor-pointer h-auto"
+            className="w-full py-1.5 px-3 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-700/80 rounded-lg border border-slate-200 dark:border-border gap-1.5 cursor-pointer h-auto"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+            <RotateCcw className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
             <span>Reset Filter</span>
           </Button>
         </div>

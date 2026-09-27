@@ -24,28 +24,18 @@ export const INITIAL_BOOKS: BookItem[] = [
     copies: [
       {
         id: "cp-1",
-        barcode: "BC-0182-01",
-        rfidTag: "RFID-A1",
-        shelfRow: "Rak A1 - Baris 2",
+        copyCode: "EKS-0182-001",
         status: "AVAILABLE",
-        condition: "Sangat Baik",
       },
       {
         id: "cp-2",
-        barcode: "BC-0182-02",
-        rfidTag: "RFID-A2",
-        shelfRow: "Rak A1 - Baris 2",
+        copyCode: "EKS-0182-002",
         status: "BORROWED",
-        borrowerName: "Ahmad R. (MTs 8B)",
-        condition: "Baik",
       },
       {
         id: "cp-3",
-        barcode: "BC-0182-03",
-        rfidTag: "RFID-A3",
-        shelfRow: "Rak A1 - Baris 2",
+        copyCode: "EKS-0182-003",
         status: "AVAILABLE",
-        condition: "Sangat Baik",
       },
     ],
   },
@@ -71,11 +61,8 @@ export const INITIAL_BOOKS: BookItem[] = [
     copies: [
       {
         id: "cp-4",
-        barcode: "BC-0419-01",
-        rfidTag: "RFID-B1",
-        shelfRow: "Rak B1 - Baris 1",
+        copyCode: "EKS-0419-001",
         status: "AVAILABLE",
-        condition: "Sangat Baik",
       },
     ],
   },
@@ -101,11 +88,8 @@ export const INITIAL_BOOKS: BookItem[] = [
     copies: [
       {
         id: "cp-5",
-        barcode: "BC-0098-01",
-        rfidTag: "RFID-C1",
-        shelfRow: "Rak C1 - Baris 3",
+        copyCode: "EKS-0098-001",
         status: "AVAILABLE",
-        condition: "Sangat Baik",
       },
     ],
   },
@@ -131,11 +115,8 @@ export const INITIAL_BOOKS: BookItem[] = [
     copies: [
       {
         id: "cp-6",
-        barcode: "BC-0211-01",
-        rfidTag: "RFID-D1",
-        shelfRow: "Rak D1 - Baris 1",
+        copyCode: "EKS-0211-001",
         status: "AVAILABLE",
-        condition: "Baik",
       },
     ],
   },
@@ -161,11 +142,8 @@ export const INITIAL_BOOKS: BookItem[] = [
     copies: [
       {
         id: "cp-7",
-        barcode: "BC-0012-01",
-        rfidTag: "RFID-C2",
-        shelfRow: "Rak C2 - Baris 1",
+        copyCode: "EKS-0012-001",
         status: "AVAILABLE",
-        condition: "Sangat Baik",
       },
     ],
   },

@@ -34,7 +34,7 @@ export function BookStatusDialog({
         isDeactivating ? (
           <>
             Apakah Anda yakin ingin menonaktifkan data buku{" "}
-            <strong className="text-slate-900 font-bold">
+            <strong className="text-slate-900 dark:text-foreground font-bold">
               {book.title} ({book.code})
             </strong>{" "}
             dari sirkulasi? Buku yang dinonaktifkan tidak dapat dipinjam oleh
@@ -43,7 +43,7 @@ export function BookStatusDialog({
         ) : (
           <>
             Apakah Anda yakin ingin mengaktifkan kembali data buku{" "}
-            <strong className="text-slate-900 font-bold">
+            <strong className="text-slate-900 dark:text-foreground font-bold">
               &apos;{book.title}&apos;
             </strong>
             ? Buku yang berstatus aktif akan dapat dicari dan dipinjam kembali

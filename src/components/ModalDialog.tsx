@@ -56,13 +56,13 @@ export function ModalDialog({
       <DialogContent
         hideClose
         className={cn(
-          "max-h-[90vh] overflow-hidden p-0 rounded-2xl bg-white border-slate-200 flex flex-col",
+          "max-h-[90vh] overflow-hidden p-0 rounded-2xl bg-white dark:bg-card border-slate-200 dark:border-border flex flex-col",
           sizeClasses[size],
           className
         )}
       >
         {/* Modal Header */}
-        <DialogHeader className="p-5 px-6 border-b border-slate-100 bg-slate-50/80 flex flex-row items-center justify-between space-y-0 shrink-0">
+        <DialogHeader className="p-5 px-6 border-b border-slate-100 dark:border-border bg-slate-50/80 dark:bg-slate-900/60 flex flex-row items-center justify-between space-y-0 shrink-0">
           <div className="flex items-center gap-2.5">
             {icon && (
               <div
@@ -77,12 +77,12 @@ export function ModalDialog({
             <div>
               <div className="flex items-center gap-2">
                 {headerBadge}
-                <DialogTitle className="font-bold text-slate-900 text-base leading-tight">
+                <DialogTitle className="font-bold text-slate-900 dark:text-foreground text-base leading-tight">
                   {title}
                 </DialogTitle>
               </div>
               {description && (
-                <DialogDescription className="text-xs text-slate-500 mt-0.5">
+                <DialogDescription className="text-xs text-slate-500 dark:text-muted-foreground mt-0.5">
                   {description}
                 </DialogDescription>
               )}
@@ -93,7 +93,7 @@ export function ModalDialog({
             <button
               type="button"
               onClick={() => onOpenChange(false)}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors focus:outline-none"
+              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800 transition-colors focus:outline-none"
               title="Tutup"
             >
               <X className="w-5 h-5" />
@@ -109,7 +109,7 @@ export function ModalDialog({
 
         {/* Modal Footer */}
         {footer && (
-          <div className="p-4 px-6 border-t border-slate-100 flex items-center justify-end gap-2.5 bg-slate-50 shrink-0">
+          <div className="p-4 px-6 border-t border-slate-100 dark:border-border flex items-center justify-end gap-2.5 bg-slate-50 dark:bg-slate-900/60 shrink-0">
             {footer}
           </div>
         )}

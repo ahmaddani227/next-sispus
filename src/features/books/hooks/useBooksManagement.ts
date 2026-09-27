@@ -236,10 +236,8 @@ export function useBooksManagement() {
         copies: [
           {
             id: `cp-${Date.now()}`,
-            barcode: `BC-${generatedCode.replace("BK-", "")}-01`,
-            shelfRow: `${formData.shelfId} - Baris 1`,
+            copyCode: `EKS-${generatedCode.replace("BK-", "")}-001`,
             status: "AVAILABLE",
-            condition: "Sangat Baik",
           },
         ],
       };

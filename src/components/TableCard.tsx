@@ -16,7 +16,7 @@ export function TableCard({ children, className, ...props }: TableCardProps) {
   return (
     <Card
       className={cn(
-        "rounded-xl border border-slate-200 shadow-xs overflow-hidden flex flex-col bg-white",
+        "rounded-xl border border-slate-200 dark:border-border shadow-xs overflow-hidden flex flex-col bg-white dark:bg-card",
         className
       )}
       {...props}
@@ -45,17 +45,17 @@ export function TableCardHeader({
   return (
     <div
       className={cn(
-        "p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white",
+        "p-4 sm:p-5 border-b border-slate-100 dark:border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white dark:bg-card",
         className
       )}
     >
       <div>
         <div className="flex flex-wrap items-center gap-2">
-          <h3 className="font-bold text-slate-900 text-sm">{title}</h3>
+          <h3 className="font-bold text-slate-900 dark:text-foreground text-sm">{title}</h3>
           {badge}
         </div>
         {description && (
-          <div className="text-xs text-slate-500 mt-1">{description}</div>
+          <div className="text-xs text-slate-500 dark:text-muted-foreground mt-1">{description}</div>
         )}
       </div>
 
@@ -93,12 +93,12 @@ export function TableEmptyState({
         className
       )}
     >
-      <div className="mx-auto w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
+      <div className="mx-auto w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 flex items-center justify-center mb-3">
         {icon ?? <SearchX className="w-6 h-6 stroke-[1.5]" />}
       </div>
-      <h4 className="text-sm font-bold text-slate-800">{title}</h4>
+      <h4 className="text-sm font-bold text-slate-800 dark:text-foreground">{title}</h4>
       {description && (
-        <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto leading-relaxed">
+        <p className="text-xs text-slate-500 dark:text-muted-foreground mt-1 max-w-sm mx-auto leading-relaxed">
           {description}
         </p>
       )}
@@ -152,13 +152,13 @@ export function TablePagination({
   return (
     <div
       className={cn(
-        "p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600 select-none",
+        "p-4 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-200 dark:border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600 dark:text-muted-foreground select-none",
         className
       )}
     >
       <div>
-        Menampilkan <span className="font-bold text-slate-900">{displayRange}</span>{" "}
-        dari <span className="font-bold text-slate-900">{totalCount}</span> {itemLabel}{" "}
+        Menampilkan <span className="font-bold text-slate-900 dark:text-foreground">{displayRange}</span>{" "}
+        dari <span className="font-bold text-slate-900 dark:text-foreground">{totalCount}</span> {itemLabel}{" "}
         terdaftar
       </div>
 
@@ -169,7 +169,7 @@ export function TablePagination({
           size="sm"
           disabled={currentPage <= 1}
           onClick={() => onPageChange?.(currentPage - 1)}
-          className="h-8 px-2.5 text-xs text-slate-600 bg-white border-slate-200 disabled:opacity-50 hover:bg-slate-100"
+          className="h-8 px-2.5 text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-card border-slate-200 dark:border-border disabled:opacity-50 hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           Sebelumnya
         </Button>
@@ -189,7 +189,7 @@ export function TablePagination({
               variant="outline"
               size="sm"
               onClick={() => onPageChange?.(2)}
-              className="h-8 px-3 text-xs bg-white text-slate-700 hover:bg-slate-50 border-slate-200"
+              className="h-8 px-3 text-xs bg-white dark:bg-card text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 border-slate-200 dark:border-border"
             >
               2
             </Button>
@@ -203,7 +203,7 @@ export function TablePagination({
           size="sm"
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange?.(currentPage + 1)}
-          className="h-8 px-2.5 text-xs text-slate-600 bg-white border-slate-200 disabled:opacity-50 hover:bg-slate-100"
+          className="h-8 px-2.5 text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-card border-slate-200 dark:border-border disabled:opacity-50 hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           Selanjutnya
         </Button>

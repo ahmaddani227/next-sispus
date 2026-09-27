@@ -20,7 +20,7 @@ export function CatalogHeader({
   onScrollToCatalog,
 }: CatalogHeaderProps) {
   return (
-    <header className="sticky top-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
+    <header className="sticky top-0 w-full z-40 bg-white/95 dark:bg-card/95 backdrop-blur-md border-b border-slate-200/80 dark:border-border shadow-xs transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         {/* Logo and Brand */}
         <div
@@ -31,18 +31,18 @@ export function CatalogHeader({
         >
           <div className="flex flex-col justify-center">
             <div className="flex items-center gap-2">
-              <span className="text-base font-bold text-[#166534] tracking-tight">
+              <span className="text-base font-bold text-[#166534] dark:text-emerald-400 tracking-tight">
                 SIPUS Ar-Rasyid
               </span>
             </div>
-            <span className="text-xs text-slate-500 hidden sm:inline-block">
+            <span className="text-xs text-slate-500 dark:text-muted-foreground hidden sm:inline-block">
               Portal Katalog &amp; OPAC Siswa Madrasah
             </span>
           </div>
         </div>
 
         {/* Center Nav Links */}
-        <nav className="hidden xl:flex items-center gap-1 bg-slate-50/80 p-1.5 rounded-xl border border-slate-200/60">
+        <nav className="hidden xl:flex items-center gap-1 bg-slate-50/80 dark:bg-slate-900/80 p-1.5 rounded-xl border border-slate-200/60 dark:border-border">
           <Button
             type="button"
             size="sm"

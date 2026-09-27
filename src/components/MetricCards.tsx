@@ -47,12 +47,12 @@ export const metricIconMap: Record<string, LucideIcon> = {
 
 // CVA untuk wrapper container Card
 export const metricCardVariants = cva(
-  "group p-4.5 transition-all bg-white border-slate-200 shadow-xs",
+  "group p-4.5 transition-all bg-white dark:bg-card border-slate-200 dark:border-border shadow-xs",
   {
     variants: {
       clickable: {
-        true: "cursor-pointer hover:border-emerald-300 hover:shadow-sm",
-        false: "hover:border-slate-300 hover:shadow-xs",
+        true: "cursor-pointer hover:border-emerald-300 dark:hover:border-emerald-600 hover:shadow-sm",
+        false: "hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-xs",
       },
     },
     defaultVariants: {
@@ -67,15 +67,15 @@ export const metricIconVariants = cva(
   {
     variants: {
       variant: {
-        success: "bg-emerald-50 text-emerald-700",
-        emerald: "bg-emerald-50 text-emerald-700",
-        info: "bg-blue-50 text-blue-700",
-        blue: "bg-blue-50 text-blue-700",
-        warning: "bg-amber-50 text-amber-700",
-        amber: "bg-amber-50 text-amber-700",
-        danger: "bg-rose-50 text-rose-700",
-        purple: "bg-purple-100 text-purple-800",
-        neutral: "bg-slate-100 text-slate-700",
+        success: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400",
+        emerald: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400",
+        info: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400",
+        blue: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400",
+        warning: "bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400",
+        amber: "bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400",
+        danger: "bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400",
+        purple: "bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-400",
+        neutral: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
       },
     },
     defaultVariants: {
@@ -179,7 +179,7 @@ export function MetricCard({
     >
       {/* Top row: Label & Icon */}
       <div className="mb-2.5 flex items-center justify-between">
-        <span className="text-xs font-semibold text-slate-600">{title}</span>
+        <span className="text-xs font-semibold text-slate-600 dark:text-muted-foreground">{title}</span>
         <span
           className={cn(
             metricIconVariants({ variant: badgeVariant }),
@@ -196,7 +196,7 @@ export function MetricCard({
         <div
           className={cn(
             "font-data-mono text-2xl font-black tracking-tight",
-            highlightColor || "text-slate-900"
+            highlightColor || "text-slate-900 dark:text-foreground"
           )}
         >
           {value}{" "}
@@ -204,7 +204,7 @@ export function MetricCard({
             <span
               className={cn(
                 "font-sans text-xs font-medium",
-                unitColor || "text-slate-500"
+                unitColor || "text-slate-500 dark:text-muted-foreground"
               )}
             >
               {unit}
@@ -225,7 +225,7 @@ export function MetricCard({
 
       {/* Bottom microcopy */}
       {description && (
-        <p className="mt-2 text-[12px] font-medium text-slate-500 leading-normal">
+        <p className="mt-2 text-[12px] font-medium text-slate-500 dark:text-muted-foreground leading-normal">
           {description}
         </p>
       )}

@@ -86,7 +86,7 @@ export function ConfirmDialog({
       <DialogContent
         hideClose
         className={cn(
-          "max-w-md p-0 rounded-2xl bg-white border-slate-200 overflow-hidden",
+          "max-w-md p-0 rounded-2xl bg-white dark:bg-card border-slate-200 dark:border-border overflow-hidden",
           className
         )}
       >
@@ -103,23 +103,23 @@ export function ConfirmDialog({
           </div>
 
           <DialogHeader className="text-center space-y-1 p-0">
-            <DialogTitle className="font-bold text-slate-900 text-base text-center">
+            <DialogTitle className="font-bold text-slate-900 dark:text-foreground text-base text-center">
               {title}
             </DialogTitle>
-            <DialogDescription className="text-xs text-slate-600 leading-relaxed text-center">
+            <DialogDescription className="text-xs text-slate-600 dark:text-muted-foreground leading-relaxed text-center">
               {description}
             </DialogDescription>
           </DialogHeader>
         </div>
 
-        <DialogFooter className="p-4 border-t border-slate-100 flex items-center justify-center gap-3 bg-slate-50">
+        <DialogFooter className="p-4 border-t border-slate-100 dark:border-border flex items-center justify-center gap-3 bg-slate-50 dark:bg-slate-900/60">
           <Button
             type="button"
             variant="outline"
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
-            className="text-xs font-semibold text-slate-600 hover:bg-slate-200/60"
+            className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800"
           >
             {cancelLabel}
           </Button>

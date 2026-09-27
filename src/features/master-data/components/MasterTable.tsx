@@ -46,7 +46,7 @@ export function MasterTable({
         badge={
           <Badge
             variant="outline"
-            className="px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"
+            className="px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
           >
             {totalFiltered} Data Terkonfigurasi
           </Badge>
@@ -58,13 +58,13 @@ export function MasterTable({
               terdaftar pada sistem
             </span>
             <span>•</span>
-            <span className="text-slate-400">Sinkronisasi Terakhir: 10:45 WIB</span>
+            <span className="text-slate-400 dark:text-slate-500">Sinkronisasi Terakhir: 10:45 WIB</span>
           </div>
         }
         actions={
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-xs text-slate-500">Mode Tampilan:</span>
-            <span className="px-2 py-1 rounded bg-slate-100 text-slate-700 font-mono text-xs font-semibold">
+            <span className="text-xs text-slate-500 dark:text-muted-foreground">Mode Tampilan:</span>
+            <span className="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-semibold">
               Standar Perpustakaan Madrasah
             </span>
           </div>
@@ -102,40 +102,40 @@ export function MasterTable({
                 return (
                   <TableRow
                     key={item.id}
-                    className="hover:bg-slate-50/80 transition-colors"
+                    className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors"
                   >
                     {/* No */}
-                    <TableCell className="text-center font-medium text-slate-400 text-xs">
+                    <TableCell className="text-center font-medium text-slate-400 dark:text-slate-500 text-xs">
                       {index + 1}
                     </TableCell>
 
                     {/* Kode Master */}
                     <TableCell>
-                      <span className="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                      <span className="font-mono text-xs font-bold text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
                         {item.code}
                       </span>
                     </TableCell>
 
                     {/* Nama Entitas */}
                     <TableCell>
-                      <div className="font-bold text-slate-900 text-xs">
+                      <div className="font-bold text-slate-900 dark:text-foreground text-xs">
                         {item.name}
                       </div>
-                      <div className="text-[11px] text-slate-600 capitalize">
+                      <div className="text-[11px] text-slate-600 dark:text-muted-foreground capitalize">
                         Tipe: {item.type}
                       </div>
                     </TableCell>
 
                     {/* Deskripsi */}
                     <TableCell>
-                      <p className="text-xs text-slate-600 line-clamp-1 max-w-sm">
+                      <p className="text-xs text-slate-600 dark:text-muted-foreground line-clamp-1 max-w-sm">
                         {item.description}
                       </p>
                     </TableCell>
 
                     {/* Relasi Koleksi Buku */}
                     <TableCell className="text-center">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/60">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800">
                         {item.relation}
                       </span>
                     </TableCell>
@@ -146,8 +146,8 @@ export function MasterTable({
                         variant="outline"
                         className={`px-2 py-0.5 rounded text-xs font-bold ${
                           isAktif
-                            ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                            : "bg-slate-100 text-slate-600 border-slate-200"
+                            ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                            : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
                         }`}
                       >
                         {item.status}
@@ -162,7 +162,7 @@ export function MasterTable({
                           variant="ghost"
                           size="icon-xs"
                           onClick={() => onViewDetail(item)}
-                          className="hover:bg-slate-100 text-slate-600 hover:text-slate-900"
+                          className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                           title="Lihat Detail Entitas"
                         >
                           <Eye className="w-4 h-4" />
@@ -173,7 +173,7 @@ export function MasterTable({
                           variant="ghost"
                           size="icon-xs"
                           onClick={() => onEdit(item)}
-                          className="hover:bg-slate-100 text-slate-600 hover:text-slate-900"
+                          className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                           title="Edit Master Data"
                         >
                           <Edit2 className="w-4 h-4" />
@@ -184,7 +184,7 @@ export function MasterTable({
                           variant="ghost"
                           size="icon-xs"
                           onClick={() => onDelete(item)}
-                          className="hover:bg-rose-50 text-slate-400 hover:text-rose-600"
+                          className="hover:bg-rose-50 dark:hover:bg-rose-950/50 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
                           title="Hapus Entitas"
                         >
                           <Trash2 className="w-4 h-4" />

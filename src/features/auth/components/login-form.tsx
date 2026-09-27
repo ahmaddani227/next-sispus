@@ -132,7 +132,7 @@ export function LoginForm() {
         />
         <label
           htmlFor="rememberMe"
-          className="cursor-pointer select-none font-medium text-slate-600"
+          className="cursor-pointer select-none font-medium text-slate-600 dark:text-slate-300"
         >
           Ingat sesi di perangkat ini
         </label>
@@ -163,9 +163,9 @@ export function LoginForm() {
       <div className="pt-2 text-center">
         <Link
           href={AUTH_CONFIG.opacUrl}
-          className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-slate-600 transition-colors hover:text-emerald-800"
+          className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 transition-colors hover:text-emerald-800 dark:hover:text-emerald-400"
         >
-          <BookOpen className="h-4 w-4 text-emerald-700" />
+          <BookOpen className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
           <span>
             Bukan petugas? <strong>Buka Katalog Buku Siswa &amp; Santri</strong>
           </span>
