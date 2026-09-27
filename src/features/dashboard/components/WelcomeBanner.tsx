@@ -1,6 +1,16 @@
 import { HeaderBanner } from "@/components/HeaderBanner";
 
-export function WelcomeBanner() {
+interface WelcomeBannerProps {
+  borrowedCount?: number;
+  overdueCount?: number;
+  officerName?: string;
+}
+
+export function WelcomeBanner({
+  borrowedCount = 235,
+  overdueCount = 4,
+  officerName = "Ustadzah Siti Rahmawati",
+}: WelcomeBannerProps) {
   return (
     <HeaderBanner
       variant="gradient"
@@ -9,7 +19,7 @@ export function WelcomeBanner() {
           Petugas Hari Ini
         </span>
       }
-      title="Selamat Bertugas, Ustadzah Siti Rahmawati"
+      title={`Selamat Bertugas, ${officerName}`}
       actions={
         <div className="flex shrink-0 items-center justify-around sm:justify-start gap-4 rounded-xl border border-emerald-700/50 bg-emerald-950/40 p-3 sm:p-4 backdrop-blur-xs">
           <div className="text-right">
@@ -17,7 +27,7 @@ export function WelcomeBanner() {
               Buku Dipinjam
             </p>
             <p className="font-data-mono text-2xl font-extrabold text-white">
-              235{" "}
+              {borrowedCount}{" "}
               <span className="text-xs font-normal text-emerald-200 font-sans">
                 eks
               </span>
@@ -31,7 +41,7 @@ export function WelcomeBanner() {
               Perlu Tindak Lanjut
             </p>
             <p className="font-data-mono text-2xl font-extrabold text-amber-300">
-              4{" "}
+              {overdueCount}{" "}
               <span className="text-xs font-normal text-emerald-200 font-sans">
                 terlambat
               </span>

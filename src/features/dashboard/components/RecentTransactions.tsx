@@ -16,10 +16,14 @@ import { cn } from "@/lib/utils";
 
 interface RecentTransactionsProps {
   transactions?: TransactionRecord[];
+  onProcessReturn?: (transaction: TransactionRecord) => void;
+  onViewDetail?: (transaction: TransactionRecord) => void;
 }
 
 export function RecentTransactions({
   transactions = recentTransactions,
+  onProcessReturn,
+  onViewDetail,
 }: RecentTransactionsProps) {
   return (
     <TableCard className="w-full">
@@ -121,7 +125,8 @@ export function RecentTransactions({
                     <Button
                       variant="outline"
                       size="xs"
-                      className="hover:border-emerald-600 hover:text-emerald-800 font-semibold"
+                      onClick={() => onProcessReturn?.(t)}
+                      className="hover:border-emerald-600 hover:text-emerald-800 font-semibold cursor-pointer"
                     >
                       Proses Kembali
                     </Button>
@@ -130,7 +135,8 @@ export function RecentTransactions({
                     <Button
                       variant="outline"
                       size="xs"
-                      className="hover:border-emerald-600 hover:text-emerald-800 font-semibold"
+                      onClick={() => onViewDetail?.(t)}
+                      className="hover:border-emerald-600 hover:text-emerald-800 font-semibold cursor-pointer"
                     >
                       Detail
                     </Button>

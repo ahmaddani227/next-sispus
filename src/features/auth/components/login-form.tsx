@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller } from "react-hook-form";
 import {
   User,
   Lock,
@@ -20,42 +17,22 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AUTH_CONFIG } from "../constants/auth.constants";
-import { loginSchema, LoginInput } from "../schemas/login.schema";
+import { useLoginForm } from "../hooks/useLoginForm";
 import { cn } from "@/lib/utils";
 
 export function LoginForm() {
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-
   const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginInput>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      username: "",
-      password: "",
-      rememberMe: false,
-    },
-  });
-
-  const onSubmit = async () => {
-    setErrorMessage("");
-
-    try {
-      // Simulate verification delay
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      router.push(AUTH_CONFIG.dashboardUrl);
-    } catch {
-      setErrorMessage("Gagal memproses autentikasi. Silakan coba lagi.");
-    }
-  };
+    form: { register, control },
+    showPassword,
+    togglePasswordVisibility,
+    errorMessage,
+    onSubmit,
+    isSubmitting,
+    errors,
+  } = useLoginForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4.5" noValidate>
+    <form onSubmit={onSubmit} className="space-y-4.5" noValidate>
       {errorMessage && (
         <div className="flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs font-medium text-rose-700">
           <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />
@@ -115,7 +92,7 @@ export function LoginForm() {
           />
           <button
             type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
+            onClick={togglePasswordVisibility}
             className="absolute right-3 p-1 text-slate-400 transition-colors hover:text-slate-600 focus:outline-none"
             aria-label={
               showPassword ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"

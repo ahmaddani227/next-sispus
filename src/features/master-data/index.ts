@@ -7,3 +7,4 @@ export * from "./components/MasterTable";
 export * from "./components/MasterFormDialog";
 export * from "./components/MasterDetailDialog";
 export * from "./components/MasterDeleteDialog";
+export * from "./hooks/useMasterData";

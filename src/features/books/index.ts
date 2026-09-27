@@ -7,3 +7,4 @@ export * from "./components/BookFormDialog";
 export * from "./components/BookCopiesDialog";
 export * from "./components/BookImportDialog";
 export * from "./components/BookStatusDialog";
+export * from "./hooks/useBooksManagement";
