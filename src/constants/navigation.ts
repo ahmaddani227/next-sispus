@@ -29,7 +29,7 @@ export const adminNavSections: NavSection[] = [
       },
       {
         label: "Data Buku",
-        href: "#buku",
+        href: "/dashboard/books",
         icon: "book-open",
       },
       {

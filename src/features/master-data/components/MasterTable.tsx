@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, Edit2, Trash2, SearchX } from "lucide-react";
+import { Eye, Edit2, Trash2 } from "lucide-react";
 import { MasterItem, MasterTabType } from "../types/master-data.types";
 import { MASTER_TAB_CONFIGS } from "../constants/master-data";
 import {
@@ -11,6 +11,12 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import {
+  TableCard,
+  TableCardHeader,
+  TableEmptyState,
+  TablePagination,
+} from "@/components/TableCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -34,21 +40,19 @@ export function MasterTable({
   const currentTabConfig = MASTER_TAB_CONFIGS[activeTab];
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden flex flex-col">
-      <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div>
+    <TableCard>
+      <TableCardHeader
+        title={`Data Master: ${currentTabConfig.singularLabel}`}
+        badge={
+          <Badge
+            variant="outline"
+            className="px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"
+          >
+            {totalFiltered} Data Terkonfigurasi
+          </Badge>
+        }
+        description={
           <div className="flex items-center gap-2">
-            <h3 className="font-bold text-slate-900 text-sm">
-              Data Master: {currentTabConfig.singularLabel}
-            </h3>
-            <Badge
-              variant="outline"
-              className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"
-            >
-              {totalFiltered} Data Terkonfigurasi
-            </Badge>
-          </div>
-          <div className="flex items-center gap-2 mt-1 text-xs text-slate-500">
             <span>
               Menampilkan data master {currentTabConfig.label.toLowerCase()} yang
               terdaftar pada sistem
@@ -56,15 +60,16 @@ export function MasterTable({
             <span>•</span>
             <span className="text-slate-400">Sinkronisasi Terakhir: 10:45 WIB</span>
           </div>
-        </div>
-
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="text-xs text-slate-500">Mode Tampilan:</span>
-          <span className="px-2 py-1 rounded bg-slate-100 text-slate-700 font-mono text-xs font-semibold">
-            Standar Perpustakaan Madrasah
-          </span>
-        </div>
-      </div>
+        }
+        actions={
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs text-slate-500">Mode Tampilan:</span>
+            <span className="px-2 py-1 rounded bg-slate-100 text-slate-700 font-mono text-xs font-semibold">
+              Standar Perpustakaan Madrasah
+            </span>
+          </div>
+        }
+      />
 
       <div className="overflow-x-auto relative">
         <Table className="min-w-[1000px]">
@@ -73,11 +78,9 @@ export function MasterTable({
               <TableHead className="w-12 text-center">No</TableHead>
               <TableHead className="min-w-[140px]">Kode Master</TableHead>
               <TableHead className="min-w-[220px]">Nama Entitas</TableHead>
-              <TableHead className="min-w-[300px]">
-                Deskripsi
-              </TableHead>
+              <TableHead className="min-w-[300px]">Deskripsi</TableHead>
               <TableHead className="min-w-[180px] text-center">
-                Relasi Koleksi BUku
+                Relasi Koleksi Buku
               </TableHead>
               <TableHead className="min-w-[120px] text-center">Status</TableHead>
               <TableHead className="min-w-[140px] text-center">Aksi</TableHead>
@@ -86,19 +89,12 @@ export function MasterTable({
 
           <TableBody>
             {items.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={7} className="h-44 text-center">
-                  <div className="flex flex-col items-center justify-center text-slate-400">
-                    <SearchX className="w-8 h-8 mb-2 stroke-[1.5]" />
-                    <p className="font-semibold text-slate-700 text-sm">
-                      Tidak ada data master ditemukan
-                    </p>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      Coba sesuaikan kata kunci pencarian atau ubah filter status Anda.
-                    </p>
-                  </div>
-                </TableCell>
-              </TableRow>
+              <TableEmptyState
+                asTableRow
+                colSpan={7}
+                title="Tidak ada data master ditemukan"
+                description="Coba sesuaikan kata kunci pencarian atau ubah filter status Anda."
+              />
             ) : (
               items.map((item, index) => {
                 const isAktif = item.status === "Aktif";
@@ -108,75 +104,88 @@ export function MasterTable({
                     key={item.id}
                     className="hover:bg-slate-50/80 transition-colors"
                   >
-                    <TableCell className="text-center font-semibold text-slate-500">
+                    {/* No */}
+                    <TableCell className="text-center font-medium text-slate-400 text-xs">
                       {index + 1}
                     </TableCell>
 
-                    <TableCell className="font-mono font-bold text-emerald-800">
-                      <span className="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-xs">
+                    {/* Kode Master */}
+                    <TableCell>
+                      <span className="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                         {item.code}
                       </span>
                     </TableCell>
 
-                    <TableCell className="font-bold text-slate-900">
-                      {item.name}
+                    {/* Nama Entitas */}
+                    <TableCell>
+                      <div className="font-bold text-slate-900 text-xs">
+                        {item.name}
+                      </div>
+                      <div className="text-[11px] text-slate-600 capitalize">
+                        Tipe: {item.type}
+                      </div>
                     </TableCell>
 
-                    <TableCell className="text-slate-600 leading-relaxed text-xs">
-                      {item.description}
+                    {/* Deskripsi */}
+                    <TableCell>
+                      <p className="text-xs text-slate-600 line-clamp-1 max-w-sm">
+                        {item.description}
+                      </p>
                     </TableCell>
 
+                    {/* Relasi Koleksi Buku */}
                     <TableCell className="text-center">
-                      <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/60">
                         {item.relation}
                       </span>
                     </TableCell>
 
+                    {/* Status Operasional */}
                     <TableCell className="text-center">
-                      <span
-                        className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                      <Badge
+                        variant="outline"
+                        className={`px-2 py-0.5 rounded text-xs font-bold ${
                           isAktif
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-slate-100 text-slate-600"
+                            ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                            : "bg-slate-100 text-slate-600 border-slate-200"
                         }`}
                       >
                         {item.status}
-                      </span>
+                      </Badge>
                     </TableCell>
 
+                    {/* Aksi */}
                     <TableCell className="text-center">
-                      <div className="inline-flex items-center gap-1">
+                      <div className="flex items-center justify-center gap-1">
                         <Button
                           type="button"
                           variant="ghost"
-                          size="icon-sm"
+                          size="icon-xs"
                           onClick={() => onViewDetail(item)}
-                          className="h-8 w-8 text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors"
-                          title="Lihat Detail"
+                          className="hover:bg-slate-100 text-slate-600 hover:text-slate-900"
+                          title="Lihat Detail Entitas"
                         >
                           <Eye className="w-4 h-4" />
-                          <span className="sr-only">Detail</span>
+                          <span className="sr-only">Lihat Detail</span>
                         </Button>
-
                         <Button
                           type="button"
                           variant="ghost"
-                          size="icon-sm"
+                          size="icon-xs"
                           onClick={() => onEdit(item)}
-                          className="h-8 w-8 text-slate-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
-                          title="Edit Data"
+                          className="hover:bg-slate-100 text-slate-600 hover:text-slate-900"
+                          title="Edit Master Data"
                         >
                           <Edit2 className="w-4 h-4" />
                           <span className="sr-only">Edit</span>
                         </Button>
-
                         <Button
                           type="button"
                           variant="ghost"
-                          size="icon-sm"
+                          size="icon-xs"
                           onClick={() => onDelete(item)}
-                          className="h-8 w-8 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                          title="Hapus Data"
+                          className="hover:bg-rose-50 text-slate-400 hover:text-rose-600"
+                          title="Hapus Entitas"
                         >
                           <Trash2 className="w-4 h-4" />
                           <span className="sr-only">Hapus</span>
@@ -191,45 +200,11 @@ export function MasterTable({
         </Table>
       </div>
 
-      <div className="p-4 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="text-xs text-slate-500">
-          Menampilkan{" "}
-          <span className="font-bold text-slate-800">
-            {items.length > 0 ? "1" : "0"} - {items.length}
-          </span>{" "}
-          dari{" "}
-          <span className="font-bold text-slate-800">{totalFiltered}</span> entitas
-          terdaftar
-        </div>
-
-        <div className="flex items-center gap-1.5">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled
-            className="px-2.5 py-1 text-xs font-semibold text-slate-400 bg-white border border-slate-200 rounded-lg h-auto"
-          >
-            Sebelumnya
-          </Button>
-          <Button
-            type="button"
-            size="sm"
-            className="px-3 py-1 text-xs font-bold text-white bg-emerald-800 hover:bg-emerald-800 border border-emerald-800 rounded-lg h-auto cursor-default"
-          >
-            1
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled
-            className="px-2.5 py-1 text-xs font-semibold text-slate-400 bg-white border border-slate-200 rounded-lg h-auto"
-          >
-            Selanjutnya
-          </Button>
-        </div>
-      </div>
-    </div>
+      <TablePagination
+        currentCount={items.length}
+        totalCount={totalFiltered}
+        itemLabel="entitas"
+      />
+    </TableCard>
   );
 }

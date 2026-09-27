@@ -7,9 +7,9 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import { TableCard, TableCardHeader } from "@/components/TableCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { recentTransactions } from "../constants/dashboard-data";
 import { TransactionRecord } from "../types/dashboard.types";
 import { cn } from "@/lib/utils";
@@ -22,24 +22,19 @@ export function RecentTransactions({
   transactions = recentTransactions,
 }: RecentTransactionsProps) {
   return (
-    <Card className="flex w-full flex-col overflow-hidden">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 p-4 sm:p-5 gap-2">
-        <div>
-          <h4 className="font-headline-sm text-sm font-bold text-slate-900">
-            Transaksi &amp; Sirkulasi Terbaru
-          </h4>
-          <p className="text-xs text-slate-500">
-            Pencatatan real-time peminjaman dan pengembalian siswa
-          </p>
-        </div>
-        <Link
-          href="#riwayat"
-          className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline inline-flex items-center gap-1"
-        >
-          Lihat Semua Riwayat &rarr;
-        </Link>
-      </div>
+    <TableCard className="w-full">
+      <TableCardHeader
+        title="Transaksi & Sirkulasi Terbaru"
+        description="Pencatatan real-time peminjaman dan pengembalian siswa"
+        actions={
+          <Link
+            href="#riwayat"
+            className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline inline-flex items-center gap-1"
+          >
+            Lihat Semua Riwayat &rarr;
+          </Link>
+        }
+      />
 
       {/* Table Container */}
       <Table>
@@ -155,8 +150,7 @@ export function RecentTransactions({
       {/* Footer Status Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-slate-100 bg-slate-50 px-4 py-3 text-xs text-slate-500 gap-2">
         <span>Menampilkan 5 aktivitas sirkulasi terkini</span>
-        
       </div>
-    </Card>
+    </TableCard>
   );
 }

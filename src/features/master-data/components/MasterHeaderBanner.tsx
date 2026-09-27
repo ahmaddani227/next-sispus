@@ -16,7 +16,7 @@ export function MasterHeaderBanner({
   return (
     <HeaderBanner
       title="Master Data Sistem"
-      description="Pengaturan & konfigurasi terpadu klasifikasi DDC/Kemenag, lokasi rak fisik, mitra penerbit katalog, serta jenjang rombel kelas MI & MTs Ar-Rasyid."
+      description="Pengaturan & konfigurasi master data lokasi rak fisik, mitra penerbit katalog, serta jenjang rombel kelas MI & MTs Ar-Rasyid."
       actions={
         <>
           <Button
