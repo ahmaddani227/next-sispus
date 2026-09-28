@@ -24,10 +24,10 @@ export function MasterHeaderBanner({
             variant="outline"
             size="sm"
             onClick={onExportCSV}
-            className="bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200 text-xs font-semibold shadow-2xs gap-1.5 h-auto py-2 px-3.5"
+            className="bg-slate-100 hover:bg-slate-200 border-slate-200 text-xs font-semibold shadow-2xs gap-1.5 h-auto py-2 px-3.5"
           >
             <Download className="w-4 h-4 text-slate-500" />
-            <span>Ekspor Data (CSV/Excel)</span>
+            <span className="text-slate-700">Ekspor Data (CSV/Excel)</span>
           </Button>
 
           <Button
