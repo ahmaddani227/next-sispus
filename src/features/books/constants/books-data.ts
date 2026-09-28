@@ -1,0 +1,213 @@
+import { BookItem, SpreadsheetPreviewItem } from "../types/books.types";
+
+export const INITIAL_BOOKS: BookItem[] = [
+  {
+    id: "book-1",
+    code: "BK-AGM-0182",
+    isbn: "978-602-123",
+    title: "Fiqih Ibadah Praktis MTs",
+    author: "Drs. H. Ahmad Muhaimin",
+    publisher: "Kemenag RI",
+    publicationYear: 2023,
+    categories: ["Fiqih", "Syariah"],
+    level: "MTs",
+    shelfId: "Rak A1",
+    shelfName: "Rak A1 (Agama)",
+    pages: "214 hlm",
+    language: "Indonesia",
+    synopsis:
+      "Buku panduan kaidah dasar ushul fiqih yang disusun terstruktur sesuai kurikulum madrasah terpadu untuk pemula.",
+    status: "active",
+    totalCopies: 15,
+    availableCopies: 14,
+    borrowedCopies: 1,
+    copies: [
+      {
+        id: "cp-1",
+        copyCode: "EKS-0182-001",
+        status: "AVAILABLE",
+      },
+      {
+        id: "cp-2",
+        copyCode: "EKS-0182-002",
+        status: "BORROWED",
+      },
+      {
+        id: "cp-3",
+        copyCode: "EKS-0182-003",
+        status: "AVAILABLE",
+      },
+    ],
+  },
+  {
+    id: "book-2",
+    code: "BK-TMT-0419",
+    isbn: "978-602-456",
+    title: "Tematik Terpadu 5B: Udara Bersih",
+    author: "Tim Penulis Kemendikbud",
+    publisher: "Balai Pustaka",
+    publicationYear: 2022,
+    categories: ["Tematik", "MI"],
+    level: "MI",
+    shelfId: "Rak B1",
+    shelfName: "Rak B1 (Tematik)",
+    pages: "186 hlm",
+    language: "Indonesia",
+    synopsis: "Materi terpadu tematik SD/MI kelas 5 tema 2 tentang pernapasan dan lingkungan bersih.",
+    status: "active",
+    totalCopies: 15,
+    availableCopies: 14,
+    borrowedCopies: 1,
+    copies: [
+      {
+        id: "cp-4",
+        copyCode: "EKS-0419-001",
+        status: "AVAILABLE",
+      },
+    ],
+  },
+  {
+    id: "book-3",
+    code: "BK-IPA-0098",
+    isbn: "978-602-789",
+    title: "IPA Terpadu MTs Kelas VIII",
+    author: "Prof. Bambang H., M.Si",
+    publisher: "Erlangga",
+    publicationYear: 2023,
+    categories: ["Sains", "MTs"],
+    level: "MTs",
+    shelfId: "Rak C1",
+    shelfName: "Rak C1 (Sains)",
+    pages: "312 hlm",
+    language: "Indonesia",
+    synopsis: "Fisika dan biologi terintegrasi dengan contoh praktikum ilmiah madrasah.",
+    status: "active",
+    totalCopies: 8,
+    availableCopies: 8,
+    borrowedCopies: 0,
+    copies: [
+      {
+        id: "cp-5",
+        copyCode: "EKS-0098-001",
+        status: "AVAILABLE",
+      },
+    ],
+  },
+  {
+    id: "book-4",
+    code: "BK-CRT-0211",
+    isbn: "978-602-333",
+    title: "Kisah 25 Nabi & Rasul Bergambar",
+    author: "Abu Hanifah Rahman",
+    publisher: "Gema Insani Press",
+    publicationYear: 2021,
+    categories: ["Sastra", "Cerita Islam"],
+    level: "Umum",
+    shelfId: "Rak D1",
+    shelfName: "Rak D1 (Cerita)",
+    pages: "260 hlm",
+    language: "Indonesia",
+    synopsis: "Kumpulan kisah inspiratif 25 Nabi dan Rasul dilengkapi ilustrasi edukatif ramah anak.",
+    status: "inactive",
+    totalCopies: 5,
+    availableCopies: 5,
+    borrowedCopies: 0,
+    copies: [
+      {
+        id: "cp-6",
+        copyCode: "EKS-0211-001",
+        status: "AVAILABLE",
+      },
+    ],
+  },
+  {
+    id: "book-5",
+    code: "BK-BHS-0012",
+    isbn: "978-979-456",
+    title: "Kamus Al-Munawwir Arab-Indo",
+    author: "KH. Ahmad Warson Munawwir",
+    publisher: "Progressif",
+    publicationYear: 2020,
+    categories: ["Bahasa", "Kamus"],
+    level: "MTs",
+    shelfId: "Rak C2",
+    shelfName: "Rak C2 (Bahasa)",
+    pages: "1634 hlm",
+    language: "Arab",
+    synopsis: "Kamus referensi terlengkap kosakata bahasa Arab-Indonesia untuk santri dan akademisi.",
+    status: "active",
+    totalCopies: 3,
+    availableCopies: 3,
+    borrowedCopies: 0,
+    copies: [
+      {
+        id: "cp-7",
+        copyCode: "EKS-0012-001",
+        status: "AVAILABLE",
+      },
+    ],
+  },
+];
+
+export const PUBLISHER_OPTIONS = [
+  { value: "Balai Pustaka", label: "Balai Pustaka Indonesia", sublabel: "Sastra nusantara & fabel anak" },
+  { value: "Kemenag RI", label: "Kementerian Agama RI (Kemenag)", sublabel: "Buku ajar kurikulum madrasah MI & MTs" },
+  { value: "Kemendikbud", label: "Kemendikbudristek RI", sublabel: "Buku kurikulum merdeka nasional" },
+  { value: "Penerbit Erlangga", label: "Penerbit Erlangga", sublabel: "Sains, olimpiade & matematika" },
+  { value: "Toha Putra", label: "Toha Putra Semarang", sublabel: "Kitab gundul turats & matan fiqih" },
+  { value: "Mizan Publika", label: "Mizan Publika / DAR! Mizan", sublabel: "Serial islami, komik adab & novel santri" },
+  { value: "Lentera Hati", label: "Lentera Hati (Quraish Shihab)", sublabel: "Tafsir Al-Mishbah & wawasan Al-Qur'an" },
+  { value: "Gema Insani", label: "Gema Insani Press", sublabel: "Buku keluarga sakinah & sejarah Islam" },
+];
+
+export const SHELF_OPTIONS = [
+  { value: "Rak A1", label: "Rak A1 - Koleksi Agama & Fiqih", sublabel: "Lorong Barat Lt. 2 (Fiqih & Ibadah)" },
+  { value: "Rak B1", label: "Rak B1 - Tematik Madrasah Ibtidaiyah", sublabel: "Lorong Tengah Utara Lt. 2 (Tematik MI)" },
+  { value: "Rak C1", label: "Rak C1 - Sains & Eksakta MTs", sublabel: "Lorong Tengah Selatan Lt. 2 (IPA & Matematika)" },
+  { value: "Rak C2", label: "Rak C2 - Bahasa & Kamus Rujukan", sublabel: "Lorong Utara Lt. 2 (Kamus Arab/Inggris/Indo)" },
+  { value: "Rak D1", label: "Rak D1 - Sastra & Cerita Islami", sublabel: "Lorong Timur Lt. 2 (Kisah Nabi & Karakter)" },
+];
+
+export const YEAR_OPTIONS = Array.from(
+  { length: new Date().getFullYear() + 2 - 1950 },
+  (_, i) => new Date().getFullYear() + 1 - i
+);
+
+export const CATEGORY_TAG_OPTIONS = [
+  "Fiqih",
+  "Syariah",
+  "Aqidah & Akhlak",
+  "Tematik MI",
+  "Sains MTs",
+  "Kamus & Bahasa",
+  "Sastra",
+  "Cerita Islam",
+];
+
+export const SAMPLE_SPREADSHEET_PREVIEW: SpreadsheetPreviewItem[] = [
+  {
+    code: "BK-AGM-0183",
+    title: "Tafsir Jalalain Juz Amma",
+    isbn: "978-602-9981",
+    author: "Imam Jalaluddin",
+    shelf: "Rak A1",
+    isValid: true,
+  },
+  {
+    code: "BK-TMT-0420",
+    title: "Tematik Terpadu 5C: Makanan Sehat",
+    isbn: "978-602-4562",
+    author: "Kemendikbud",
+    shelf: "Rak B1",
+    isValid: true,
+  },
+  {
+    code: "BK-EXT-0001",
+    title: "Ensiklopedia Sains Modern",
+    isbn: "978-602-0019",
+    author: "Dr. Hendra S.",
+    shelf: "Rak X9 (Unknown)",
+    isValid: false,
+    notes: "Penomoran rak belum terdaftar, otomatis dialokasikan ke Rak Sementara.",
+  },
+];
