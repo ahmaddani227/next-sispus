@@ -46,8 +46,6 @@ const Topbar = ({
           <span suppressHydrationWarning>{currentDate}</span>
         </div>
 
-        <ModeToggle />
-
         {actions ? (
           actions
         ) : (
@@ -61,6 +59,8 @@ const Topbar = ({
             <span className="hidden sm:inline">Scan Sirkulasi</span>
           </Button>
         )}
+
+         <ModeToggle />
       </div>
     </header>
   );

@@ -24,8 +24,8 @@ export const BookCard = React.memo(function BookCard({ book, onSelect }: BookCar
       className={cn(
         "rounded-xl overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between group",
         isAvailable
-          ? "bg-white border-slate-200"
-          : "bg-white border-2 border-rose-400 hover:border-rose-500"
+          ? "bg-white dark:bg-card border-slate-200 dark:border-border hover:border-emerald-500/50"
+          : "bg-white dark:bg-card border-2 border-rose-400 dark:border-rose-500/70 hover:border-rose-500"
       )}
     >
       <CardContent className="p-4 space-y-3">
@@ -33,7 +33,7 @@ export const BookCard = React.memo(function BookCard({ book, onSelect }: BookCar
         <div className="flex items-start justify-between gap-2">
           <Badge
             variant="outline"
-            className="px-2 py-0.5 bg-emerald-50 text-[#166534] border-emerald-200 rounded-md text-[11px] font-semibold"
+            className="px-2 py-0.5 bg-emerald-50 text-[#166534] border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800 rounded-md text-[11px] font-semibold"
           >
             {book.badgeLabel}
           </Badge>
@@ -53,7 +53,7 @@ export const BookCard = React.memo(function BookCard({ book, onSelect }: BookCar
 
         {/* Cover Image & Metadata */}
         <div className="flex gap-3.5 pt-1">
-          <div className="w-20 h-28 bg-slate-100 shrink-0 rounded-lg overflow-hidden shadow-xs relative">
+          <div className="w-20 h-28 bg-slate-100 dark:bg-slate-800 shrink-0 rounded-lg overflow-hidden shadow-xs relative">
             <Image
               src={book.coverUrl}
               alt={book.title}
@@ -62,32 +62,32 @@ export const BookCard = React.memo(function BookCard({ book, onSelect }: BookCar
               sizes="80px"
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            <div className="absolute bottom-0 inset-x-0 bg-[#166534]/95 py-0.5 text-center font-mono text-[11px] text-white font-bold z-10">
+            <div className="absolute bottom-0 inset-x-0 bg-[#166534]/95 dark:bg-emerald-950/95 py-0.5 text-center font-mono text-[11px] text-white dark:text-emerald-200 font-bold z-10">
               {book.callNumber}
             </div>
           </div>
 
           <div className="min-w-0 flex-1">
-            <h4 className="text-sm font-bold text-slate-900 group-hover:text-[#166534] transition-colors line-clamp-2 leading-snug">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-foreground group-hover:text-[#166534] dark:group-hover:text-emerald-400 transition-colors line-clamp-2 leading-snug">
               {book.title}
             </h4>
-            <p className="text-xs text-slate-500 mt-1 line-clamp-1">
+            <p className="text-xs text-slate-500 dark:text-muted-foreground mt-1 line-clamp-1">
               {book.author}
             </p>
-            <p className="text-xs text-slate-600">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               Penerbit: {book.publisher} ({book.year})
             </p>
 
             <div className="mt-2 text-xs">
               {isAvailable ? (
                 <>
-                  <span className="font-mono text-emerald-700 font-bold">
+                  <span className="font-mono text-emerald-700 dark:text-emerald-400 font-bold">
                     {book.availableCopies} dari {book.totalCopies}
                   </span>
-                  <span className="text-slate-500"> Eksemplar di rak</span>
+                  <span className="text-slate-500 dark:text-muted-foreground"> Eksemplar di rak</span>
                 </>
               ) : (
-                <div className="text-rose-600 flex items-center gap-1 font-semibold">
+                <div className="text-rose-600 dark:text-rose-400 flex items-center gap-1 font-semibold">
                   <CalendarX className="w-3.5 h-3.5" />
                   <span>Kembali: {book.returnEstimate || "Segera"}</span>
                 </div>
@@ -97,8 +97,8 @@ export const BookCard = React.memo(function BookCard({ book, onSelect }: BookCar
         </div>
 
         {/* Physical Shelf Location */}
-        <div className="p-2 rounded-lg bg-slate-50 flex items-center gap-2 text-slate-700 text-xs">
-          <MapPin className="w-4 h-4 text-[#166534] shrink-0" />
+        <div className="p-2 rounded-lg bg-slate-50 dark:bg-muted/40 border border-slate-100 dark:border-border/60 flex items-center gap-2 text-slate-700 dark:text-slate-300 text-xs">
+          <MapPin className="w-4 h-4 text-[#166534] dark:text-emerald-400 shrink-0" />
           <span className="truncate font-medium">{book.location}</span>
         </div>
       </CardContent>
@@ -108,7 +108,7 @@ export const BookCard = React.memo(function BookCard({ book, onSelect }: BookCar
         <Button
           type="button"
           onClick={() => onSelect(book)}
-          className="w-full py-1.5 h-9 bg-[#166534] hover:bg-[#14532d] text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+          className="w-full py-1.5 h-9 bg-[#166534] hover:bg-[#14532d] dark:bg-primary dark:hover:bg-primary-hover text-white dark:text-primary-foreground rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs transition-colors"
         >
           <Eye className="w-3.5 h-3.5" />
           <span>Lihat Detail Buku</span>

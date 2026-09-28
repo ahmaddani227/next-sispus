@@ -151,7 +151,7 @@ export function Home() {
   }, [filters])
 
   return (
-    <div className="h-full w-full overflow-y-auto bg-slate-50 flex flex-col font-sans selection:bg-emerald-100 selection:text-emerald-900 scroll-smooth">
+    <div className="h-full w-full overflow-y-auto bg-slate-50 dark:bg-background text-foreground flex flex-col font-sans selection:bg-accent selection:text-accent-foreground scroll-smooth">
       {/* Top Navigation */}
       <CatalogHeader
         onOpenMap={() => setIsMapOpen(true)}
@@ -194,19 +194,19 @@ export function Home() {
             {/* Right Main Catalog Grid & Result Header */}
             <div className="flex-1 w-full space-y-4">
               {/* Results Bar */}
-              <Card className="bg-white rounded-xl shadow-xs border-slate-200">
+              <Card className="bg-white dark:bg-card rounded-xl shadow-xs border-slate-200 dark:border-border">
                 <CardContent className="px-5 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-2 p-0 sm:p-3.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-slate-800">Daftar Buku Pilihan</span>
+                    <span className="text-sm font-bold text-slate-800 dark:text-foreground">Daftar Buku Pilihan</span>
                     <Badge
                       variant="outline"
-                      className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-[#166534] font-mono font-bold border-emerald-200"
+                      className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-[#166534] dark:text-emerald-300 font-mono font-bold border-emerald-200 dark:border-emerald-800"
                     >
                       {filteredBooks.length} Judul Ditampilkan
                     </Badge>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                    <CheckCircle2 className="w-4 h-4 text-[#166534]" />
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-muted-foreground">
+                    <CheckCircle2 className="w-4 h-4 text-[#166534] dark:text-emerald-400" />
                     <span>Sinkronisasi otomatis dengan Meja Sirkulasi</span>
                   </div>
                 </CardContent>
@@ -225,20 +225,20 @@ export function Home() {
                 </div>
               ) : (
                 /* No Results Fallback */
-                <Card className="bg-white rounded-xl shadow-xs border-slate-200">
+                <Card className="bg-white dark:bg-card rounded-xl shadow-xs border-slate-200 dark:border-border">
                   <CardContent className="p-10 text-center space-y-3">
-                    <div className="w-14 h-14 rounded-full bg-slate-100 mx-auto flex items-center justify-center text-[#166534]">
+                    <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-muted mx-auto flex items-center justify-center text-[#166534] dark:text-emerald-400">
                       <SearchX className="w-7 h-7" />
                     </div>
-                    <h4 className="text-base font-bold text-slate-800">Buku Belum Ditemukan</h4>
-                    <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+                    <h4 className="text-base font-bold text-slate-800 dark:text-foreground">Buku Belum Ditemukan</h4>
+                    <p className="text-xs text-slate-500 dark:text-muted-foreground max-w-md mx-auto leading-relaxed">
                       Coba periksa kembali ejaan kata kunci, kode buku, atau gunakan istilah umum seperti
                       &quot;Fiqih&quot;, &quot;Kelas 5&quot;, atau kembalikan saringan Anda.
                     </p>
                     <Button
                       type="button"
                       onClick={handleResetFilters}
-                      className="bg-[#166534] hover:bg-[#14532d] text-white text-xs px-6 py-2 shadow-xs"
+                      className="bg-[#166534] hover:bg-[#14532d] dark:bg-primary dark:hover:bg-primary-hover text-white dark:text-primary-foreground text-xs px-6 py-2 shadow-xs"
                     >
                       Kembalikan Semua Koleksi
                     </Button>
@@ -279,7 +279,7 @@ export function Home() {
 
       {/* Floating Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 text-xs animate-in slide-in-from-bottom-3 duration-300">
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-slate-800 text-white dark:text-slate-100 border border-slate-700/50 px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 text-xs animate-in slide-in-from-bottom-3 duration-300">
           <Info className="w-4 h-4 text-emerald-400 shrink-0" />
           <span>{toastMessage}</span>
         </div>
