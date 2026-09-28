@@ -16,7 +16,7 @@ export function TableCard({ children, className, ...props }: TableCardProps) {
   return (
     <Card
       className={cn(
-        "rounded-xl border border-slate-200 dark:border-border shadow-xs overflow-hidden flex flex-col bg-white dark:bg-card",
+        "rounded-xl border border-border shadow-xs overflow-hidden flex flex-col bg-card",
         className
       )}
       {...props}
@@ -45,17 +45,17 @@ export function TableCardHeader({
   return (
     <div
       className={cn(
-        "p-4 sm:p-5 border-b border-slate-100 dark:border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white dark:bg-card",
+        "p-4 sm:p-5 border-b border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-card",
         className
       )}
     >
       <div>
         <div className="flex flex-wrap items-center gap-2">
-          <h3 className="font-bold text-slate-900 dark:text-foreground text-sm">{title}</h3>
+          <h3 className="font-bold text-card-foreground text-sm">{title}</h3>
           {badge}
         </div>
         {description && (
-          <div className="text-xs text-slate-500 dark:text-muted-foreground mt-1">{description}</div>
+          <div className="text-xs text-muted-foreground mt-1">{description}</div>
         )}
       </div>
 
@@ -93,12 +93,12 @@ export function TableEmptyState({
         className
       )}
     >
-      <div className="mx-auto w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 flex items-center justify-center mb-3">
+      <div className="mx-auto w-12 h-12 rounded-full bg-muted text-muted-foreground flex items-center justify-center mb-3">
         {icon ?? <SearchX className="w-6 h-6 stroke-[1.5]" />}
       </div>
-      <h4 className="text-sm font-bold text-slate-800 dark:text-foreground">{title}</h4>
+      <h4 className="text-sm font-bold text-foreground">{title}</h4>
       {description && (
-        <p className="text-xs text-slate-500 dark:text-muted-foreground mt-1 max-w-sm mx-auto leading-relaxed">
+        <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto leading-relaxed">
           {description}
         </p>
       )}
@@ -152,13 +152,13 @@ export function TablePagination({
   return (
     <div
       className={cn(
-        "p-4 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-200 dark:border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600 dark:text-muted-foreground select-none",
+        "p-4 bg-muted/40 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground select-none",
         className
       )}
     >
       <div>
-        Menampilkan <span className="font-bold text-slate-900 dark:text-foreground">{displayRange}</span>{" "}
-        dari <span className="font-bold text-slate-900 dark:text-foreground">{totalCount}</span> {itemLabel}{" "}
+        Menampilkan <span className="font-bold text-foreground">{displayRange}</span>{" "}
+        dari <span className="font-bold text-foreground">{totalCount}</span> {itemLabel}{" "}
         terdaftar
       </div>
 

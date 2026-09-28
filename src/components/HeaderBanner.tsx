@@ -26,7 +26,7 @@ export function HeaderBanner({
         "rounded-xl p-5 sm:p-6 transition-all border shadow-xs",
         isGradient
           ? "relative overflow-hidden bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-900 text-white border-emerald-950/20"
-          : "bg-white dark:bg-card border-slate-200 dark:border-border text-slate-900 dark:text-foreground",
+          : "bg-card border-border text-card-foreground",
         className
       )}
     >
@@ -36,7 +36,7 @@ export function HeaderBanner({
           <div
             className={cn(
               "text-xl sm:text-2xl font-bold tracking-tight",
-              isGradient ? "text-white" : "text-slate-900 dark:text-foreground font-extrabold"
+              isGradient ? "text-white" : "text-card-foreground font-extrabold"
             )}
           >
             {title}
@@ -45,7 +45,7 @@ export function HeaderBanner({
             <p
               className={cn(
                 "text-xs leading-relaxed max-w-3xl",
-                isGradient ? "text-emerald-100" : "text-slate-500 dark:text-muted-foreground"
+                isGradient ? "text-emerald-100" : "text-muted-foreground"
               )}
             >
               {description}
