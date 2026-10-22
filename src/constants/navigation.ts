@@ -34,7 +34,7 @@ export const adminNavSections: NavSection[] = [
       },
       {
         label: "Data Anggota",
-        href: "/dashboard/pengguna",
+        href: "/dashboard/users",
         icon: "users",
       },
     ],
