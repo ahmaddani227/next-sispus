@@ -34,7 +34,7 @@ export const adminNavSections: NavSection[] = [
       },
       {
         label: "Data Anggota",
-        href: "#anggota",
+        href: "/dashboard/pengguna",
         icon: "users",
       },
     ],
@@ -81,6 +81,16 @@ export const adminNavSections: NavSection[] = [
         label: "Laporan Sirkulasi",
         href: "#laporan",
         icon: "file-text",
+      },
+    ],
+  },
+  {
+    title: "Konfigurasi",
+    items: [
+      {
+        label: "Manajemen Pengguna",
+        href: "/dashboard/pengguna",
+        icon: "users",
       },
     ],
   },
