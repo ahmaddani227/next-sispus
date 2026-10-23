@@ -1,15 +1,14 @@
 "use client";
 
-import { Download, UserPlus } from "lucide-react";
-import { AdminLayout } from "@/components/layout/AdminLayout";
+import { UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { MetricCards } from "@/components/MetricCards";
 import { HeaderBanner } from "@/components/HeaderBanner";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { UserFilters } from "./UserFilters";
 import { UserTable } from "./UserTable";
 import { UserFormDialog } from "./UserFormDialog";
+import { UserStatusDialog } from "./UserStatusDialog";
 import { usePengguna } from "../hooks/usePengguna";
 
 export default function Pengguna() {
@@ -26,21 +25,23 @@ export default function Pengguna() {
     isDeleteOpen,
     setIsDeleteOpen,
     deleteItem,
+    isStatusOpen,
+    setIsStatusOpen,
+    statusUser,
     handleFilterChange,
     handleResetFilter,
     handleOpenCreate,
     handleEdit,
     handleDeletePrompt,
     handleToggleStatus,
+    handleConfirmToggleStatus,
     handleSave,
     handleConfirmDelete,
     setCurrentPage,
   } = usePengguna();
 
   return (
-    <AdminLayout
-      title="Manajemen Pengguna"
-    >
+    <div className="space-y-6">
       {/* Page Header Banner */}
       <HeaderBanner
         title="Manajemen Pengguna"
@@ -115,6 +116,14 @@ export default function Pengguna() {
         onConfirm={handleConfirmDelete}
         variant="danger"
       />
-    </AdminLayout>
+
+      {/* Toggle Status Confirm Dialog */}
+      <UserStatusDialog
+        open={isStatusOpen}
+        onOpenChange={setIsStatusOpen}
+        user={statusUser}
+        onConfirm={handleConfirmToggleStatus}
+      />
+    </div>
   );
 }

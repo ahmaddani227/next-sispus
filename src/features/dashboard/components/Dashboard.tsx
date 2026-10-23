@@ -1,6 +1,5 @@
 "use client";
 
-import { AdminLayout } from "@/components/layout/AdminLayout";
 import { MetricCards } from "@/components/MetricCards";
 import { WelcomeBanner } from "./WelcomeBanner";
 import { RecentTransactions } from "./RecentTransactions";
@@ -16,7 +15,7 @@ export function Dashboard() {
   } = useDashboard();
 
   return (
-    <AdminLayout title="Dashboard">
+    <div className="space-y-6">
       <WelcomeBanner
         borrowedCount={stats.totalBorrowedCopies}
         overdueCount={stats.totalOverdueLoans}
@@ -40,7 +39,6 @@ export function Dashboard() {
           onViewDetail={handleViewDetail}
         />
       </section>
-    </AdminLayout>
+    </div>
   );
 }
-

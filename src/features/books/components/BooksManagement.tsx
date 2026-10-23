@@ -1,8 +1,5 @@
 "use client";
 
-import { Plus } from "lucide-react";
-import { AdminLayout } from "@/components/layout/AdminLayout";
-import { Button } from "@/components/ui/button";
 import { MetricCards } from "@/components/MetricCards";
 import { BookFilterBar } from "./BookFilterBar";
 import { BooksTable } from "./BooksTable";
@@ -42,22 +39,7 @@ export function BooksManagement() {
   } = useBooksManagement();
 
   return (
-    <AdminLayout
-      title="Manajemen Data Buku"
-      actions={
-        <Button
-          type="button"
-          size="sm"
-          onClick={handleOpenCreateModal}
-          className="bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold shadow-xs gap-1.5 py-2 px-3.5 h-auto cursor-pointer"
-          title="Tambah Buku Baru"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Tambah Buku Baru</span>
-        </Button>
-      }
-    >
-      {/* 1. CARD RINGKASAN STATISTIK INVENTARIS (4 Kolom) */}
+    <div className="space-y-6">
       <section aria-labelledby="stat-inventory-heading" className="flex flex-col">
         <h2 id="stat-inventory-heading" className="sr-only">
           Ringkasan Statistik Inventaris Buku
@@ -75,6 +57,7 @@ export function BooksManagement() {
           onFilterChange={handleFilterChange}
           onResetFilter={handleResetFilter}
           onOpenImportModal={() => setIsImportOpen(true)}
+          onOpenCreateModal={handleOpenCreateModal}
         />
       </section>
 
@@ -123,6 +106,6 @@ export function BooksManagement() {
         book={targetStatusBook}
         onConfirm={handleConfirmStatusChange}
       />
-    </AdminLayout>
+    </div>
   );
 }

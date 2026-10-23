@@ -1,8 +1,5 @@
 "use client";
 
-import { Download } from "lucide-react";
-import { AdminLayout } from "@/components/layout/AdminLayout";
-import { Button } from "@/components/ui/button";
 import { MetricCards } from "@/components/MetricCards";
 import { MasterHeaderBanner } from "./MasterHeaderBanner";
 import { MasterTabsFilter } from "./MasterTabsFilter";
@@ -38,25 +35,10 @@ export function MasterData() {
     handleSaveItem,
     handleConfirmDelete,
     handleExportCSV,
-    handleExportExcel,
   } = useMasterData();
 
   return (
-    <AdminLayout
-      title="Master Data Sistem"
-      actions={
-        <Button
-          type="button"
-          size="sm"
-          onClick={handleExportExcel}
-          className="bg-[#166534] hover:bg-[#14532d] text-white text-xs font-bold shadow-xs gap-2 py-2 px-3.5 h-auto cursor-pointer"
-          title="Unduh format spreadsheet"
-        >
-          <Download className="w-4 h-4 text-emerald-200" />
-          <span>Export to Excel (.xlsx)</span>
-        </Button>
-      }
-    >
+    <div className="space-y-6">
       {/* Header & Actions */}
       <MasterHeaderBanner
         onExportCSV={handleExportCSV}
@@ -108,6 +90,6 @@ export function MasterData() {
         item={deleteItem}
         onConfirm={handleConfirmDelete}
       />
-    </AdminLayout>
+    </div>
   );
 }

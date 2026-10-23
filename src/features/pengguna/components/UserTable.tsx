@@ -16,10 +16,11 @@ import {
   TableEmptyState,
   TablePagination,
 } from "@/components/TableCard";
-import { Badge } from "@/components/ui/badge";
 import { UserAvatar, RoleBadge, StatusBadge } from "./UserBadges";
+import { Badge } from "@/components/ui/badge";
 import type { Pengguna } from "../types/pengguna.types";
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/utils/formatDate";
 
 interface UserTableProps {
   items: Pengguna[];
@@ -61,10 +62,11 @@ export function UserTable({
           <TableHeader>
             <TableRow className="bg-muted/40 border-b border-border text-[11px] font-bold uppercase tracking-wider text-muted-foreground hover:bg-muted/40">
               <TableHead className="py-3.5 px-4 w-12 text-center">NO</TableHead>
-              <TableHead className="py-3.5 px-4">PENGGUNA / NIP</TableHead>
-              <TableHead className="py-3.5 px-4">EMAIL & KONTAK</TableHead>
+              <TableHead className="py-3.5 px-4">NAMA LENGKAP</TableHead>
+              <TableHead className="py-3.5 px-4">USERNAME</TableHead>
               <TableHead className="py-3.5 px-4">ROLE SISTEM</TableHead>
               <TableHead className="py-3.5 px-4">STATUS AKUN</TableHead>
+              <TableHead className="py-3.5 px-4">TANGGAL DIBUAT</TableHead>
               <TableHead className="py-3.5 px-4 text-center">AKSI</TableHead>
             </TableRow>
           </TableHeader>
@@ -92,47 +94,42 @@ export function UserTable({
                     {startIdx + idx + 1}
                   </TableCell>
 
-                  {/* Pengguna */}
+                  {/* Nama Lengkap (full_name) */}
                   <TableCell className="py-3.5 px-4">
                     <div className="flex items-center gap-3">
                       <UserAvatar
                         initials={user.avatarInitials}
                         color={user.avatarColor}
                       />
-                      <div>
-                        <div className="font-bold text-foreground flex items-center gap-1.5 flex-wrap">
-                          <span>{user.nama}</span>
-                          {user.isSelf && (
-                            <span className="px-1.5 py-0.5 rounded text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
-                              Anda
-                            </span>
-                          )}
-                        </div>
-                        <div className="text-[11px] text-muted-foreground font-mono">
-                          NIP: {user.nip} •{" "}
-                          <span
-                            className={cn(
-                              "font-medium",
-                              user.role === "ADMIN"
-                                ? "text-emerald-700 dark:text-emerald-400"
-                                : user.role === "KEPALA_PERPUSTAKAAN"
-                                ? "text-purple-700 dark:text-purple-400"
-                                : "text-blue-700 dark:text-blue-400"
-                            )}
+                      <div className="font-bold text-foreground flex items-center gap-1.5 flex-wrap">
+                        <span>{user.nama}</span>
+                        {user.isSelf && (
+                          <Badge
+                            variant="success"
+                            size="sm"
+                            className="px-1.5 py-0 text-[10px] font-bold"
                           >
-                            @{user.username}
-                          </span>
-                        </div>
+                            Anda
+                          </Badge>
+                        )}
                       </div>
                     </div>
                   </TableCell>
 
-                  {/* Email & Kontak */}
-                  <TableCell className="py-3.5 px-4">
-                    <div className="font-medium text-foreground">{user.email}</div>
-                    <div className="text-[11px] text-muted-foreground font-mono">
-                      {user.telepon}
-                    </div>
+                  {/* Username */}
+                  <TableCell className="py-3.5 px-4 font-mono">
+                    <span
+                      className={cn(
+                        "font-semibold",
+                        user.role === "ADMIN"
+                          ? "text-emerald-700 dark:text-emerald-400"
+                          : user.role === "KEPALA_PERPUSTAKAAN"
+                          ? "text-purple-700 dark:text-purple-400"
+                          : "text-blue-700 dark:text-blue-400"
+                      )}
+                    >
+                      @{user.username}
+                    </span>
                   </TableCell>
 
                   {/* Role */}
@@ -143,6 +140,11 @@ export function UserTable({
                   {/* Status */}
                   <TableCell className="py-3.5 px-4">
                     <StatusBadge status={user.status} />
+                  </TableCell>
+
+                  {/* Created At */}
+                  <TableCell className="py-3.5 px-4 text-muted-foreground font-mono text-[11px]">
+                    {formatDate(user.createdAt)}
                   </TableCell>
 
                   {/* Actions */}
@@ -164,7 +166,7 @@ export function UserTable({
                         size="icon"
                         title="Ganti Sandi"
                         onClick={() =>
-                          onEdit({ ...user, username: user.username + " (reset)" })
+                          onEdit({ ...user, username: user.username })
                         }
                         className="w-8 h-8 text-muted-foreground hover:text-blue-700 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40"
                       >

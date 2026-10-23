@@ -25,6 +25,8 @@ export function usePengguna() {
   const [editingItem, setEditingItem] = useState<Pengguna | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleteItem, setDeleteItem] = useState<Pengguna | null>(null);
+  const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [statusUser, setStatusUser] = useState<Pengguna | null>(null);
 
   const filteredItems = useMemo(() => {
     return data.filter((u) => {
@@ -32,9 +34,7 @@ export function usePengguna() {
       const matchSearch =
         !q ||
         u.nama.toLowerCase().includes(q) ||
-        u.nip.includes(q) ||
-        u.username.toLowerCase().includes(q) ||
-        u.email.toLowerCase().includes(q);
+        u.username.toLowerCase().includes(q);
       const matchRole = filters.role === "all" || u.role === filters.role;
       const matchStatus =
         filters.status === "all" || u.status === filters.status;
@@ -79,17 +79,33 @@ export function usePengguna() {
   }, []);
 
   const handleToggleStatus = useCallback((item: Pengguna) => {
+    if (item.isSelf && item.status === "Aktif") {
+      toast.error("Anda tidak dapat menonaktifkan akun Anda sendiri yang sedang aktif digunakan.");
+      return;
+    }
+    setStatusUser(item);
+    setIsStatusOpen(true);
+  }, []);
+
+  const handleConfirmToggleStatus = useCallback(() => {
+    if (!statusUser) return;
+    const newStatus = statusUser.status === "Aktif" ? "Nonaktif" : "Aktif";
+
     setData((prev) =>
       prev.map((u) =>
-        u.id === item.id
-          ? { ...u, status: u.status === "Aktif" ? "Nonaktif" : "Aktif" }
+        u.id === statusUser.id
+          ? { ...u, status: newStatus }
           : u
       )
     );
+
     toast.success(
-      `Status akun ${item.nama} berhasil diubah ke ${item.status === "Aktif" ? "Nonaktif" : "Aktif"}.`
+      `Status akun ${statusUser.nama} berhasil diubah menjadi ${newStatus}.`
     );
-  }, []);
+
+    setIsStatusOpen(false);
+    setStatusUser(null);
+  }, [statusUser]);
 
   const handleSave = useCallback(
     (values: PenggunaFormValues) => {
@@ -100,10 +116,7 @@ export function usePengguna() {
               ? {
                   ...u,
                   nama: values.nama,
-                  nip: values.nip,
                   username: values.username,
-                  email: values.email,
-                  telepon: values.telepon,
                   role: values.role,
                 }
               : u
@@ -119,8 +132,11 @@ export function usePengguna() {
           .toUpperCase();
         const newUser: Pengguna = {
           id: String(Date.now()),
-          ...values,
+          nama: values.nama,
+          username: values.username,
+          role: values.role,
           status: "Aktif",
+          createdAt: new Date().toISOString(),
           avatarInitials: initials,
           avatarColor: "emerald",
         };
@@ -158,12 +174,16 @@ export function usePengguna() {
     isDeleteOpen,
     setIsDeleteOpen,
     deleteItem,
+    isStatusOpen,
+    setIsStatusOpen,
+    statusUser,
     handleFilterChange,
     handleResetFilter,
     handleOpenCreate,
     handleEdit,
     handleDeletePrompt,
     handleToggleStatus,
+    handleConfirmToggleStatus,
     handleSave,
     handleConfirmDelete,
     handleExport,

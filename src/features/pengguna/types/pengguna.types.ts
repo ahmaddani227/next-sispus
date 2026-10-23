@@ -3,13 +3,11 @@ export type UserStatus = 'Aktif' | 'Nonaktif';
 
 export interface Pengguna {
   id: string;
-  nama: string;
-  nip: string;
+  nama: string; // Memetakan full_name pada PRD
   username: string;
-  email: string;
-  telepon: string;
   role: UserRole;
   status: UserStatus;
+  createdAt: string; // Memetakan created_at pada PRD
   avatarInitials: string;
   avatarColor: 'emerald' | 'blue' | 'purple' | 'slate';
   isSelf?: boolean;
@@ -23,13 +21,7 @@ export interface PenggunaFilterState {
 
 export interface PenggunaFormValues {
   nama: string;
-  nip: string;
   username: string;
   password: string;
-  email: string;
-  telepon: string;
   role: UserRole;
-  izinEkspor: boolean;
-  izinResetSanksi: boolean;
-  kirimWhatsApp: boolean;
 }

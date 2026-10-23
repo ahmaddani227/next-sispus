@@ -32,7 +32,7 @@ export function UserFilters({
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
           <Input
             id="pengguna-search"
-            placeholder="Cari nama, NIP, username, atau email..."
+            placeholder="Cari nama lengkap atau username..."
             value={filters.searchQuery}
             onChange={(e) => onFilterChange("searchQuery", e.target.value)}
             className="pl-9 text-xs bg-muted/40 border-border focus:bg-background"
@@ -63,10 +63,7 @@ export function UserFilters({
         {/* Status Filter */}
         <Select
           value={filters.status}
-          onValueChange={(v: any) => {
-            console.log(v);
-            onFilterChange("status", v)
-          }}
+          onValueChange={(v: any) => onFilterChange("status", v)}
         >
           <SelectTrigger
             id="pengguna-status-filter"

@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, UploadCloud, RotateCcw } from "lucide-react";
+import { Search, UploadCloud, RotateCcw, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BookFilterState } from "../types/books.types";
@@ -10,6 +10,7 @@ interface BookFilterBarProps {
   onFilterChange: (newFilters: Partial<BookFilterState>) => void;
   onResetFilter: () => void;
   onOpenImportModal: () => void;
+  onOpenCreateModal?: () => void;
 }
 
 export function BookFilterBar({
@@ -17,10 +18,11 @@ export function BookFilterBar({
   onFilterChange,
   onResetFilter,
   onOpenImportModal,
+  onOpenCreateModal,
 }: BookFilterBarProps) {
   return (
     <Card className="p-4 space-y-3 bg-white dark:bg-card border-slate-200 dark:border-border shadow-xs">
-      {/* Row 1: Search Bar & Import Action */}
+      {/* Row 1: Search Bar & Actions */}
       <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <div className="relative flex-1">
           <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
@@ -35,16 +37,31 @@ export function BookFilterBar({
           />
         </div>
 
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={onOpenImportModal}
-          className="gap-2 border-emerald-700/60 dark:border-emerald-600 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 hover:text-emerald-900 dark:hover:text-emerald-300 font-bold shrink-0 cursor-pointer"
-        >
-          <UploadCloud className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
-          <span>Impor Excel/CSV</span>
-        </Button>
+        <div className="flex items-center gap-2 shrink-0">
+          {onOpenCreateModal && (
+            <Button
+              type="button"
+              size="sm"
+              onClick={onOpenCreateModal}
+              className="gap-1.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold shrink-0 cursor-pointer text-xs py-2 px-3.5 h-auto shadow-xs"
+              title="Tambah Buku Baru"
+            >
+              <Plus className="w-4 h-4 text-emerald-200" />
+              <span>Tambah Buku Baru</span>
+            </Button>
+          )}
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={onOpenImportModal}
+            className="gap-2 border-emerald-700/60 dark:border-emerald-600 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 hover:text-emerald-900 dark:hover:text-emerald-300 font-bold shrink-0 cursor-pointer"
+          >
+            <UploadCloud className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
+            <span>Impor Excel/CSV</span>
+          </Button>
+        </div>
       </div>
 
       {/* Row 2: Filter Selects & Reset */}
