@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { Pengguna, PenggunaFormValues, UserRole } from "../types/pengguna.types";
-import { generateUsernameFromName } from "../utils/usernameGenerator";
+import { generateUsernameFromName } from "../_utils/usernameGenerator";
 
 interface UserFormDialogProps {
   open: boolean;
