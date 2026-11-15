@@ -42,3 +42,7 @@ next-env.d.ts
 
 /PRD.md
 /DESIGN.md
+/prisma/generated/prisma
+
+.agents
+skills-lock.json
