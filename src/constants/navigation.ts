@@ -36,6 +36,7 @@ export const adminNavSections: NavSection[] = [
         label: "Data Anggota",
         href: "/dashboard/users",
         icon: "users",
+        roles: ["ADMIN"],
       },
     ],
   },
@@ -89,8 +90,9 @@ export const adminNavSections: NavSection[] = [
     items: [
       {
         label: "Manajemen Pengguna",
-        href: "/dashboard/pengguna",
+        href: "/dashboard/users",
         icon: "users",
+        roles: ["ADMIN"],
       },
     ],
   },

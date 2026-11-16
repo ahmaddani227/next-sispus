@@ -1,5 +1,5 @@
-
 import Pengguna from "@/features/pengguna";
+import { requireRole } from "@/lib/auth/guard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     "Pengelolaan akun staf, otorisasi hak akses, dan penugasan role pustakawan madrasah MI & MTs Ar-Rasyid.",
 };
 
-export default function PenggunaPage() {
+export default async function PenggunaPage() {
+  await requireRole(["ADMIN"]);
+
   return <Pengguna />;
 }
