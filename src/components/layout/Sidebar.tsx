@@ -20,6 +20,8 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { adminNavSections, currentUser } from "@/constants/navigation";
+import { useAuthUser } from "@/features/auth/hooks/useAuthUser";
+import { LogoutButton } from "@/features/auth/components/logout-button";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -42,6 +44,19 @@ const iconMap: Record<string, React.ElementType> = {
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const pathname = usePathname();
+  const { user } = useAuthUser();
+
+  const displayName = user?.fullName || currentUser.name;
+  const displayRole = user?.role ? `Role: ${user.role}` : `NIP. ${currentUser.nip}`;
+  const displayInitials = user?.fullName
+    ? user.fullName
+        .split(" ")
+        .filter(Boolean)
+        .map((n) => n[0])
+        .join("")
+        .substring(0, 2)
+        .toUpperCase()
+    : currentUser.initials;
 
   return (
     <>
@@ -143,26 +158,19 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5 overflow-hidden">
               <Avatar className="h-9 w-9 ring-2 ring-emerald-500/20">
-                <AvatarFallback>{currentUser.initials}</AvatarFallback>
+                <AvatarFallback>{displayInitials}</AvatarFallback>
               </Avatar>
               <div className="overflow-hidden">
                 <p className="truncate text-[12px] font-bold text-slate-900 dark:text-slate-100">
-                  {currentUser.name}
+                  {displayName}
                 </p>
                 <p className="font-data-mono truncate text-[11px] text-slate-500 dark:text-slate-400">
-                  NIP. {currentUser.nip}
+                  {displayRole}
                 </p>
               </div>
             </div>
 
-            <Link
-              href="/login"
-              className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/50 dark:hover:text-rose-400"
-              title="Keluar dari Sistem"
-            >
-              <LogOut className="h-5 w-5" />
-              <span className="sr-only">Keluar</span>
-            </Link>
+            <LogoutButton />
           </div>
         </div>
       </aside>

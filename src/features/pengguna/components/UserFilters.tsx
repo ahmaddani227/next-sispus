@@ -52,11 +52,8 @@ export function UserFilters({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Semua Role</SelectItem>
-            <SelectItem value="ADMIN">ADMIN</SelectItem>
+            <SelectItem value="ADMIN">ADMIN / KEPALA</SelectItem>
             <SelectItem value="PETUGAS">PETUGAS</SelectItem>
-            <SelectItem value="KEPALA_PERPUSTAKAAN">
-              KEPALA PERPUSTAKAAN
-            </SelectItem>
           </SelectContent>
         </Select>
 

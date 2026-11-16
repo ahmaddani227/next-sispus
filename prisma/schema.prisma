@@ -7,14 +7,11 @@ datasource db {
   provider = "postgresql"
 }
 
-// =========================================================
-// ENUM TYPES
-// =========================================================
+// Enum Types
 
 enum UserRole {
   ADMIN
   PETUGAS
-  KEPALA_PERPUSTAKAAN
 
   @@map("user_role")
 }
@@ -100,9 +97,7 @@ enum ObligationStatus {
   @@map("obligation_status")
 }
 
-// =========================================================
-// USERS & SESSIONS
-// =========================================================
+// Users & Sessions
 
 model User {
   id           String     @id @default(uuid()) @db.Uuid
@@ -126,7 +121,7 @@ model User {
 model UserSession {
   id               String    @id @default(uuid()) @db.Uuid
   userId           String    @map("user_id") @db.Uuid
-  refreshTokenHash String    @map("refresh_token_hash") @db.VarChar(255)
+  refreshTokenHash String    @unique @map("refresh_token_hash") @db.VarChar(255)
   expiresAt        DateTime  @map("expires_at") @db.Timestamptz(6)
   revokedAt        DateTime? @map("revoked_at") @db.Timestamptz(6)
   createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
@@ -140,9 +135,7 @@ model UserSession {
   @@map("user_sessions")
 }
 
-// =========================================================
-// CLASSES & STUDENTS
-// =========================================================
+// Classes & Students
 
 model Class {
   id           String   @id @default(uuid()) @db.Uuid
@@ -178,9 +171,7 @@ model Student {
   @@map("students")
 }
 
-// =========================================================
-// SHELVES, BOOKS & BOOK COPIES
-// =========================================================
+// Shelves, Books & Book Copies
 
 model Shelf {
   id          String   @id @default(uuid()) @db.Uuid
@@ -233,9 +224,7 @@ model BookCopy {
   @@map("book_copies")
 }
 
-// =========================================================
-// LOAN TRANSACTIONS & DETAILS
-// =========================================================
+// Loan Transactions & Details
 
 model LoanTransaction {
   id          String                @id @default(uuid()) @db.Uuid
@@ -298,9 +287,7 @@ model LoanExtension {
   @@map("loan_extensions")
 }
 
-// =========================================================
-// SANCTIONS & REPLACEMENT OBLIGATIONS
-// =========================================================
+// Sanctions & Replacement Obligations
 
 model Sanction {
   id                      String         @id @default(uuid()) @db.Uuid
@@ -347,9 +334,7 @@ model ReplacementObligation {
   @@map("replacement_obligations")
 }
 
-// =========================================================
-// SYSTEM SETTINGS
-// =========================================================
+// System Settings
 
 model SystemSetting {
   id          String   @id @default(uuid()) @db.Uuid
@@ -362,10 +347,8 @@ model SystemSetting {
   @@map("system_settings")
 }
 
-// =========================================================
-// AUDIT LOGS (OPSIONAL)
-// Fitur opsional dari PRD. Jika diaktifkan, hapus tanda komentar di bawah.
-// =========================================================
+// Audit Logs (OPSIONAL)
+// Fitur opsional. Jika diaktifkan, hapus tanda komentar di bawah.
 
 // model AuditLog {
 //   id         String   @id @default(uuid()) @db.Uuid

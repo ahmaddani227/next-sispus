@@ -1,13 +1,13 @@
-export type UserRole = 'ADMIN' | 'PETUGAS' | 'KEPALA_PERPUSTAKAAN';
+export type UserRole = 'ADMIN' | 'PETUGAS';
 export type UserStatus = 'Aktif' | 'Nonaktif';
 
 export interface Pengguna {
   id: string;
-  nama: string; // Memetakan full_name pada PRD
+  nama: string;
   username: string;
   role: UserRole;
   status: UserStatus;
-  createdAt: string; // Memetakan created_at pada PRD
+  createdAt: string;
   avatarInitials: string;
   avatarColor: 'emerald' | 'blue' | 'purple' | 'slate';
   isSelf?: boolean;

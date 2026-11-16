@@ -18,7 +18,7 @@ export const MOCK_PENGGUNA: Pengguna[] = [
     id: '2',
     nama: 'Drs. H. Ahmad Fauzi, M.Pd',
     username: 'ahmad.fauzi',
-    role: 'KEPALA_PERPUSTAKAAN',
+    role: 'ADMIN',
     status: 'Aktif',
     createdAt: '2024-01-20T09:30:00Z',
     avatarInitials: 'AF',
@@ -90,11 +90,9 @@ export function buildPenggunaMetrics(data: Pengguna[]): MetricCardProps[] {
   const total = data.length;
   const adminCount = data.filter(u => u.role === 'ADMIN').length;
   const petugasCount = data.filter(u => u.role === 'PETUGAS').length;
-  const kepalaCount = data.filter(u => u.role === 'KEPALA_PERPUSTAKAAN').length;
   return [
     { id: 'total', title: 'Total Users', value: total, unit: 'Pengguna', badgeText: 'Aktif', badgeVariant: 'emerald', description: 'Semua staf & otoritas aktif madrasah', icon: Users },
-    { id: 'admin', title: 'Role Admin', value: adminCount, unit: 'Akun', badgeText: 'Full Access', badgeVariant: 'emerald', description: 'Full System Access & Pengaturan', icon: ShieldCheck, highlightColor: 'text-emerald-700 dark:text-emerald-400' },
-    { id: 'petugas', title: 'Role Petugas', value: petugasCount, unit: 'Akun', badgeText: 'Sirkulasi', badgeVariant: 'blue', description: 'Loket Peminjaman & Operasional', icon: UserCog, highlightColor: 'text-blue-700 dark:text-blue-400' },
-    { id: 'kepala', title: 'Role Kepala Perpus', value: kepalaCount, unit: 'Akun', badgeText: 'Pimpinan', badgeVariant: 'purple', description: 'Supervisi, Monitoring & Validasi', icon: Building2, highlightColor: 'text-purple-700 dark:text-purple-400' },
+    { id: 'admin', title: 'Admin / Kepala Perpus', value: adminCount, unit: 'Akun', badgeText: 'Full Access', badgeVariant: 'emerald', description: 'Full System Access & Pengaturan', icon: ShieldCheck, highlightColor: 'text-emerald-700 dark:text-emerald-400' },
+    { id: 'petugas', title: 'Role Petugas Perpus', value: petugasCount, unit: 'Akun', badgeText: 'Sirkulasi', badgeVariant: 'blue', description: 'Loket Peminjaman & Operasional', icon: UserCog, highlightColor: 'text-blue-700 dark:text-blue-400' },
   ];
 }

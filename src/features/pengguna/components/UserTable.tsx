@@ -123,8 +123,6 @@ export function UserTable({
                         "font-semibold",
                         user.role === "ADMIN"
                           ? "text-emerald-700 dark:text-emerald-400"
-                          : user.role === "KEPALA_PERPUSTAKAAN"
-                          ? "text-purple-700 dark:text-purple-400"
                           : "text-blue-700 dark:text-blue-400"
                       )}
                     >

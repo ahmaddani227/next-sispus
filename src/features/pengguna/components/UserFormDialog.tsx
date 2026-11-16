@@ -243,14 +243,11 @@ export function UserFormDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="ADMIN">
+                  ADMIN / KEPALA PERPUSTAKAAN — Akses Penuh Sistem & Pengaturan
+                </SelectItem>
                 <SelectItem value="PETUGAS">
                   PETUGAS — Loket Sirkulasi, Data Buku & Pengembalian
-                </SelectItem>
-                <SelectItem value="ADMIN">
-                  ADMIN — Akses Penuh Sistem & Pengaturan
-                </SelectItem>
-                <SelectItem value="KEPALA_PERPUSTAKAAN">
-                  KEPALA PERPUSTAKAAN — Supervisi, Statistik & Laporan
                 </SelectItem>
               </SelectContent>
             </Select>
