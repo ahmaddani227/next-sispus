@@ -8,6 +8,8 @@ import { toast } from "sonner";
 import { AUTH_CONFIG } from "../constants/auth.constants";
 import { loginSchema, LoginInput } from "../schemas/login.schema";
 import { loginAction } from "../actions/auth.actions";
+import { useAuthStore } from "../stores/useAuthStore";
+import type { UserRole } from "@prisma-client";
 
 export function useLoginForm() {
   const router = useRouter();
@@ -36,6 +38,15 @@ export function useLoginForm() {
       if (!result.success) {
         setErrorMessage(result.error || "Gagal masuk ke sistem.");
         return;
+      }
+
+      if (result.user) {
+        useAuthStore.getState().setUser({
+          userId: result.user.id,
+          username: result.user.username,
+          fullName: result.user.fullName,
+          role: result.user.role as UserRole,
+        });
       }
 
       toast.success(`Selamat datang kembali, ${result.user?.fullName}!`);

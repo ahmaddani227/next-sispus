@@ -47,7 +47,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const { user } = useAuthUser();
 
   const displayName = user?.fullName || currentUser.name;
-  const displayRole = user?.role ? `Role: ${user.role}` : `NIP. ${currentUser.nip}`;
+  const displayRole = user?.role === "ADMIN" ? "Kepala Perpustakaan" : user?.role === "PETUGAS" ? "Petugas Perpustakaan" : `NIP. ${currentUser.nip}`;
   const displayInitials = user?.fullName
     ? user.fullName
         .split(" ")
