@@ -10,8 +10,13 @@ import { UserTable } from "./UserTable";
 import { UserFormDialog } from "./UserFormDialog";
 import { UserStatusDialog } from "./UserStatusDialog";
 import { usePengguna } from "../hooks/usePengguna";
+import type { Pengguna as PenggunaType } from "../types/pengguna.types";
 
-export default function Pengguna() {
+interface PenggunaProps {
+  initialUsers?: PenggunaType[];
+}
+
+export default function Pengguna({ initialUsers = [] }: PenggunaProps) {
   const {
     filters,
     paginatedItems,
@@ -28,6 +33,9 @@ export default function Pengguna() {
     isStatusOpen,
     setIsStatusOpen,
     statusUser,
+    isSaving,
+    isDeleting,
+    isTogglingStatus,
     handleFilterChange,
     handleResetFilter,
     handleOpenCreate,
@@ -38,13 +46,13 @@ export default function Pengguna() {
     handleSave,
     handleConfirmDelete,
     setCurrentPage,
-  } = usePengguna();
+  } = usePengguna(initialUsers);
 
   return (
     <div className="space-y-6">
       {/* Page Header Banner */}
       <HeaderBanner
-        title="Manajemen Pengguna"
+        title="Manajemen Petugas"
         description="Pengelolaan akun staf, otorisasi hak akses loket sirkulasi, penugasan role pustakawan madrasah, dan audit aktivitas akun SIPUS Ar-Rasyid."
         actions={
           <>
@@ -100,6 +108,7 @@ export default function Pengguna() {
         onOpenChange={setIsFormOpen}
         editingItem={editingItem}
         onSave={handleSave}
+        isLoading={isSaving}
       />
 
       {/* Delete Confirm Dialog */}
@@ -109,11 +118,12 @@ export default function Pengguna() {
         title="Hapus Akun Pengguna"
         description={
           deleteItem
-            ? `Anda akan menghapus akun "${deleteItem.nama}" (${deleteItem.username}) dari sistem SIPUS secara permanen. Tindakan ini tidak dapat dibatalkan.`
+            ? `Anda akan menghapus akun "${deleteItem.nama}" (@${deleteItem.username}) dari sistem SIPUS secara permanen. Tindakan ini tidak dapat dibatalkan.`
             : ""
         }
         confirmLabel="Ya, Hapus Akun"
         onConfirm={handleConfirmDelete}
+        isLoading={isDeleting}
         variant="danger"
       />
 
@@ -123,6 +133,7 @@ export default function Pengguna() {
         onOpenChange={setIsStatusOpen}
         user={statusUser}
         onConfirm={handleConfirmToggleStatus}
+        isLoading={isTogglingStatus}
       />
     </div>
   );

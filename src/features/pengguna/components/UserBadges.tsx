@@ -69,7 +69,7 @@ export function RoleBadge({ role }: { role: Pengguna["role"] }) {
   if (role === "ADMIN") {
     return (
       <Badge variant="success" size="sm">
-        Admin / Kepala Perputakaan
+        Admin / Kepala Perpustakaan
       </Badge>
     );
   }

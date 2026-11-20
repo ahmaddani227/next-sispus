@@ -5,4 +5,3 @@ export * from "./components/login-header";
 export * from "./hooks/useLoginForm";
 export * from "./schemas/login.schema";
 export * from "./actions/auth.actions";
-export * from "./constants/auth.constants";

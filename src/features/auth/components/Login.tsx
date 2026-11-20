@@ -1,6 +1,5 @@
 import { LoginHeader } from "./login-header";
 import { LoginCard } from "./login-card";
-import { AUTH_CONFIG } from "../constants/auth.constants";
 
 export function Login() {
   return (
@@ -18,7 +17,7 @@ export function Login() {
 
       {/* Outer Footer */}
       <footer className="z-10 w-full py-5 text-center text-xs text-muted-foreground">
-        <p>{AUTH_CONFIG.footerText}</p>
+        <p>&copy; 2026 SIPUS Ar-Rasyid</p>
       </footer>
     </div>
   );

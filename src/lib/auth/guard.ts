@@ -10,7 +10,7 @@ import { validateSession } from "./session";
 export async function getCurrentUser(): Promise<TokenPayload | null> {
   const { accessToken, refreshToken } = await getAuthCookies();
 
-  // 1. Cek access token jika masih valid
+  // Cek access token jika masih valid
   if (accessToken) {
     const payload = verifyAccessToken(accessToken);
     if (payload) {
@@ -18,7 +18,7 @@ export async function getCurrentUser(): Promise<TokenPayload | null> {
     }
   }
 
-  // 2. Jika access token tidak ada/kadaluarsa, coba refresh via refresh token
+  // Jika access token tidak ada/kadaluarsa, coba refresh via refresh token
   if (refreshToken) {
     const session = await validateSession(refreshToken);
     if (session) {
@@ -30,8 +30,12 @@ export async function getCurrentUser(): Promise<TokenPayload | null> {
       };
 
       const newAccessToken = generateAccessToken(newPayload);
-      // Perbarui cookie access token
-      await setAuthCookies(newAccessToken, refreshToken);
+      // Perbarui cookie access token jika dalam konteks yang mengizinkan mutasi cookie (Action/Route Handler)
+      try {
+        await setAuthCookies(newAccessToken, refreshToken);
+      } catch {
+        // Abaikan jika dieksekusi dalam konteks read-only Server Component render
+      }
 
       return newPayload;
     }

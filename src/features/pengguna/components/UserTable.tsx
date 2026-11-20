@@ -1,6 +1,6 @@
 "use client";
 
-import { Pencil, KeyRound, Power, Users } from "lucide-react";
+import { Pencil, KeyRound, Power, Users, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -40,6 +40,7 @@ export function UserTable({
   totalPages,
   onPageChange,
   onEdit,
+  onDelete,
   onToggleStatus,
 }: UserTableProps) {
   const startIdx = (currentPage - 1) * 5;
@@ -174,20 +175,38 @@ export function UserTable({
                         type="button"
                         variant="ghost"
                         size="icon"
+                        disabled={user.isSelf}
                         title={
-                          user.status === "Aktif"
+                          user.isSelf
+                            ? "Anda tidak dapat menonaktifkan akun sendiri"
+                            : user.status === "Aktif"
                             ? "Nonaktifkan Akun"
                             : "Aktifkan Akun"
                         }
                         onClick={() => onToggleStatus(user)}
                         className={cn(
-                          "w-8 h-8 hover:bg-amber-50 dark:hover:bg-amber-950/40",
+                          "w-8 h-8 hover:bg-amber-50 dark:hover:bg-amber-950/40 disabled:opacity-40 disabled:cursor-not-allowed",
                           user.status === "Aktif"
                             ? "text-muted-foreground hover:text-amber-700 dark:hover:text-amber-400"
                             : "text-emerald-600 dark:text-emerald-400 hover:text-emerald-700"
                         )}
                       >
                         <Power className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        disabled={user.isSelf}
+                        title={
+                          user.isSelf
+                            ? "Anda tidak dapat menghapus akun Anda sendiri"
+                            : "Hapus Akun Pengguna"
+                        }
+                        onClick={() => onDelete(user)}
+                        className="w-8 h-8 text-muted-foreground hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 disabled:opacity-40 disabled:cursor-not-allowed"
+                      >
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </TableCell>

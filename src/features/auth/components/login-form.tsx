@@ -16,7 +16,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { AUTH_CONFIG } from "../constants/auth.constants";
 import { useLoginForm } from "../hooks/useLoginForm";
 import { cn } from "@/lib/utils";
 
@@ -162,7 +161,7 @@ export function LoginForm() {
       {/* Student OPAC Link */}
       <div className="pt-2 text-center">
         <Link
-          href={AUTH_CONFIG.opacUrl}
+          href="/"
           className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 transition-colors hover:text-emerald-800 dark:hover:text-emerald-400"
         >
           <BookOpen className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />

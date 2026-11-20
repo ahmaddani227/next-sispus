@@ -115,6 +115,7 @@ model User {
   extendedLoans       LoanExtension[]         @relation("ExtendedBy")
   verifiedObligations ReplacementObligation[] @relation("VerifiedBy")
 
+  @@index([createdAt(sort: Desc)], map: "idx_users_created_at")
   @@map("users")
 }
 
@@ -132,6 +133,7 @@ model UserSession {
 
   @@index([userId], map: "idx_user_sessions_user_id")
   @@index([expiresAt], map: "idx_user_sessions_expires_at")
+  @@index([userId, revokedAt], map: "idx_user_sessions_user_revoked")
   @@map("user_sessions")
 }
 
@@ -241,6 +243,7 @@ model LoanTransaction {
   details   LoanTransactionDetail[]
 
   @@index([studentId], map: "idx_loan_transactions_student_id")
+  @@index([processedBy], map: "idx_loan_transactions_processed_by")
   @@index([status], map: "idx_loan_transactions_status")
   @@map("loan_transactions")
 }
@@ -284,6 +287,8 @@ model LoanExtension {
   loanTransactionDetail LoanTransactionDetail @relation(fields: [loanTransactionDetailId], references: [id], onDelete: Cascade)
   extender              User                  @relation("ExtendedBy", fields: [extendedBy], references: [id], onDelete: Restrict)
 
+  @@index([extendedBy], map: "idx_loan_extensions_extended_by")
+  @@index([loanTransactionDetailId], map: "idx_loan_extensions_detail_id")
   @@map("loan_extensions")
 }
 
@@ -330,6 +335,7 @@ model ReplacementObligation {
   verifier              User?                 @relation("VerifiedBy", fields: [verifiedBy], references: [id], onDelete: SetNull)
 
   @@index([studentId], map: "idx_replacement_obligations_student_id")
+  @@index([verifiedBy], map: "idx_replacement_obligations_verified_by")
   @@index([status], map: "idx_replacement_obligations_status")
   @@map("replacement_obligations")
 }

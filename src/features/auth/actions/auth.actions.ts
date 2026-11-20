@@ -20,91 +20,105 @@ export type AuthActionResult = {
   };
 };
 
-/**
- * Server Action for login authentications users
- */
+// Server Action untuk autentikasi login pengguna
 export async function loginAction(input: LoginInput): Promise<AuthActionResult> {
-  const parsed = loginSchema.safeParse(input);
-  if (!parsed.success) {
-    return {
-      success: false,
-      error: parsed.error.issues[0]?.message || "Data input tidak valid.",
-    };
-  }
+  try {
+    const parsed = loginSchema.safeParse(input);
+    if (!parsed.success) {
+      return {
+        success: false,
+        error: parsed.error.issues[0]?.message || "Data input tidak valid.",
+      };
+    }
 
-  const { username, password, rememberMe } = parsed.data;
+    const { username, password, rememberMe } = parsed.data;
+    const cleanUsername = username.toLowerCase().trim();
 
-  // 1. Search user by username
-  const user = await prisma.user.findUnique({
-    where: { username },
-  });
+    const user = await prisma.user.findUnique({
+      where: { username: cleanUsername },
+      select: {
+        id: true,
+        username: true,
+        fullName: true,
+        role: true,
+        status: true,
+        passwordHash: true,
+      },
+    });
 
-  if (!user) {
-    return {
-      success: false,
-      error: "Username atau kata sandi tidak sesuai.",
-    };
-  }
+    if (!user) {
+      return {
+        success: false,
+        error: "Username atau kata sandi tidak sesuai.",
+      };
+    }
 
-  // 2. Check status user
-  if (user.status !== "ACTIVE") {
-    return {
-      success: false,
-      error: "Akun Anda dinonaktifkan. Silakan hubungi Administrator.",
-    };
-  }
+    // Periksa status keaktifan user
+    if (user.status !== "ACTIVE") {
+      return {
+        success: false,
+        error: "Akun Anda dinonaktifkan. Silakan hubungi Administrator.",
+      };
+    }
 
-  // 3. Verify password with bcrypt
-  const isPasswordValid = await verifyPassword(password, user.passwordHash);
-  if (!isPasswordValid) {
-    return {
-      success: false,
-      error: "Username atau kata sandi tidak sesuai.",
-    };
-  }
+    // Verifikasi kata sandi dengan bcrypt
+    const isPasswordValid = await verifyPassword(password, user.passwordHash);
+    if (!isPasswordValid) {
+      return {
+        success: false,
+        error: "Username atau kata sandi tidak sesuai.",
+      };
+    }
 
-  // 4. Generate token and session
-  const accessToken = generateAccessToken({
-    userId: user.id,
-    username: user.username,
-    fullName: user.fullName,
-    role: user.role,
-  });
-
-  const refreshToken = generateRefreshToken();
-
-  // 5. Save session in database
-  await createSession(user.id, refreshToken, rememberMe);
-
-  // 6. Save cookie session
-  await setAuthCookies(accessToken, refreshToken, rememberMe);
-
-  return {
-    success: true,
-    user: {
-      id: user.id,
+    // Generate token dan session
+    const accessToken = generateAccessToken({
+      userId: user.id,
       username: user.username,
       fullName: user.fullName,
       role: user.role,
-    },
-  };
+    });
+
+    const refreshToken = generateRefreshToken();
+
+    // Simpan session baru di database (Postgres)
+    await createSession(user.id, refreshToken, rememberMe);
+
+    // Simpan cookie session di browser client
+    await setAuthCookies(accessToken, refreshToken, rememberMe);
+
+    return {
+      success: true,
+      user: {
+        id: user.id,
+        username: user.username,
+        fullName: user.fullName,
+        role: user.role,
+      },
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error?.message || "Terjadi kesalahan saat memproses login ke sistem.",
+    };
+  }
 }
 
-/**
- * Server Action for logout user
- */
+// Server Action untuk logout pengguna.
 export async function logoutAction(): Promise<void> {
-  const { refreshToken } = await getAuthCookies();
+  try {
+    const { refreshToken } = await getAuthCookies();
 
-  if (refreshToken) {
-    await revokeSession(refreshToken);
+    if (refreshToken) {
+      await revokeSession(refreshToken);
+    }
+  } catch (error) {
+    console.error("Gagal mencabut sesi di database saat logout:", error);
+  } finally {
+    await clearAuthCookies();
+    redirect("/login");
   }
-
-  await clearAuthCookies();
-  redirect("/login");
 }
 
 export async function getCurrentUserAction() {
   return getCurrentUser();
 }
-

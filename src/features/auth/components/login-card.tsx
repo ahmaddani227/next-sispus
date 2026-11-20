@@ -1,7 +1,6 @@
 import { Library, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { LoginForm } from "./login-form";
-import { AUTH_CONFIG } from "../constants/auth.constants";
 
 export function LoginCard() {
   return (
@@ -16,10 +15,10 @@ export function LoginCard() {
         </div>
 
         <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-foreground font-headline-md">
-          {AUTH_CONFIG.appName}
+          SIPUS Ar-Rasyid
         </h1>
         <p className="mt-1 text-xs sm:text-sm text-slate-500 dark:text-muted-foreground font-normal">
-          {AUTH_CONFIG.appSubtitle}
+          Sistem Informasi Perpustakaan Madrasah MI &amp; MTs
         </p>
 
         <div className="mt-3">
@@ -29,7 +28,7 @@ export function LoginCard() {
             className="font-semibold gap-1.5"
           >
             <ShieldCheck className="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400" />
-            <span>{AUTH_CONFIG.portalBadgeText}</span>
+            <span>Portal Khusus Admin / Petugas</span>
           </Badge>
         </div>
       </div>
@@ -40,7 +39,9 @@ export function LoginCard() {
       {/* Security Note Strip */}
       <div className="mt-6 flex items-start gap-2.5 border-t border-slate-100 dark:border-border pt-5 text-xs text-slate-500 dark:text-muted-foreground">
         <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700 dark:text-emerald-400" />
-        <p className="leading-relaxed text-justify">{AUTH_CONFIG.securityNote}</p>
+        <p className="leading-relaxed text-justify">
+          Akses terbatas hanya untuk staf perpustakaan Ar-Rasyid yang berwenang.
+        </p>
       </div>
     </div>
   );

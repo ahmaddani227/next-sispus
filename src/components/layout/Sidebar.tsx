@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { adminNavSections, currentUser } from "@/constants/navigation";
+import { adminNavSections } from "@/constants/navigation";
 import { useAuthUser } from "@/features/auth/hooks/useAuthUser";
 import { LogoutButton } from "@/features/auth/components/logout-button";
 import { cn } from "@/lib/utils";
@@ -46,8 +46,13 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const pathname = usePathname();
   const { user } = useAuthUser();
 
-  const displayName = user?.fullName || currentUser.name;
-  const displayRole = user?.role === "ADMIN" ? "Kepala Perpustakaan" : user?.role === "PETUGAS" ? "Petugas Perpustakaan" : `NIP. ${currentUser.nip}`;
+  const displayName = user?.fullName || "Pengguna SIPUS";
+  const displayRole =
+    user?.role === "ADMIN"
+      ? "Kepala Perpustakaan"
+      : user?.role === "PETUGAS"
+      ? "Petugas Perpustakaan"
+      : "Petugas";
   const displayInitials = user?.fullName
     ? user.fullName
         .split(" ")
@@ -56,7 +61,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         .join("")
         .substring(0, 2)
         .toUpperCase()
-    : currentUser.initials;
+    : "P";
 
   return (
     <>

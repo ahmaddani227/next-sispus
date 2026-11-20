@@ -29,7 +29,7 @@ export function proxy(request: NextRequest) {
     );
 
     if (isAdminOnlyRoute && verifiedPayload && verifiedPayload.role !== "ADMIN") {
-      // Petugas dilarang mengakses Data Anggota / Manajemen Pengguna -> redirect ke dashboard
+      // Petugas dilarang mengakses Data Anggota / Manajemen Petugas -> redirect ke dashboard
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   }

@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { AUTH_CONFIG } from "../constants/auth.constants";
 import { loginSchema, LoginInput } from "../schemas/login.schema";
 import { loginAction } from "../actions/auth.actions";
 import { useAuthStore } from "../stores/useAuthStore";
@@ -50,7 +49,7 @@ export function useLoginForm() {
       }
 
       toast.success(`Selamat datang kembali, ${result.user?.fullName}!`);
-      router.push(AUTH_CONFIG.dashboardUrl);
+      router.push("/dashboard");
       router.refresh();
     } catch {
       setErrorMessage("Terjadi kesalahan sistem saat memproses login. Silakan coba lagi.");
