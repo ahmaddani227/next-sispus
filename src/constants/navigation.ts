@@ -1,12 +1,4 @@
-import { NavSection, UserProfile } from "@/types/navigation";
-
-export const currentUser: UserProfile = {
-  name: "Ustadzah Siti Rahmawati",
-  role: "Admin & Petugas Utama",
-  roleType: "ADMIN",
-  nip: "198804152014",
-  initials: "SR",
-};
+import { NavSection } from "@/types/navigation";
 
 export const adminNavSections: NavSection[] = [
   {
@@ -33,9 +25,10 @@ export const adminNavSections: NavSection[] = [
         icon: "book-open",
       },
       {
-        label: "Data Anggota",
+        label: "Manajemen Petugas",
         href: "/dashboard/users",
         icon: "users",
+        roles: ["ADMIN"],
       },
     ],
   },
@@ -88,9 +81,10 @@ export const adminNavSections: NavSection[] = [
     title: "Konfigurasi",
     items: [
       {
-        label: "Manajemen Pengguna",
-        href: "/dashboard/pengguna",
-        icon: "users",
+        label: "Sistem Manajemen",
+        href: "/",
+        icon: "cog",
+        roles: ["ADMIN"],
       },
     ],
   },

@@ -1,4 +1,4 @@
-export type UserRole = "ADMIN" | "PETUGAS" | "KEPALA_PERPUSTAKAAN";
+export type UserRole = "ADMIN" | "PETUGAS";
 
 export interface UserProfile {
   name: string;
@@ -15,6 +15,7 @@ export interface NavItem {
   icon: string;
   isActive?: boolean;
   badge?: string;
+  roles?: UserRole[];
 }
 
 export interface NavSection {

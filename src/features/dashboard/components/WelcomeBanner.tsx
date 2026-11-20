@@ -4,22 +4,27 @@ interface WelcomeBannerProps {
   borrowedCount?: number;
   overdueCount?: number;
   officerName?: string;
+  role?: string;
 }
 
 export function WelcomeBanner({
   borrowedCount = 235,
   overdueCount = 4,
-  officerName = "Ustadzah Siti Rahmawati",
+  officerName,
+  role,
 }: WelcomeBannerProps) {
+  const displayName = officerName || "Petugas Perpustakaan";
+  const badgeLabel = role === "ADMIN" ? "Kepala Perpustakaan" : "Petugas Hari Ini";
+
   return (
     <HeaderBanner
       variant="gradient"
       badge={
         <span className="rounded bg-emerald-700/80 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide uppercase text-emerald-100">
-          Petugas Hari Ini
+          {badgeLabel}
         </span>
       }
-      title={`Selamat Bertugas, ${officerName}`}
+      title={`Selamat Bertugas, ${displayName}`}
       actions={
         <div className="flex shrink-0 items-center justify-around sm:justify-start gap-4 rounded-xl border border-emerald-700/50 bg-emerald-950/40 p-3 sm:p-4 backdrop-blur-xs">
           <div className="text-right">

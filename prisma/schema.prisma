@@ -1,0 +1,376 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Enum Types
+
+enum UserRole {
+  ADMIN
+  PETUGAS
+
+  @@map("user_role")
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+
+  @@map("user_status")
+}
+
+enum StudentStatus {
+  ACTIVE
+  INACTIVE
+
+  @@map("student_status")
+}
+
+enum BookCopyStatus {
+  AVAILABLE
+  BORROWED
+  DAMAGED
+  LOST
+
+  @@map("book_copy_status")
+}
+
+enum LoanTransactionStatus {
+  ACTIVE
+  COMPLETED
+
+  @@map("loan_transaction_status")
+}
+
+enum LoanDetailStatus {
+  BORROWED
+  RETURNED
+  DAMAGED
+  LOST
+
+  @@map("loan_detail_status")
+}
+
+enum ReturnCondition {
+  GOOD
+  PROBLEM
+
+  @@map("return_condition")
+}
+
+enum ReturnProblemType {
+  DAMAGED
+  LOST
+
+  @@map("return_problem_type")
+}
+
+enum SanctionType {
+  LATE_RETURN
+
+  @@map("sanction_type")
+}
+
+enum SanctionStatus {
+  ACTIVE
+  COMPLETED
+
+  @@map("sanction_status")
+}
+
+enum ReplacementType {
+  REPAIR
+  REPLACE_BOOK
+
+  @@map("replacement_type")
+}
+
+enum ObligationStatus {
+  PENDING
+  RESOLVED
+  CANCELLED
+
+  @@map("obligation_status")
+}
+
+// Users & Sessions
+
+model User {
+  id           String     @id @default(uuid()) @db.Uuid
+  username     String     @unique @db.VarChar(100)
+  passwordHash String     @map("password_hash") @db.VarChar(255)
+  fullName     String     @map("full_name") @db.VarChar(150)
+  role         UserRole   @default(PETUGAS)
+  status       UserStatus @default(ACTIVE)
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime   @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  sessions            UserSession[]
+  processedLoans      LoanTransaction[]       @relation("ProcessedBy")
+  extendedLoans       LoanExtension[]         @relation("ExtendedBy")
+  verifiedObligations ReplacementObligation[] @relation("VerifiedBy")
+
+  @@index([createdAt(sort: Desc)], map: "idx_users_created_at")
+  @@map("users")
+}
+
+model UserSession {
+  id               String    @id @default(uuid()) @db.Uuid
+  userId           String    @map("user_id") @db.Uuid
+  refreshTokenHash String    @unique @map("refresh_token_hash") @db.VarChar(255)
+  expiresAt        DateTime  @map("expires_at") @db.Timestamptz(6)
+  revokedAt        DateTime? @map("revoked_at") @db.Timestamptz(6)
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "idx_user_sessions_user_id")
+  @@index([expiresAt], map: "idx_user_sessions_expires_at")
+  @@index([userId, revokedAt], map: "idx_user_sessions_user_revoked")
+  @@map("user_sessions")
+}
+
+// Classes & Students
+
+model Class {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @db.VarChar(100)
+  academicYear String   @map("academic_year") @db.VarChar(20)
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  students Student[]
+
+  @@unique([name, academicYear], map: "uq_classes_name_academic_year")
+  @@map("classes")
+}
+
+model Student {
+  id        String        @id @default(uuid()) @db.Uuid
+  nis       String        @unique @db.VarChar(50)
+  fullName  String        @map("full_name") @db.VarChar(150)
+  classId   String?       @map("class_id") @db.Uuid
+  status    StudentStatus @default(ACTIVE)
+  createdAt DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  class                  Class?                  @relation(fields: [classId], references: [id], onDelete: SetNull)
+  loanTransactions       LoanTransaction[]
+  sanctions              Sanction[]
+  replacementObligations ReplacementObligation[]
+
+  @@index([classId], map: "idx_students_class_id")
+  @@map("students")
+}
+
+// Shelves, Books & Book Copies
+
+model Shelf {
+  id          String   @id @default(uuid()) @db.Uuid
+  code        String   @unique @db.VarChar(50)
+  name        String   @db.VarChar(100)
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  books Book[]
+
+  @@map("shelves")
+}
+
+model Book {
+  id              String   @id @default(uuid()) @db.Uuid
+  title           String   @db.VarChar(500)
+  author          String?  @db.VarChar(255)
+  edition         String?  @db.VarChar(100)
+  publicationYear Int?     @map("publication_year")
+  shelfId         String?  @map("shelf_id") @db.Uuid
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  shelf  Shelf?     @relation(fields: [shelfId], references: [id], onDelete: SetNull)
+  copies BookCopy[]
+
+  @@index([shelfId], map: "idx_books_shelf_id")
+  @@index([title], map: "idx_books_title")
+  @@index([author], map: "idx_books_author")
+  @@map("books")
+}
+
+model BookCopy {
+  id        String         @id @default(uuid()) @db.Uuid
+  bookId    String         @map("book_id") @db.Uuid
+  copyCode  String         @unique @map("copy_code") @db.VarChar(100)
+  status    BookCopyStatus @default(AVAILABLE)
+  createdAt DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  book        Book                    @relation(fields: [bookId], references: [id], onDelete: Restrict)
+  loanDetails LoanTransactionDetail[]
+
+  @@index([bookId], map: "idx_book_copies_book_id")
+  @@index([status], map: "idx_book_copies_status")
+  @@map("book_copies")
+}
+
+// Loan Transactions & Details
+
+model LoanTransaction {
+  id          String                @id @default(uuid()) @db.Uuid
+  studentId   String                @map("student_id") @db.Uuid
+  processedBy String                @map("processed_by") @db.Uuid
+  loanDate    DateTime              @default(now()) @map("loan_date") @db.Date
+  status      LoanTransactionStatus @default(ACTIVE)
+  createdAt   DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime              @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  student   Student                 @relation(fields: [studentId], references: [id], onDelete: Restrict)
+  processor User                    @relation("ProcessedBy", fields: [processedBy], references: [id], onDelete: Restrict)
+  details   LoanTransactionDetail[]
+
+  @@index([studentId], map: "idx_loan_transactions_student_id")
+  @@index([processedBy], map: "idx_loan_transactions_processed_by")
+  @@index([status], map: "idx_loan_transactions_status")
+  @@map("loan_transactions")
+}
+
+model LoanTransactionDetail {
+  id                String             @id @default(uuid()) @db.Uuid
+  loanTransactionId String             @map("loan_transaction_id") @db.Uuid
+  bookCopyId        String             @map("book_copy_id") @db.Uuid
+  dueDate           DateTime           @map("due_date") @db.Date
+  returnedAt        DateTime?          @map("returned_at") @db.Timestamptz(6)
+  returnCondition   ReturnCondition?   @map("return_condition")
+  problemType       ReturnProblemType? @map("problem_type")
+  lateDays          Int                @default(0) @map("late_days")
+  status            LoanDetailStatus   @default(BORROWED)
+  createdAt         DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime           @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  loanTransaction        LoanTransaction         @relation(fields: [loanTransactionId], references: [id], onDelete: Cascade)
+  bookCopy               BookCopy                @relation(fields: [bookCopyId], references: [id], onDelete: Restrict)
+  extensions             LoanExtension[]
+  sanctions              Sanction[]
+  replacementObligations ReplacementObligation[]
+
+  @@index([loanTransactionId], map: "idx_loan_transaction_details_transaction_id")
+  @@index([bookCopyId], map: "idx_loan_transaction_details_book_copy_id")
+  @@index([status], map: "idx_loan_transaction_details_status")
+  @@map("loan_transaction_details")
+}
+
+model LoanExtension {
+  id                      String   @id @default(uuid()) @db.Uuid
+  loanTransactionDetailId String   @map("loan_transaction_detail_id") @db.Uuid
+  previousDueDate         DateTime @map("previous_due_date") @db.Date
+  newDueDate              DateTime @map("new_due_date") @db.Date
+  extendedBy              String   @map("extended_by") @db.Uuid
+  reason                  String?  @db.Text
+  createdAt               DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  // Relations
+  loanTransactionDetail LoanTransactionDetail @relation(fields: [loanTransactionDetailId], references: [id], onDelete: Cascade)
+  extender              User                  @relation("ExtendedBy", fields: [extendedBy], references: [id], onDelete: Restrict)
+
+  @@index([extendedBy], map: "idx_loan_extensions_extended_by")
+  @@index([loanTransactionDetailId], map: "idx_loan_extensions_detail_id")
+  @@map("loan_extensions")
+}
+
+// Sanctions & Replacement Obligations
+
+model Sanction {
+  id                      String         @id @default(uuid()) @db.Uuid
+  studentId               String         @map("student_id") @db.Uuid
+  loanTransactionDetailId String         @map("loan_transaction_detail_id") @db.Uuid
+  type                    SanctionType   @default(LATE_RETURN)
+  reason                  String?        @db.Text
+  lateDays                Int            @map("late_days")
+  startDate               DateTime       @map("start_date") @db.Date
+  endDate                 DateTime       @map("end_date") @db.Date
+  status                  SanctionStatus @default(ACTIVE)
+  createdAt               DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt               DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  student               Student               @relation(fields: [studentId], references: [id], onDelete: Restrict)
+  loanTransactionDetail LoanTransactionDetail @relation(fields: [loanTransactionDetailId], references: [id], onDelete: Restrict)
+
+  @@index([studentId], map: "idx_sanctions_student_id")
+  @@index([studentId, status, startDate, endDate], map: "idx_sanctions_status_dates")
+  @@map("sanctions")
+}
+
+model ReplacementObligation {
+  id                      String           @id @default(uuid()) @db.Uuid
+  studentId               String           @map("student_id") @db.Uuid
+  loanTransactionDetailId String           @map("loan_transaction_detail_id") @db.Uuid
+  type                    ReplacementType
+  description             String?          @db.Text
+  verificationNotes       String?          @map("verification_notes") @db.Text
+  status                  ObligationStatus @default(PENDING)
+  verifiedBy              String?          @map("verified_by") @db.Uuid
+  resolvedAt              DateTime?        @map("resolved_at") @db.Timestamptz(6)
+  createdAt               DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt               DateTime         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  // Relations
+  student               Student               @relation(fields: [studentId], references: [id], onDelete: Restrict)
+  loanTransactionDetail LoanTransactionDetail @relation(fields: [loanTransactionDetailId], references: [id], onDelete: Restrict)
+  verifier              User?                 @relation("VerifiedBy", fields: [verifiedBy], references: [id], onDelete: SetNull)
+
+  @@index([studentId], map: "idx_replacement_obligations_student_id")
+  @@index([verifiedBy], map: "idx_replacement_obligations_verified_by")
+  @@index([status], map: "idx_replacement_obligations_status")
+  @@map("replacement_obligations")
+}
+
+// System Settings
+
+model SystemSetting {
+  id          String   @id @default(uuid()) @db.Uuid
+  settingKey  String   @unique @map("setting_key") @db.VarChar(100)
+  value       String   @db.Text
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("system_settings")
+}
+
+// Audit Logs (OPSIONAL)
+// Fitur opsional. Jika diaktifkan, hapus tanda komentar di bawah.
+
+// model AuditLog {
+//   id         String   @id @default(uuid()) @db.Uuid
+//   userId     String?  @map("user_id") @db.Uuid
+//   action     String   @db.VarChar(100)
+//   entityType String   @map("entity_type") @db.VarChar(100)
+//   entityId   String?  @map("entity_id") @db.Uuid
+//   oldData    Json?    @map("old_data")
+//   newData    Json?    @map("new_data")
+//   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+//
+//   user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+//
+//   @@index([userId], map: "idx_audit_logs_user_id")
+//   @@index([entityType, entityId], map: "idx_audit_logs_entity")
+//   @@index([createdAt(sort: Desc)], map: "idx_audit_logs_created_at")
+//   @@map("audit_logs")
+// }
+

@@ -2,16 +2,7 @@ import {
   MetricItem,
   NavSection,
   TransactionRecord,
-  UserProfile,
 } from "../types/dashboard.types";
-
-export const currentUser: UserProfile = {
-  name: "Ustadzah Siti Rahmawati",
-  role: "Admin & Petugas Utama",
-  roleType: "ADMIN",
-  nip: "198804152014",
-  initials: "SR",
-};
 
 export const dashboardNavSections: NavSection[] = [
   {

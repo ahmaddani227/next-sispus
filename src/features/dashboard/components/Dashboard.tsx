@@ -4,8 +4,10 @@ import { MetricCards } from "@/components/MetricCards";
 import { WelcomeBanner } from "./WelcomeBanner";
 import { RecentTransactions } from "./RecentTransactions";
 import { useDashboard } from "../hooks/useDashboard";
+import { useAuthUser } from "@/features/auth/hooks/useAuthUser";
 
 export function Dashboard() {
+  const { user } = useAuthUser();
   const {
     transactions,
     metrics,
@@ -19,6 +21,8 @@ export function Dashboard() {
       <WelcomeBanner
         borrowedCount={stats.totalBorrowedCopies}
         overdueCount={stats.totalOverdueLoans}
+        officerName={user?.fullName}
+        role={user?.role}
       />
 
       <section aria-labelledby="metric-heading">

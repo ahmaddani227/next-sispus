@@ -4,8 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AUTH_CONFIG } from "../constants/auth.constants";
+import { toast } from "sonner";
 import { loginSchema, LoginInput } from "../schemas/login.schema";
+import { loginAction } from "../actions/auth.actions";
+import { useAuthStore } from "../stores/useAuthStore";
+import type { UserRole } from "@prisma-client";
 
 export function useLoginForm() {
   const router = useRouter();
@@ -25,15 +28,31 @@ export function useLoginForm() {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (values: LoginInput) => {
     setErrorMessage("");
 
     try {
-      // Simulasi delay autentikasi kredensial pengguna
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      router.push(AUTH_CONFIG.dashboardUrl);
+      const result = await loginAction(values);
+
+      if (!result.success) {
+        setErrorMessage(result.error || "Gagal masuk ke sistem.");
+        return;
+      }
+
+      if (result.user) {
+        useAuthStore.getState().setUser({
+          userId: result.user.id,
+          username: result.user.username,
+          fullName: result.user.fullName,
+          role: result.user.role as UserRole,
+        });
+      }
+
+      toast.success(`Selamat datang kembali, ${result.user?.fullName}!`);
+      router.push("/dashboard");
+      router.refresh();
     } catch {
-      setErrorMessage("Gagal memproses autentikasi. Silakan periksa kembali data Anda.");
+      setErrorMessage("Terjadi kesalahan sistem saat memproses login. Silakan coba lagi.");
     }
   };
 

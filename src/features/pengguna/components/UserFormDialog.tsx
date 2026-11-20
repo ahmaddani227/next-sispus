@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Eye, EyeOff, ShieldCheck, Save, X } from "lucide-react";
+import { Eye, EyeOff, ShieldCheck, Save, X, Loader2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -28,6 +28,7 @@ interface UserFormDialogProps {
   onOpenChange: (open: boolean) => void;
   editingItem: Pengguna | null;
   onSave: (values: PenggunaFormValues) => void;
+  isLoading?: boolean;
 }
 
 const DEFAULT_VALUES: PenggunaFormValues = {
@@ -74,6 +75,7 @@ export function UserFormDialog({
   onOpenChange,
   editingItem,
   onSave,
+  isLoading = false,
 }: UserFormDialogProps) {
   const [values, setValues] = useState<PenggunaFormValues>(DEFAULT_VALUES);
   const [showPwd, setShowPwd] = useState(false);
@@ -243,14 +245,11 @@ export function UserFormDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="ADMIN">
+                  ADMIN / KEPALA PERPUSTAKAAN — Akses Penuh Sistem & Pengaturan
+                </SelectItem>
                 <SelectItem value="PETUGAS">
                   PETUGAS — Loket Sirkulasi, Data Buku & Pengembalian
-                </SelectItem>
-                <SelectItem value="ADMIN">
-                  ADMIN — Akses Penuh Sistem & Pengaturan
-                </SelectItem>
-                <SelectItem value="KEPALA_PERPUSTAKAAN">
-                  KEPALA PERPUSTAKAAN — Supervisi, Statistik & Laporan
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -262,6 +261,7 @@ export function UserFormDialog({
               type="button"
               variant="outline"
               size="sm"
+              disabled={isLoading}
               onClick={() => onOpenChange(false)}
               className="gap-1.5 text-xs border-border text-muted-foreground hover:text-foreground"
             >
@@ -272,10 +272,19 @@ export function UserFormDialog({
               <Button
                 type="submit"
                 size="sm"
-                className="gap-2 text-xs font-bold bg-emerald-800 hover:bg-emerald-900 dark:bg-emerald-700 dark:hover:bg-emerald-800 text-white shadow-sm"
+                disabled={isLoading}
+                className="gap-2 text-xs font-bold bg-emerald-800 hover:bg-emerald-900 dark:bg-emerald-700 dark:hover:bg-emerald-800 text-white shadow-sm disabled:opacity-50"
               >
-                <Save className="w-3.5 h-3.5 text-emerald-200" />
-                {isEdit ? "Simpan Perubahan" : "+ Simpan Pengguna Baru"}
+                {isLoading ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-200" />
+                ) : (
+                  <Save className="w-3.5 h-3.5 text-emerald-200" />
+                )}
+                {isLoading
+                  ? "Menyimpan..."
+                  : isEdit
+                  ? "Simpan Perubahan"
+                  : "+ Simpan Pengguna Baru"}
               </Button>
             </div>
           </DialogFooter>

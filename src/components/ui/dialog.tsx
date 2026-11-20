@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { createPortal } from "react-dom"
 import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -72,7 +73,14 @@ function DialogTrigger({
 }
 
 function DialogPortal({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+  return createPortal(children, document.body)
 }
 
 function DialogOverlay({
@@ -103,6 +111,11 @@ function DialogContent({
   ...props
 }: DialogContentProps) {
   const { open, setOpen } = useDialog()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -120,9 +133,9 @@ function DialogContent({
     }
   }, [open, setOpen])
 
-  if (!open) return null
+  if (!open || !mounted) return null
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
       <DialogOverlay />
       <div
@@ -147,7 +160,8 @@ function DialogContent({
           </button>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 

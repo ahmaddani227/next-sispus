@@ -8,6 +8,7 @@ interface UserStatusDialogProps {
   onOpenChange: (open: boolean) => void;
   user: Pengguna | null;
   onConfirm: () => void;
+  isLoading?: boolean;
 }
 
 export function UserStatusDialog({
@@ -15,6 +16,7 @@ export function UserStatusDialog({
   onOpenChange,
   user,
   onConfirm,
+  isLoading = false,
 }: UserStatusDialogProps) {
   if (!user) return null;
 
@@ -54,6 +56,7 @@ export function UserStatusDialog({
       confirmLabel={
         isDeactivating ? "Ya, Nonaktifkan Akun" : "Ya, Aktifkan Akun"
       }
+      isLoading={isLoading}
       onConfirm={onConfirm}
     />
   );

@@ -19,7 +19,9 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { adminNavSections, currentUser } from "@/constants/navigation";
+import { adminNavSections } from "@/constants/navigation";
+import { useAuthUser } from "@/features/auth/hooks/useAuthUser";
+import { LogoutButton } from "@/features/auth/components/logout-button";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -42,6 +44,24 @@ const iconMap: Record<string, React.ElementType> = {
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const pathname = usePathname();
+  const { user } = useAuthUser();
+
+  const displayName = user?.fullName || "Pengguna SIPUS";
+  const displayRole =
+    user?.role === "ADMIN"
+      ? "Kepala Perpustakaan"
+      : user?.role === "PETUGAS"
+      ? "Petugas Perpustakaan"
+      : "Petugas";
+  const displayInitials = user?.fullName
+    ? user.fullName
+        .split(" ")
+        .filter(Boolean)
+        .map((n) => n[0])
+        .join("")
+        .substring(0, 2)
+        .toUpperCase()
+    : "P";
 
   return (
     <>
@@ -91,51 +111,61 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
         {/* Navigation Sections */}
         <nav className="flex-1 min-h-0 space-y-6 overflow-y-auto p-4 scrollbar-thin">
-          {adminNavSections.map((section) => (
-            <div key={section.title}>
-              <div className="font-label-sm mb-2 px-3 text-[11px] font-bold tracking-wider text-slate-800 dark:text-slate-400 uppercase">
-                {section.title}
-              </div>
-              <ul className="space-y-1">
-                {section.items.map((item) => {
-                  const Icon = iconMap[item.icon] || BookOpen;
-                  const isActive =
-                    item.href === pathname ||
-                    (item.href !== "/dashboard" &&
-                      item.href !== "/" &&
-                      !item.href.startsWith("#") &&
-                      pathname.startsWith(item.href));
+          {adminNavSections
+            .map((section) => {
+              const visibleItems = section.items.filter((item) => {
+                if (!item.roles || item.roles.length === 0) return true;
+                return user?.role ? item.roles.includes(user.role) : false;
+              });
 
-                  return (
-                    <li key={item.label}>
-                      <Link
-                        href={item.href}
-                        onClick={() => {
-                          if (window.innerWidth < 1024) onClose();
-                        }}
-                        className={cn(
-                          "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                          isActive
-                            ? "bg-emerald-50 text-emerald-900 font-semibold border-l-[3px] border-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-500"
-                            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-slate-100"
-                        )}
-                      >
-                        <Icon
+              return { ...section, items: visibleItems };
+            })
+            .filter((section) => section.items.length > 0)
+            .map((section) => (
+              <div key={section.title}>
+                <div className="font-label-sm mb-2 px-3 text-[11px] font-bold tracking-wider text-slate-800 dark:text-slate-400 uppercase">
+                  {section.title}
+                </div>
+                <ul className="space-y-1">
+                  {section.items.map((item) => {
+                    const Icon = iconMap[item.icon] || BookOpen;
+                    const isActive =
+                      item.href === pathname ||
+                      (item.href !== "/dashboard" &&
+                        item.href !== "/" &&
+                        !item.href.startsWith("#") &&
+                        pathname.startsWith(item.href));
+
+                    return (
+                      <li key={item.label}>
+                        <Link
+                          href={item.href}
+                          onClick={() => {
+                            if (window.innerWidth < 1024) onClose();
+                          }}
                           className={cn(
-                            "h-5 w-5 shrink-0 transition-colors",
+                            "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                             isActive
-                              ? "text-emerald-800 dark:text-emerald-400"
-                              : "text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300"
+                              ? "bg-emerald-50 text-emerald-900 font-semibold border-l-[3px] border-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-500"
+                              : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-slate-100"
                           )}
-                        />
-                        <span className="truncate">{item.label}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
+                        >
+                          <Icon
+                            className={cn(
+                              "h-5 w-5 shrink-0 transition-colors",
+                              isActive
+                                ? "text-emerald-800 dark:text-emerald-400"
+                                : "text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300"
+                            )}
+                          />
+                          <span className="truncate">{item.label}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
         </nav>
 
         {/* Profile Card & Logout */}
@@ -143,26 +173,19 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5 overflow-hidden">
               <Avatar className="h-9 w-9 ring-2 ring-emerald-500/20">
-                <AvatarFallback>{currentUser.initials}</AvatarFallback>
+                <AvatarFallback>{displayInitials}</AvatarFallback>
               </Avatar>
               <div className="overflow-hidden">
                 <p className="truncate text-[12px] font-bold text-slate-900 dark:text-slate-100">
-                  {currentUser.name}
+                  {displayName}
                 </p>
                 <p className="font-data-mono truncate text-[11px] text-slate-500 dark:text-slate-400">
-                  NIP. {currentUser.nip}
+                  {displayRole}
                 </p>
               </div>
             </div>
 
-            <Link
-              href="/login"
-              className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/50 dark:hover:text-rose-400"
-              title="Keluar dari Sistem"
-            >
-              <LogOut className="h-5 w-5" />
-              <span className="sr-only">Keluar</span>
-            </Link>
+            <LogoutButton />
           </div>
         </div>
       </aside>
