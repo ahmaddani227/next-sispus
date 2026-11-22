@@ -141,6 +141,7 @@ function DialogContent({
       <div
         role="dialog"
         aria-modal="true"
+        data-slot="dialog-content"
         className={cn(
           "relative z-50 w-full max-w-lg rounded-2xl bg-card text-card-foreground shadow-2xl border border-border overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200 max-h-[90vh] flex flex-col",
           className
@@ -171,7 +172,8 @@ function DialogHeader({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("flex flex-col space-y-1.5 p-6 text-left", className)}
+      data-slot="dialog-header"
+      className={cn("flex flex-col gap-1.5 p-6 text-left", className)}
       {...props}
     />
   )
@@ -183,8 +185,9 @@ function DialogFooter({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
+      data-slot="dialog-footer"
       className={cn(
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 p-4 bg-muted/40 border-t border-border",
+        "flex flex-col-reverse sm:flex-row sm:justify-end sm:gap-2 p-4 bg-muted/40 border-t border-border",
         className
       )}
       {...props}
@@ -198,6 +201,7 @@ function DialogTitle({
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
+      data-slot="dialog-title"
       className={cn("text-lg font-semibold leading-none tracking-tight text-foreground", className)}
       {...props}
     />
@@ -215,6 +219,7 @@ function DialogDescription({
 }: DialogDescriptionProps) {
   return (
     <Component
+      data-slot="dialog-description"
       className={cn("text-sm text-muted-foreground", className)}
       {...props}
     />
