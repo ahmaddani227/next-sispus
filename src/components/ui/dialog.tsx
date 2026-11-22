@@ -204,12 +204,17 @@ function DialogTitle({
   )
 }
 
+interface DialogDescriptionProps extends React.HTMLAttributes<HTMLElement> {
+  as?: "p" | "div"
+}
+
 function DialogDescription({
   className,
+  as: Component = "p",
   ...props
-}: React.HTMLAttributes<HTMLParagraphElement>) {
+}: DialogDescriptionProps) {
   return (
-    <p
+    <Component
       className={cn("text-sm text-muted-foreground", className)}
       {...props}
     />

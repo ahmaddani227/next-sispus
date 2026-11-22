@@ -16,6 +16,7 @@ import {
   LogOut,
   X,
   Library,
+  Settings,
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -40,6 +41,8 @@ const iconMap: Record<string, React.ElementType> = {
   history: History,
   "alert-triangle": AlertTriangle,
   "file-text": FileText,
+  settings: Settings,
+  cog: Settings,
 };
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {

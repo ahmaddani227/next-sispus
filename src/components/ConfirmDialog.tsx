@@ -106,7 +106,7 @@ export function ConfirmDialog({
             <DialogTitle className="font-bold text-base text-center">
               {title}
             </DialogTitle>
-            <DialogDescription className="text-xs leading-relaxed text-center">
+            <DialogDescription as="div" className="text-xs leading-relaxed text-center">
               {description}
             </DialogDescription>
           </DialogHeader>

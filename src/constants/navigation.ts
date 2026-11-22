@@ -82,8 +82,8 @@ export const adminNavSections: NavSection[] = [
     items: [
       {
         label: "Sistem Manajemen",
-        href: "/",
-        icon: "cog",
+        href: "/dashboard/settings",
+        icon: "settings",
         roles: ["ADMIN"],
       },
     ],

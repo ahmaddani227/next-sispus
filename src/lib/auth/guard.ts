@@ -1,13 +1,11 @@
+import { cache } from "react";
 import { redirect } from "next/navigation";
 import type { UserRole } from "@prisma-client";
 import { getAuthCookies, setAuthCookies } from "./cookies";
 import { generateAccessToken, verifyAccessToken, TokenPayload } from "./token";
 import { validateSession } from "./session";
 
-/**
- * Get user info logged in
- */
-export async function getCurrentUser(): Promise<TokenPayload | null> {
+export const getCurrentUser = cache(async (): Promise<TokenPayload | null> => {
   const { accessToken, refreshToken } = await getAuthCookies();
 
   // Cek access token jika masih valid
@@ -42,7 +40,7 @@ export async function getCurrentUser(): Promise<TokenPayload | null> {
   }
 
   return null;
-}
+});
 
 export async function requireAuth(): Promise<TokenPayload> {
   const user = await getCurrentUser();
