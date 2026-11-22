@@ -128,10 +128,10 @@ export function SearchableSelect({
               onClick={handleClear}
               className="p-0.5 rounded-full hover:bg-muted hover:text-foreground cursor-pointer"
             >
-              <X className="h-3.5 w-3.5" />
+              <X className="size-3.5" />
             </span>
           )}
-          <ChevronsUpDown className="h-3.5 w-3.5 opacity-60" />
+          <ChevronsUpDown className="size-3.5 opacity-60" />
         </div>
       </button>
 
@@ -140,7 +140,7 @@ export function SearchableSelect({
         <div className="absolute z-50 mt-1 max-h-60 w-full overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-lg animate-in fade-in-0 zoom-in-95">
           {/* Search Box */}
           <div className="flex items-center border-b border-border px-2.5 py-1.5 bg-muted/40">
-            <Search className="h-3.5 w-3.5 shrink-0 text-muted-foreground mr-2" />
+            <Search className="size-3.5 shrink-0 text-muted-foreground mr-2" />
             <input
               ref={inputRef}
               type="text"
@@ -155,7 +155,7 @@ export function SearchableSelect({
                 onClick={() => setSearchQuery("")}
                 className="text-muted-foreground hover:text-foreground cursor-pointer"
               >
-                <X className="h-3.5 w-3.5" />
+                <X className="size-3.5" />
               </button>
             )}
           </div>
@@ -191,7 +191,7 @@ export function SearchableSelect({
                       )}
                     </div>
                     {isSelected && (
-                      <Check className="h-3.5 w-3.5 shrink-0 text-primary" />
+                      <Check className="size-3.5 shrink-0 text-primary" />
                     )}
                   </button>
                 );

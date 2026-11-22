@@ -9,7 +9,7 @@ function Avatar({
     <div
       data-slot="avatar"
       className={cn(
-        "relative flex h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-emerald-500/20",
+        "relative flex size-9 shrink-0 overflow-hidden rounded-full ring-2 ring-emerald-500/20",
         className
       )}
       {...props}
@@ -27,7 +27,7 @@ function AvatarImage({
     <img
       data-slot="avatar-image"
       alt={alt}
-      className={cn("aspect-square h-full w-full object-cover", className)}
+      className={cn("aspect-square size-full object-cover", className)}
       {...props}
     />
   )
@@ -41,7 +41,7 @@ function AvatarFallback({
     <div
       data-slot="avatar-fallback"
       className={cn(
-        "flex h-full w-full items-center justify-center rounded-full bg-emerald-800 text-xs font-bold text-white",
+        "flex size-full items-center justify-center rounded-full bg-emerald-800 text-xs font-bold text-white",
         className
       )}
       {...props}

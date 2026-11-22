@@ -36,7 +36,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon className="flex items-center">
-        <ChevronDown className="h-3.5 w-3.5 opacity-50 shrink-0" />
+        <ChevronDown className="size-3.5 opacity-50 shrink-0" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -81,9 +81,9 @@ function SelectItem({
       )}
       {...props}
     >
-      <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span className="absolute right-2 flex size-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <Check className="h-3.5 w-3.5 text-primary" />
+          <Check className="size-3.5 text-primary" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
