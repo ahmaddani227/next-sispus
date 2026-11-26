@@ -25,6 +25,16 @@ export const adminNavSections: NavSection[] = [
         icon: "book-open",
       },
       {
+        label: "Data Siswa",
+        href: "/dashboard/students",
+        icon: "users",
+      },
+      {
+        label: "Data Kelas",
+        href: "/dashboard/classes",
+        icon: "database",
+      },
+      {
         label: "Manajemen Petugas",
         href: "/dashboard/users",
         icon: "users",
